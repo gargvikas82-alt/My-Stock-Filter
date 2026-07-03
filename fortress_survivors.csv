@@ -1,1 +1,8 @@
-Stock,Cashflow_Quality (>0.8 is Safe),Interest_Coverage (>3 is Safe),P/E_Ratio,Delivery_Pct (>40% is Safe)
+Stock,Market_Cap_Cr,Promoter_Holding_Pct,Interest_Coverage,Price,Vol_Velocity,Coiling_Score,Above_50_SMA,Final_Rank_Score
+ITC,363291.95,60.0,5.0,,0.44,86.02,NO,43.23
+RELIANCE,1764634.29,60.0,5.0,,0.51,82.01,NO,41.260000000000005
+TCS,757446.58,60.0,5.0,,0.75,71.58,NO,36.165
+PTCIL,26631.26,60.0,5.0,,0.76,70.32,NO,35.54
+LT,553951.11,60.0,5.0,,0.79,69.41,NO,35.1
+HDFCBANK,1233714.68,60.0,5.0,,0.72,66.72,NO,33.72
+INFY,424003.71,60.0,5.0,,0.76,46.73,NO,23.744999999999997
