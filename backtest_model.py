@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 
-# Let's expand our list to include mid/small caps alongside mega-caps to give the filters something to dig into!
+# Universe list to analyze
 TEST_UNIVERSE = ["PTCIL", "RELIANCE", "TCS", "INFY", "HDFCBANK", "ITC", "LT", "TATAMOTORS", "SBIN", "BHARTIARTL"]
 yf_symbols = [f"{sym}.NS" for sym in TEST_UNIVERSE]
 
@@ -27,14 +27,13 @@ def run_historical_backtest():
         if len(hist) < 90:
             continue
             
-        # Pinpoint the entry date (exactly 3 months / 90 days ago)
-        entry_idx = -60  # Approx 60 trading sessions ago (~3 calendar months)
+        # Pinpoint the entry date (approx 60 trading sessions / ~3 calendar months ago)
+        entry_idx = -60  
         entry_price = hist['Close'].iloc[entry_idx]
         current_price = hist['Close'].iloc[-1]
         
-        # Fundamental snapshot metrics (simulated baseline floor)
+        # Fundamental snapshot metrics
         market_cap_crore = info.get('marketCap', 0) / 10000000
-        # Check if it meets a relaxed baseline backtest threshold to find historical candidates
         promoter_pct = info.get('heldPercentByInsiders', 0.60) * 100 
         
         # Calculate historical indicators at the time of entry
@@ -63,13 +62,13 @@ def run_historical_backtest():
     # Compile the backtest ledger
     df_backtest = pd.DataFrame(results)
     if not df_backtest.empty:
-        # Filter down to the setups that were structurally healthy (above 50 SMA) at entry
+        # Filter down to setups that were structurally healthy at entry
         df_survivors = df_backtest[df_backtest['Above_50SMA_At_Entry'] == "YES"].sort_values(by="Strategy_Return_%", ascending=False)
         
         print("\n📊 BACKTEST PERFORMANCE SUMMARY (Past 3 Months):")
         print(df_survivors[['Stock', 'Price_3Mo_Ago', 'Price_Today', 'Strategy_Return_%']].to_string(index=False))
         
-        # Save it to a spreadsheet
+        # Save to spreadsheet
         df_survivors.to_csv("backtest_results.csv", index=False)
         print("\n💾 Backtest ledger successfully saved to 'backtest_results.csv'!")
     else:
