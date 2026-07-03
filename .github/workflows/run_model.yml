@@ -2,9 +2,8 @@ name: Semi-Weekly Smart Hunter
 
 on:
   schedule:
-    # Runs at 11:30 PM IST (18:00 UTC) every Tuesday and Friday
     - cron: '0 18 * * 2,5'
-  workflow_dispatch: # Allows you to run it manually anytime you want!
+  workflow_dispatch: 
 
 jobs:
   run-hunter-pipeline:
@@ -23,12 +22,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install yfinance pandas numpy nselib
 
-    - name: Execute Smart Hunter Script
+    - name: Execute Live Smart Hunter Script
       run: python fortress_model.py
+
+    - name: Execute Historical Backtest Simulator
+      run: python backtest_model.py
 
     - name: Save and Commit Updated Reports
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add -A
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Automated Smart Hunter Update" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Automated Smart Hunter & Backtest Run" && git push)
