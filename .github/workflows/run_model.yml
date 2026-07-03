@@ -1,0 +1,38 @@
+name: Run Fortress Forensic Model
+
+on:
+  schedule:
+    # This automatically wakes up the robot every Sunday at 2:00 AM UTC (7:30 AM Indian Standard Time)
+    - cron: '0 2 * * 0'
+  workflow_dispatch: # This adds a magic manual button so you can run it whenever you want!
+
+jobs:
+  run-model:
+    runs-on: ubuntu-latest
+    
+    # We give the robot permission to save the stock results files back into your repository folder
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python Engine
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Financial Tools
+        run: |
+          pip install pandas yfinance nselib
+
+      - name: Running Audit Engine
+        run: python fortress_model.py
+
+      - name: Save Results to Folder
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "Automated Sunday Stock Pick Upload" && git push)
