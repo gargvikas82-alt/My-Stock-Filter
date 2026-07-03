@@ -72,7 +72,7 @@ def run_historical_backtest():
         # Save it to a spreadsheet
         df_survivors.to_csv("backtest_results.csv", index=False)
         print("\n💾 Backtest ledger successfully saved to 'backtest_results.csv'!")
-else:
+    else:
         print("\nNo historical data generated.")
 
 if __name__ == "__main__":
