@@ -2,7 +2,7 @@ name: Semi-Weekly Smart Hunter
 
 on:
   schedule:
-    - cron: '0 18 * * 2,5' -> Runs at 18:00, only on Tuesday and Friday
+    - cron: '0 18 * * 2,5' # Runs at 18:00, only on Tuesday and Friday
   push:
     branches:
       - main
