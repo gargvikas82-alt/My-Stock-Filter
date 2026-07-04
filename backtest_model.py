@@ -94,7 +94,7 @@ RAW_STOCKS = [
     'LIKHITHA', 'INC', 'LINC', 'LINCOLN', 'LINDEINDIA', 'LIST', 'LITL', 'LLOYDSENGG', 'LLOYDSME', 'LML', 
     'LOGES', 'LOKESHMACH', 'LOTUSEYE', 'LOVABLE', 'LOYALTEX', 'LPDC', 'LT', 'LTIM', 'LTF', 
     'LUMAXIND', 'LUMAXTECH', 'LUPIN', 'LUXIND', 'LXCHEM', 'LYKALABS', 'LYPSAGEMS', 'M&M', 'M&MFIN', 'MAHABANK', 
-    'MAHAPEXLTD', 'MAHASTEEL', 'MAHEPC', 'MAHESH', 'MAHINDCIE', 'MAHLIFE', 'MAHLOG', 'MAHSCOOT', 'MAHSEAMLES', 'MAITHANALL', 
+    'MAHABEXLTD', 'MAHASTEEL', 'MAHEPC', 'MAHESH', 'MAHINDCIE', 'MAHLIFE', 'MAHLOG', 'MAHSCOOT', 'MAHSEAMLES', 'MAITHANALL', 
     'MALLCOM', 'MALUPAPER', 'MANAKALUCO', 'MANAKCOAT', 'MANAKSIA', 'MANAKSTEEL', 'MANALIPETC', 'MANAPPURAM', 'MANGALAM', 'MANGCHEFER', 
     'MANGLMCEM', 'MANINDS', 'MANINFRA', 'MANORAMA', 'MANUGRAPH', 'MAPMYINDIA', 'MARATHON', 'MARICO', 'MARINE', 'MARKSANS', 
     'MARUTI', 'MASFIN', 'MASKINVEST', 'MASTEK', 'MATRIMONY', 'MAWANASUG', 'MAXESTATES', 'MAXHEALTH', 'MAXIND', 'MAZDA', 
@@ -186,7 +186,7 @@ RAW_STOCKS = [
     'VGUARD', 'VHL', 'VIAD', 'VICEROY', 'VIDEOIND', 'VIDHIING', 'VIJAYABANK', 'VIJAYA', 'VIJIFIN', 'VIKASECAM', 
     'VIKASLIFE', 'VIKASPROP', 'VIKASWSP', 'VIMALCMT', 'VIMTALABS', 'VINATIORG', 'VINDHYATEL', 'VINNY', 'VINYLINDIA', 'VIPCLOTHNG', 
     'VIPIND', 'VIPULLTD', 'VIRAT', 'VIRINCHI', 'VIRTUALG', 'VISAKAIND', 'VISASTEEL', 'VISHAL', 'VISHWARAJ', 'VIVANTA', 
-    'VIVIDHA', 'VIVIMEDLAB', 'VLSFINANCE', 'VMART', 'VOLTAMP', 'VOLTAS', 'VRAJLTD', 'VRLLOG', 'VSSL', 'VSTIND', 
+    'VIVIDHA', 'Vivimedlab', 'VLSFINANCE', 'VMART', 'VOLTAMP', 'VOLTAS', 'VRAJLTD', 'VRLLOG', 'VSSL', 'VSTIND', 
     'VSTTILLERS', 'VTL', 'VTM', 'WABAG', 'WABCOINDIA', 'WALCHANNAG', 'WANBURY', 'WATERBASE', 'WEALTH', 'WEIZMANIND', 
     'WELCORP', 'WELENT', 'WELINV', 'WELSPUNLIV', 'WELSPUNSP', 'WENDT', 'WESTLIFE', 'WHEELS', 'WHIRLPOOL', 'WILLAMAGOR', 
     'WINDLAS', 'WINDMACHIN', 'WINSOME', 'WIPRO', 'WOCKPHARMA', 'WONDERLA', 'WORTH', 'WPL', 'WSI', 'XCHANGING', 
@@ -217,6 +217,9 @@ def run_historical_backtest():
         print(f"Critical error during bulk download: {e}")
         return
     
+    print("\n🔎 SCANNING FOR FILTER MATCHES (50 SMA BREAKOUT)...")
+    print("-" * 75)
+
     for sym_nse in TEST_UNIVERSE:
         sym_yf = f"{sym_nse}.NS"
         
@@ -236,6 +239,9 @@ def run_historical_backtest():
             entry_price = hist['Close'].iloc[entry_idx]
             current_price = hist['Close'].iloc[-1]
             
+            # तारीख निकालना (जिस दिन शेयर आपके फिल्टर पर आया था)
+            entry_date = hist.index[entry_idx].strftime('%Y-%m-%d')
+            
             # Formulating historical 50 SMA window up to entry timestamp
             slice_up_to_entry = hist.iloc[:len(hist) + entry_idx]
             if slice_up_to_entry.empty:
@@ -245,26 +251,37 @@ def run_historical_backtest():
             if pd.isna(sma_50_at_entry):
                 sma_50_at_entry = entry_price
                 
-            stock_return_pct = ((current_price - entry_price) / entry_price) * 100
+            # फ़िल्टर कंडीशन: क्या शेयर एंट्री के दिन 50 SMA के ऊपर था?
+            is_above_50sma = entry_price >= sma_50_at_entry
             
-            results.append({
-                "Stock": sym_nse,
-                "Price_3Mo_Ago": round(entry_price, 2),
-                "Price_Today": round(current_price, 2),
-                "Strategy_Return_%": round(stock_return_pct, 2),
-                "Above_50SMA_At_Entry": "YES" if entry_price >= sma_50_at_entry else "NO"
-            })
+            # बदलाव: अब सिर्फ 'YES' यानी फ़िल्टर मैच होने वाले शेयर्स ही अंदर आएंगे
+            if is_above_50sma:
+                stock_return_pct = ((current_price - entry_price) / entry_price) * 100
+                
+                # 🔥 लाइव स्क्रीन प्रिंट: तुरंत पता चलेगा कौन सा शेयर किस दिन रडार पर आया
+                print(f"👉 शेयर फिल्टर पर आया: {sym_nse:<12} | तारीख: {entry_date} | रिटर्न: {stock_return_pct:.2f}%")
+                
+                results.append({
+                    "Stock": sym_nse,
+                    "Entry_Date": entry_date,  # नया कॉलम: सही तारीख के लिए
+                    "Price_3Mo_Ago": round(entry_price, 2),
+                    "Price_Today": round(current_price, 2),
+                    "Strategy_Return_%": round(stock_return_pct, 2),
+                    "Above_50SMA_At_Entry": "YES"
+                })
         except Exception:
             continue
 
+    print("-" * 75)
+
     df_backtest = pd.DataFrame(results)
     if not df_backtest.empty:
-        # Keeping all stocks so you can review breakouts across the whole index
+        # केवल पास हुए शेयर्स को रिटर्न के हिसाब से सॉर्ट करके सेव करना
         df_backtest = df_backtest.sort_values(by="Strategy_Return_%", ascending=False)
         df_backtest.to_csv("backtest_results.csv", index=False)
-        print(f"\n💾 Absolute Success! {len(df_backtest)} stocks fully tracked & saved to 'backtest_results.csv'!")
+        print(f"\n💾 Absolute Success! Only {len(df_backtest)} matched stocks saved cleanly to 'backtest_results.csv'!")
     else:
-        print("\nNo historical analytics were generated.")
+        print("\n❌ कोई भी शेयर फ़िल्टर कंडीशन (Above 50 SMA) पर खरा नहीं उतरा।")
 
 if __name__ == "__main__":
     run_historical_backtest()
