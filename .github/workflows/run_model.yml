@@ -1,44 +1,41 @@
 name: Semi-Weekly Smart Hunter
 
 on:
-  schedule:
-    - cron: '0 18 * * 2,5' # मंगलवार और शुक्रवार शाम 6 बजे ऑटोमैटिक चलेगा
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
-      backtest_date:
-        description: 'तारीख डालें (YYYY-MM-DD format) या आज के लिए खाली छोड़ें:'
+      target_date:
+        description: 'Enter Target Date (YYYY-MM-DD)'
         required: false
         default: ''
 
 jobs:
-  run-hunter-pipeline:
+  run-backtest:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code Repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set Up Python Environment
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/uses/setup-python@v4
         with:
           python-version: '3.10'
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install yfinance pandas numpy
+          pip install pandas yfinance numpy
 
-      - name: Run Backtest Model
+      - name: Run Model
         env:
-          TARGET_DATE: ${{ github.event.inputs.backtest_date }}
+          # यही वो लाइन है जो इनपुट को पाइथन कोड तक भेजेगी!
+          TARGET_DATE: ${{ github.event.inputs.target_date }}
         run: |
           python backtest_model.py
 
-      - name: Automatically Commit and Push Updated Results
+      - name: Commit and Push Results
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add backtest_results.csv
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automated Broad Market Backtest Run [skip ci]" && git push)
+          git commit -m "Automated Broad Market Backtest Run [skip ci]" || echo "No changes to commit"
+          git push
