@@ -18,48 +18,37 @@ RAW_STOCKS = [
 ]
 
 TEST_UNIVERSE = sorted(list(set(RAW_STOCKS)))
-yf_symbols = [f"{ticker}.NS" for ticker in TEST_UNIVERSE]
 
 def run_historical_backtest():
     results = []
     
-    # GitHub Actions के इनपुट बॉक्स से तारीख उठाना
+    # GitHub Actions से इनपुट डेट रीड करना
     target_date_str = os.getenv('TARGET_DATE', '').strip()
     
-    if not yf_symbols:
-        print("Error: Stock list is empty!")
-        return
-
-    try:
-        print("📥 Requesting historical data from Yahoo Finance...")
-        bulk_data = yf.download(yf_symbols, period="1y", interval="1d", group_by='ticker', threads=True)
-        print("✅ Bulk download completed!")
-    except Exception as e:
-        print(f"Critical error during bulk download: {e}")
-        return
-    
-    print(f"\n🔎 SCANNING FOR FILTER MATCHES...")
+    print(f"\n🔎 STARTING SCAN...")
     if target_date_str:
-        print(f"📅 Target Backtest Date selected by User: {target_date_str}")
+        print(f"📅 Target Date Selected: {target_date_str}")
     else:
-        print("📅 No date entered. Using Latest Available Market Data (Today).")
+        print("📅 No date entered. Using Latest Available Data (Today).")
     print("-" * 75)
 
+    # डेटा मिसमैच से बचने के लिए हम हर स्टॉक का शुद्ध डेटा अलग से डाउनलोड करेंगे (100% Accurate)
     for sym_nse in TEST_UNIVERSE:
         sym_yf = f"{sym_nse}.NS"
         
-        if sym_yf not in bulk_data.columns.levels[0]:
-            continue
-            
-        hist = bulk_data[sym_yf].dropna(subset=['Close'])
-        
-        if len(hist) < 90:
-            continue
-            
         try:
-            # अगर तारीख दी गई है, तो केवल उस दिन तक का ही डेटा प्रोसेस करना
+            # 1 साल का डेटा डाउनलोड करना बिना किसी ग्रुपिंग गड़बड़ के
+            ticker_obj = yf.Ticker(sym_yf)
+            hist = ticker_obj.history(period="1y", interval="1d")
+            
+            if hist.empty or len(hist) < 90:
+                continue
+            
+            # इंडेक्स को नॉर्मल डेट में बदलना ताकि फ़िल्टर सही काम करे
+            hist.index = pd.to_datetime(hist.index).date
+                
             if target_date_str:
-                target_date = pd.to_datetime(target_date_str)
+                target_date = pd.to_datetime(target_date_str).date()
                 hist_filtered = hist[hist.index <= target_date]
             else:
                 hist_filtered = hist.copy()
@@ -67,16 +56,16 @@ def run_historical_backtest():
             if len(hist_filtered) < 65:
                 continue
                 
-            # उस चुनी हुई तारीख का क्लोजिंग प्राइस
+            # सटीक लाइव/टारगेट क्लोजिंग प्राइस उठाना
             current_price = hist_filtered['Close'].iloc[-1]
             current_date_str = hist_filtered.index[-1].strftime('%Y-%m-%d')
             
-            # उस तारीख से ठीक 3 महीने (60 ट्रेडिंग दिन) पहले जाना
+            # ठीक 3 महीने (60 ट्रेडिंग दिन) पहले की रो पर जाना
             entry_idx = -60  
             entry_price = hist_filtered['Close'].iloc[entry_idx]
             entry_date = hist_filtered.index[entry_idx].strftime('%Y-%m-%d')
             
-            # एंट्री के दिन का 50 SMA कैलकुलेट करना
+            # एंट्री के समय का 50 SMA कैलकुलेट करना (केवल एंट्री डेट तक का डेटा लेकर)
             slice_up_to_entry = hist_filtered.iloc[:len(hist_filtered) + entry_idx]
             if slice_up_to_entry.empty:
                 continue
@@ -85,23 +74,24 @@ def run_historical_backtest():
             if pd.isna(sma_50_at_entry):
                 sma_50_at_entry = entry_price
                 
-            # फ़िल्टर कंडीशन (क्या प्राइस 50 SMA के ऊपर था?)
+            # फ़िल्टर कंडीशन
             is_above_50sma = entry_price >= sma_50_at_entry
             
             if is_above_50sma:
                 stock_return_pct = ((current_price - entry_price) / entry_price) * 100
                 
-                print(f"👉 {sym_nse:<12} | एंट्री: {entry_date} | रिटर्न: {stock_return_pct:.2f}%")
+                print(f"✅ Match: {sym_nse:<12} | Entry Date: {entry_date} | Return: {stock_return_pct:.2f}%")
                 
                 results.append({
                     "Stock": sym_nse,
                     "Entry_Date": entry_date,
-                    "Price_At_Entry": round(entry_price, 2),
-                    "Price_At_Target_Date": round(current_price, 2),
-                    "Strategy_Return_%": round(stock_return_pct, 2),
+                    "Price_At_Entry": round(float(entry_price), 2),
+                    "Price_At_Target_Date": round(float(current_price), 2),
+                    "Strategy_Return_%": round(float(stock_return_pct), 2),
                     "Above_50SMA_At_Entry": "YES"
                 })
         except Exception as e:
+            # किसी स्टॉक में एरर आने पर स्किप करें
             continue
 
     print("-" * 75)
@@ -110,9 +100,9 @@ def run_historical_backtest():
     if not df_backtest.empty:
         df_backtest = df_backtest.sort_values(by="Strategy_Return_%", ascending=False)
         df_backtest.to_csv("backtest_results.csv", index=False)
-        print(f"\n💾 Success! {len(df_backtest)} matched stocks saved to 'backtest_results.csv'!")
+        print(f"\n💾 Success! {len(df_backtest)} stocks saved accurately to 'backtest_results.csv'!")
     else:
-        print("\n❌ कोई भी शेयर फ़िल्टर कंडीशन पर खरा नहीं उतरा।")
+        print("\n❌ No stocks matched the criteria.")
 
 if __name__ == "__main__":
     run_historical_backtest()
