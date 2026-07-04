@@ -2,9 +2,7 @@ import os
 import pandas as pd
 import yfinance as yf
 import numpy as np
-from datetime import datetime
 
-# Raw list of 75 high-momentum broad market stocks
 RAW_STOCKS = [
     "ADANIENT", "ADANIPORTS", "AMBUJACEM", "APOLLOHOSP", "ASIANPAINT", "AXISBANK", "BAJAJ-AUTO",
     "BAJFINANCE", "BAJAJFINSV", "BEL", "BPCL", "BHARTIARTL", "BRITANNIA", "CIPLA", "COALINDIA",
@@ -22,14 +20,14 @@ TEST_UNIVERSE = sorted(list(set(RAW_STOCKS)))
 def run_historical_backtest():
     results = []
     
-    # GitHub Actions से इनपुट तारीख को सही तरीके से पढ़ना
+    # GitHub Action के environment variable से इनपुट लेना
     target_date_str = os.environ.get('TARGET_DATE', '').strip()
     
-    print(f"\n🔎 RUNNING DATA-DRIVEN BACKTEST...")
+    print(f"\n🔎 STARTING BACKTEST SYSTEM...")
     if target_date_str:
-        print(f"📅 Target Backtest Date selected: {target_date_str}")
+        print(f"📅 User Target Date Received: {target_date_str}")
     else:
-        print("📅 No date entered. Using Latest Available Data (Today).")
+        print("📅 No date entered. Using system latest date.")
     print("-" * 75)
 
     for sym_nse in TEST_UNIVERSE:
@@ -37,13 +35,12 @@ def run_historical_backtest():
         
         try:
             ticker_obj = yf.Ticker(sym_yf)
-            # auto_adjust=False और actions=False ताकि Google प्राइसेज से 100% मैच हो
+            # auto_adjust=False ताकि क्लोज प्राइस गूगल से मैच हो
             hist = ticker_obj.history(period="1y", interval="1d", auto_adjust=False, actions=False)
             
             if hist.empty:
                 continue
             
-            # इंडेक्स को केवल Date फॉर्मेट में बदलना
             hist.index = pd.to_datetime(hist.index).date
                 
             if target_date_str:
@@ -55,16 +52,15 @@ def run_historical_backtest():
             if len(hist_filtered) < 65:
                 continue
                 
-            # आपकी चुनी हुई तारीख का असली अन-एडजस्टेड क्लोज प्राइस (Google Match)
+            # टारगेट डेट का सटीक क्लोजिंग प्राइस
             current_price = hist_filtered['Close'].iloc[-1]
             current_date_str = hist_filtered.index[-1].strftime('%Y-%m-%d')
             
-            # उस तारीख से ठीक 3 महीने (~60 ट्रेडिंग दिन) पहले जाना
+            # ठीक 60 ट्रेडिंग दिन (~3 महीने) पीछे जाना
             entry_idx = -60  
             entry_price = hist_filtered['Close'].iloc[entry_idx]
             entry_date = hist_filtered.index[entry_idx].strftime('%Y-%m-%d')
             
-            # एंट्री के समय का 50 SMA कैलकुलेट करना
             slice_up_to_entry = hist_filtered.iloc[:len(hist_filtered) + entry_idx]
             if slice_up_to_entry.empty:
                 continue
@@ -73,7 +69,6 @@ def run_historical_backtest():
             if pd.isna(sma_50_at_entry):
                 sma_50_at_entry = entry_price
                 
-            # फ़िल्टर कंडीशन
             is_above_50sma = entry_price >= sma_50_at_entry
             
             if is_above_50sma:
@@ -90,15 +85,13 @@ def run_historical_backtest():
         except Exception as e:
             continue
 
-    print("-" * 75)
-
     df_backtest = pd.DataFrame(results)
     if not df_backtest.empty:
         df_backtest = df_backtest.sort_values(by="Strategy_Return_%", ascending=False)
         df_backtest.to_csv("backtest_results.csv", index=False)
-        print(f"\n💾 100% Accurate Data saved to 'backtest_results.csv'!")
+        print("\n💾 Process Finished Successfully!")
     else:
-        print("\n❌ No stocks matched.")
+        print("\n❌ No data matching.")
 
 if __name__ == "__main__":
     run_historical_backtest()
