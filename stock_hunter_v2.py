@@ -36,23 +36,20 @@ PHASE A - Fundamentals (best-effort only, not blocking, not faked):
   do not exist, so this section is skipped entirely for historical backtest
   dates (From_Date in the past) and only shown for live/today runs.
 
-BACKTEST METHODOLOGY (walk-forward mode):
+BACKTEST METHODOLOGY (the second core fix vs v1):
   You give a FROM_DATE and a TO_DATE.
-  Every Tuesday and Friday between them is treated as its own scan date -
-  simulating what the live twice-weekly system would actually have found on
-  each scheduled run, not just a single point-in-time snapshot.
-  On each scan date, the full Phase B filter is run using ONLY data available
-  up to that date (point-in-time, no lookahead). Whichever stocks pass become
-  "picks" for that date. Each pick's return is then measured from its own
-  pick date through to the final TO_DATE.
-  The same stock may appear on multiple scan dates if it stayed fresh across
-  several scans - that's expected, not a duplicate bug.
+  The full Phase B filter is run using ONLY data available up to FROM_DATE
+  (point-in-time, no lookahead). Whichever stocks pass become "the picks."
+  Their return is then measured from FROM_DATE to TO_DATE.
+  This answers "if the model had picked these stocks on that date, what
+  actually happened by this later date" - a real forward-test of the
+  selection logic, not just a performance ranking.
 
 Corporate action guard (kept from v1): any stock with a >=20% single-day
 move between FROM_DATE and TO_DATE is excluded and logged, since that's a
 near-certain demerger/bonus/split artifact, not real momentum.
 
-RISK MANAGEMENT:
+RISK MANAGEMENT (new):
   Every qualifying stock gets an ATR(14)-based stop loss:
     Stop_Loss_Price = Price_At_Pick - (2 x ATR_14)
   This scales the stop to each stock's own volatility instead of using a
@@ -189,6 +186,7 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
     price_now = close.iloc[-1]
     ma50_now, ma150_now, ma200_now = ma50.iloc[-1], ma150.iloc[-1], ma200.iloc[-1]
 
+    # --- Stage 2 confirmation ---
     if not (price_now > ma150_now and price_now > ma200_now):
         return None, "Not above 150MA/200MA"
     if not (ma50_now > ma150_now > ma200_now):
@@ -203,6 +201,7 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
     if not (price_now >= fifty_two_week_low * (1 + MIN_ABOVE_52W_LOW_PCT / 100)):
         return None, "Not enough distance above 52-week low"
 
+    # --- Freshness filter (the core fix vs v1) ---
     pct_above_50ma = ((price_now - ma50_now) / ma50_now) * 100
     if pct_above_50ma > EXTENDED_CAP_PCT:
         return None, f"Too extended above 50MA ({pct_above_50ma:.1f}%) - already flown, not fresh"
@@ -212,3 +211,171 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
     recent_ma50 = ma50.iloc[-window:]
     was_below_recently = (recent_close < recent_ma50).any()
     if not was_below_recently:
+        return None, f"No fresh 50MA crossover in last {FRESH_CROSSOVER_WINDOW} trading days - trend too old"
+
+    # --- Quiet accumulation signature ---
+    if len(volume) < 50:
+        return None, "Insufficient volume history"
+    avg_vol_recent = volume.iloc[-10:].mean()
+    avg_vol_prior = volume.iloc[-50:-10].mean()
+    if avg_vol_prior == 0 or pd.isna(avg_vol_prior):
+        return None, "Cannot compute volume baseline"
+    vol_ratio = avg_vol_recent / avg_vol_prior
+    if vol_ratio < VOL_SURGE_MIN_RATIO:
+        return None, f"No volume surge ({vol_ratio:.2f}x, need >={VOL_SURGE_MIN_RATIO}x)"
+
+    price_10d_ago = close.iloc[-10]
+    price_move_10d_pct = ((price_now - price_10d_ago) / price_10d_ago) * 100
+    if not (PRICE_MOVE_MIN_PCT <= price_move_10d_pct <= PRICE_MOVE_MAX_PCT):
+        return None, f"Price move too large for 'quiet' accumulation ({price_move_10d_pct:.1f}% in 10 days)"
+
+    # --- Liquidity ---
+    turnover_recent = (close.iloc[-20:] * volume.iloc[-20:]).mean()
+    turnover_cr = turnover_recent / CRORE
+    if turnover_cr < MIN_TURNOVER_CR:
+        return None, f"Turnover too low (Rs {turnover_cr:.2f} cr/day, need >= Rs {MIN_TURNOVER_CR} cr)"
+    liquidity_tier = "Strong" if turnover_cr >= STRONG_TURNOVER_CR else "Adequate"
+
+    # --- Passed everything. Now compute forward return to TO_DATE using full history ---
+    hist_full = hist[(hist.index >= from_date) & (hist.index <= to_date)]
+    if hist_full.empty or len(hist_full) < 2:
+        return None, "No trading data available between FROM_DATE and TO_DATE yet"
+
+    entry_price = hist_full["Close"].iloc[0]
+    entry_date_actual = hist_full.index[0]
+    exit_price = hist_full["Close"].iloc[-1]
+    exit_date_actual = hist_full.index[-1]
+
+    # Corporate action guard
+    daily_pct_changes = hist_full["Close"].pct_change().dropna() * 100
+    corp_hit = daily_pct_changes[daily_pct_changes.abs() >= CORPORATE_ACTION_THRESHOLD_PCT]
+    if not corp_hit.empty:
+        return None, f"Excluded - likely corporate action on {corp_hit.index[0]}: {corp_hit.iloc[0]:.1f}% single-day move"
+
+    forward_return_pct = ((exit_price - entry_price) / entry_price) * 100
+
+    # --- ATR-based stop loss and risk-based position sizing (institutional style) ---
+    atr14 = compute_atr(hist_pit, ATR_PERIOD)
+    if pd.isna(atr14) or atr14 <= 0:
+        stop_loss_price = None
+        stop_loss_pct = None
+        shares_to_buy = None
+        capital_allocated = None
+    else:
+        stop_loss_price = entry_price - (ATR_STOP_MULTIPLE * atr14)
+        risk_per_share = entry_price - stop_loss_price  # = 2 x ATR
+        stop_loss_pct = (risk_per_share / entry_price) * 100
+        risk_capital = DEFAULT_TOTAL_CAPITAL * (RISK_PCT_PER_TRADE / 100)
+        shares_to_buy = int(risk_capital / risk_per_share) if risk_per_share > 0 else 0
+        capital_allocated = round(shares_to_buy * entry_price, 2)
+
+    return {
+        "Stock": sym_nse,
+        "Pick_Date": entry_date_actual.strftime("%Y-%m-%d"),
+        "Price_At_Pick": round(float(entry_price), 2),
+        "Evaluation_Date": exit_date_actual.strftime("%Y-%m-%d"),
+        "Price_At_Evaluation": round(float(exit_price), 2),
+        "Forward_Return_%": round(float(forward_return_pct), 2),
+        "Pct_Above_50MA_At_Pick": round(float(pct_above_50ma), 1),
+        "Volume_Surge_Ratio": round(float(vol_ratio), 2),
+        "Avg_Daily_Turnover_Cr": round(float(turnover_cr), 2),
+        "Liquidity_Tier": liquidity_tier,
+        "ATR_14": round(float(atr14), 2) if not pd.isna(atr14) else None,
+        "Stop_Loss_Price": round(float(stop_loss_price), 2) if stop_loss_price is not None else None,
+        "Stop_Loss_%": round(float(stop_loss_pct), 2) if stop_loss_pct is not None else None,
+        "Suggested_Shares": shares_to_buy,
+        "Capital_Allocated_Rs": capital_allocated,
+    }, None
+
+
+def get_scan_dates(from_date, to_date):
+    """Generate every Tuesday (weekday 1) and Friday (weekday 4) between from_date
+    and to_date inclusive - matching the real twice-weekly live schedule, so a
+    From/To backtest simulates what the system would actually have found on each
+    scheduled run, not just a single point-in-time snapshot."""
+    all_days = pd.date_range(from_date, to_date, freq="D")
+    scan_dates = [d.date() for d in all_days if d.weekday() in (1, 4)]
+    if not scan_dates or scan_dates[0] != from_date:
+        scan_dates = [from_date] + scan_dates  # always include the exact FROM_DATE requested
+    return sorted(set(scan_dates))
+
+
+def run():
+    from_date, to_date = get_dates()
+    scan_dates = get_scan_dates(from_date, to_date)
+    print(f"\nSTOCK HUNTER v2 - Early-Stage Screener (Walk-Forward Mode)")
+    print(f"Simulating {len(scan_dates)} scan dates (every Tue/Fri) between {from_date} and {to_date}")
+    print(f"Each pick's return is measured from its own pick date through to {to_date}")
+    print("-" * 75)
+
+    symbols = load_universe()
+    print(f"Universe: {len(symbols)} stocks")
+
+    results = []
+    skipped = []
+
+    total_chunks = (len(symbols) + CHUNK_SIZE - 1) // CHUNK_SIZE
+    for chunk_num, chunk in enumerate(chunk_list(symbols, CHUNK_SIZE), start=1):
+        yf_tickers = [f"{s}.NS" for s in chunk]
+        print(f"[{chunk_num}/{total_chunks}] Fetching {len(chunk)} tickers...")
+
+        try:
+            data = yf.download(
+                tickers=yf_tickers, period=FETCH_PERIOD, interval="1d",
+                auto_adjust=False, actions=False, group_by="ticker",
+                threads=True, progress=False,
+            )
+        except Exception as e:
+            for s in chunk:
+                skipped.append({"Stock": s, "Scan_Date": "ALL", "Reason": f"Chunk download failed: {e}"})
+            continue
+
+        for sym_nse, sym_yf in zip(chunk, yf_tickers):
+            try:
+                if len(yf_tickers) == 1:
+                    hist = data
+                else:
+                    if sym_yf not in data.columns.get_level_values(0):
+                        skipped.append({"Stock": sym_nse, "Scan_Date": "ALL", "Reason": "No data returned"})
+                        continue
+                    hist = data[sym_yf]
+
+                # Same downloaded history reused across every scan date - no extra network calls
+                for scan_date in scan_dates:
+                    if scan_date >= to_date:
+                        continue
+                    result, reason = evaluate_stock(hist, scan_date, to_date, sym_nse)
+                    if result:
+                        result["Scan_Date"] = scan_date.strftime("%Y-%m-%d")
+                        results.append(result)
+                    else:
+                        skipped.append({"Stock": sym_nse, "Scan_Date": scan_date.strftime("%Y-%m-%d"), "Reason": reason})
+            except Exception as e:
+                skipped.append({"Stock": sym_nse, "Scan_Date": "ALL", "Reason": f"Unexpected error: {e}"})
+
+        time.sleep(1)
+
+    df_results = pd.DataFrame(results)
+    if not df_results.empty:
+        df_results = df_results.sort_values(by=["Pick_Date", "Forward_Return_%"], ascending=[True, False])
+        df_results.to_csv("stock_hunter_v2_results.csv", index=False)
+        unique_stocks = df_results["Stock"].nunique()
+        print(f"\nQUALIFIED: {len(df_results)} pick-instances across {len(scan_dates)} scan dates "
+              f"({unique_stocks} unique stocks). Saved to stock_hunter_v2_results.csv")
+        print("Note: the same stock may appear on multiple scan dates if it stayed fresh - "
+              "that's expected, not a duplicate bug.")
+    else:
+        pd.DataFrame(columns=[
+            "Stock", "Scan_Date", "Pick_Date", "Price_At_Pick", "Evaluation_Date", "Price_At_Evaluation",
+            "Forward_Return_%", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
+            "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
+            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs"
+        ]).to_csv("stock_hunter_v2_results.csv", index=False)
+        print(f"\nNo stocks qualified on any of the {len(scan_dates)} scan dates. The filter is intentionally strict.")
+
+    pd.DataFrame(skipped).to_csv("stock_hunter_v2_skipped.csv", index=False)
+    print(f"Did not qualify / failed: {len(skipped)} rows (see stock_hunter_v2_skipped.csv for reasons)")
+
+
+if __name__ == "__main__":
+    run()
