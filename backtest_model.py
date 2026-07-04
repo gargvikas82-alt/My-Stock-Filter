@@ -31,6 +31,7 @@ UNIVERSE_FILE = "nifty_total_market.csv"
 CHUNK_SIZE = 50
 LOOKBACK_TRADING_DAYS = 60
 MIN_HISTORY_ROWS = LOOKBACK_TRADING_DAYS + 50  # need enough history to compute a 50-SMA at entry too
+CORPORATE_ACTION_THRESHOLD_PCT = 20  # single-day move beyond this is flagged as likely demerger/bonus/split artifact, not real momentum
 
 def get_target_date():
     """Read TARGET_DATE from environment (set by GitHub Actions workflow_dispatch input).
@@ -133,6 +134,22 @@ def run_historical_backtest():
                     continue
 
                 if entry_price >= sma_50_at_entry:
+                    # Corporate action sanity check: scan every trading day between entry and
+                    # target for a single-day move beyond threshold. A demerger, bonus issue, or
+                    # unadjusted split shows up as an extreme one-day jump that isn't real momentum.
+                    window = hist_filtered.iloc[len(hist_filtered) + entry_idx:]["Close"]
+                    daily_pct_changes = window.pct_change().dropna() * 100
+                    corporate_action_hit = daily_pct_changes[daily_pct_changes.abs() >= CORPORATE_ACTION_THRESHOLD_PCT]
+
+                    if not corporate_action_hit.empty:
+                        flagged_date = corporate_action_hit.index[0]
+                        flagged_move = corporate_action_hit.iloc[0]
+                        skipped.append({
+                            "Stock": sym_nse,
+                            "Reason": f"Excluded - likely corporate action (demerger/bonus/split) on {flagged_date}: {flagged_move:.1f}% single-day move"
+                        })
+                        continue
+
                     stock_return_pct = ((current_price - entry_price) / entry_price) * 100
                     results.append({
                         "Stock": sym_nse,
