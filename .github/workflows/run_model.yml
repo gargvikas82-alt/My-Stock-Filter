@@ -2,6 +2,11 @@ name: Semi-Weekly Smart Hunter
 
 on:
   workflow_dispatch:
+    inputs:
+      target_date:
+        description: 'Enter Target Date (YYYY-MM-DD)'
+        required: false
+        default: ''
 
 jobs:
   run-backtest:
@@ -9,8 +14,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -23,6 +26,8 @@ jobs:
           pip install pandas yfinance numpy
 
       - name: Run Model
+        env:
+          TARGET_DATE: ${{ github.event.inputs.target_date }}
         run: |
           python backtest_model.py
 
