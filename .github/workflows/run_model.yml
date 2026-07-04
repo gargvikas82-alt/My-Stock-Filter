@@ -2,11 +2,16 @@ name: Semi-Weekly Smart Hunter
 
 on:
   schedule:
-    - cron: '0 18 * * 2,5' # Runs at 18:00, only on Tuesday and Friday
+    - cron: '0 18 * * 2,5' # मंगलवार और शुक्रवार शाम 6 बजे ऑटोमैटिक चलेगा
   push:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      backtest_date:
+        description: 'तारीख डालें (YYYY-MM-DD format) या आज के लिए खाली छोड़ें:'
+        required: false
+        default: ''
 
 jobs:
   run-hunter-pipeline:
@@ -26,6 +31,8 @@ jobs:
           pip install yfinance pandas numpy
 
       - name: Run Backtest Model
+        env:
+          TARGET_DATE: ${{ github.event.inputs.backtest_date }}
         run: |
           python backtest_model.py
 
