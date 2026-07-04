@@ -1,0 +1,749 @@
+Stock,Reason
+360ONE,Not above 150MA/200MA
+3MINDIA,Not above 150MA/200MA
+AADHARHFC,Not above 150MA/200MA
+AARTIDRUGS,Not above 150MA/200MA
+AARTIIND,MA alignment failed (50>150>200)
+AARTIPHARM,Not above 150MA/200MA
+AAVAS,Not above 150MA/200MA
+ABB,No fresh 50MA crossover in last 15 trading days - trend too old
+ABBOTINDIA,Not above 150MA/200MA
+ABCAPITAL,MA alignment failed (50>150>200)
+ABDL,Not above 150MA/200MA
+ABFRL,Not above 150MA/200MA
+ABLBL,Insufficient history as of FROM_DATE (212 rows)
+ABREL,Not above 150MA/200MA
+ABSLAMC,MA alignment failed (50>150>200)
+ACC,Not above 150MA/200MA
+ACE,Not above 150MA/200MA
+ACI,MA alignment failed (50>150>200)
+ACMESOLAR,MA alignment failed (50>150>200)
+ACUTAAS,No fresh 50MA crossover in last 15 trading days - trend too old
+ADANIENSOL,"Too extended above 50MA (23.0%) - already flown, not fresh"
+ADANIENT,MA alignment failed (50>150>200)
+ADANIGREEN,MA alignment failed (50>150>200)
+ADANIPORTS,No fresh 50MA crossover in last 15 trading days - trend too old
+ADANIPOWER,"Too extended above 50MA (33.9%) - already flown, not fresh"
+ADVENZYMES,MA alignment failed (50>150>200)
+AEGISLOG,Not above 150MA/200MA
+AEGISVOPAK,Insufficient history as of FROM_DATE (228 rows)
+AEQUS,Insufficient history as of FROM_DATE (96 rows)
+AETHER,No fresh 50MA crossover in last 15 trading days - trend too old
+AFCONS,Not above 150MA/200MA
+AFFLE,Not above 150MA/200MA
+AGARWALEYE,Not above 150MA/200MA
+AGL,Insufficient history as of FROM_DATE (0 rows)
+AHLUCONT,Not above 150MA/200MA
+AIAENG,"No volume surge (0.47x, need >=1.3x)"
+AIIL,Not above 150MA/200MA
+AJANTPHARM,Not enough distance above 52-week low
+AKUMS,MA alignment failed (50>150>200)
+ALIVUS,MA alignment failed (50>150>200)
+ALKEM,Not above 150MA/200MA
+ALKYLAMINE,Not above 150MA/200MA
+ALOKINDS,Not above 150MA/200MA
+AMBER,MA alignment failed (50>150>200)
+AMBUJACEM,Not above 150MA/200MA
+ANANDRATHI,No fresh 50MA crossover in last 15 trading days - trend too old
+ANANTRAJ,Not above 150MA/200MA
+ANGELONE,"Too extended above 50MA (19.2%) - already flown, not fresh"
+ANTHEM,Insufficient history as of FROM_DATE (193 rows)
+ANUP,Not above 150MA/200MA
+ANURAS,"No volume surge (1.23x, need >=1.3x)"
+APARINDS,"Too extended above 50MA (16.7%) - already flown, not fresh"
+APLAPOLLO,Not above 150MA/200MA
+APLLTD,Not above 150MA/200MA
+APOLLO,MA alignment failed (50>150>200)
+APOLLOHOSP,MA alignment failed (50>150>200)
+APOLLOTYRE,Not above 150MA/200MA
+APTUS,Not above 150MA/200MA
+ARE&M,Not above 150MA/200MA
+ARVIND,No fresh 50MA crossover in last 15 trading days - trend too old
+ARVINDFASN,Not above 150MA/200MA
+ASAHIINDIA,Not above 150MA/200MA
+ASHAPURMIN,Not above 150MA/200MA
+ASHOKA,Not above 150MA/200MA
+ASHOKLEY,Not above 150MA/200MA
+ASIANPAINT,Not above 150MA/200MA
+ASKAUTOLTD,Not above 150MA/200MA
+ASTERDM,No fresh 50MA crossover in last 15 trading days - trend too old
+ASTRAL,Not enough distance above 52-week low
+ASTRAMICRO,MA alignment failed (50>150>200)
+ATGL,MA alignment failed (50>150>200)
+ATHERENERG,Insufficient history as of FROM_DATE (247 rows)
+ATLANTAELE,Insufficient history as of FROM_DATE (144 rows)
+ATUL,MA alignment failed (50>150>200)
+AUBANK,No fresh 50MA crossover in last 15 trading days - trend too old
+AURIONPRO,Not above 150MA/200MA
+AUROPHARMA,No fresh 50MA crossover in last 15 trading days - trend too old
+AVALON,No fresh 50MA crossover in last 15 trading days - trend too old
+AVANTIFEED,No fresh 50MA crossover in last 15 trading days - trend too old
+AVL,MA alignment failed (50>150>200)
+AWFIS,Not above 150MA/200MA
+AWL,Not above 150MA/200MA
+AXISBANK,Not above 150MA/200MA
+AXISCADES,"Too extended above 50MA (26.2%) - already flown, not fresh"
+AZAD,"Too extended above 50MA (26.4%) - already flown, not fresh"
+BAJAJ-AUTO,No fresh 50MA crossover in last 15 trading days - trend too old
+BAJAJELEC,Not above 150MA/200MA
+BAJAJFINSV,Not above 150MA/200MA
+BAJAJHFL,Not above 150MA/200MA
+BAJAJHLDNG,Not above 150MA/200MA
+BAJFINANCE,Not above 150MA/200MA
+BALAMINES,MA alignment failed (50>150>200)
+BALKRISIND,Not above 150MA/200MA
+BALRAMCHIN,MA alignment failed (50>150>200)
+BALUFORGE,Not above 150MA/200MA
+BANCOINDIA,Not above 150MA/200MA
+BANDHANBNK,MA alignment failed (50>150>200)
+BANKBARODA,Not above 150MA/200MA
+BANKINDIA,Not above 150MA/200MA
+BATAINDIA,Not above 150MA/200MA
+BAYERCROP,Not above 150MA/200MA
+BBOX,MA alignment failed (50>150>200)
+BBTC,Not above 150MA/200MA
+BDL,Not above 150MA/200MA
+BECTORFOOD,Not above 150MA/200MA
+BEL,"No volume surge (0.66x, need >=1.3x)"
+BELRISE,Insufficient history as of FROM_DATE (231 rows)
+BEML,Not above 150MA/200MA
+BERGEPAINT,Not above 150MA/200MA
+BHARATFORG,No fresh 50MA crossover in last 15 trading days - trend too old
+BHARTIARTL,Not above 150MA/200MA
+BHARTIHEXA,Not above 150MA/200MA
+BHEL,"Too extended above 50MA (26.4%) - already flown, not fresh"
+BIKAJI,Not above 150MA/200MA
+BIOCON,Not above 150MA/200MA
+BIRLACORPN,Not above 150MA/200MA
+BLACKBUCK,Not above 150MA/200MA
+BLS,Not above 150MA/200MA
+BLUEDART,Not above 150MA/200MA
+BLUEJET,Not above 150MA/200MA
+BLUESTARCO,Not above 150MA/200MA
+BLUESTONE,Insufficient history as of FROM_DATE (172 rows)
+BORORENEW,Not above 150MA/200MA
+BOSCHLTD,Not above 150MA/200MA
+BPCL,Not above 150MA/200MA
+BRIGADE,Not above 150MA/200MA
+BRITANNIA,Not above 150MA/200MA
+BSE,"Too extended above 50MA (20.2%) - already flown, not fresh"
+BSOFT,Not above 150MA/200MA
+CAMPUS,Not above 150MA/200MA
+CAMS,Not above 150MA/200MA
+CANBK,Not above 150MA/200MA
+CANFINHOME,Not above 150MA/200MA
+CANHLIFE,Insufficient history as of FROM_DATE (132 rows)
+CAPILLARY,Insufficient history as of FROM_DATE (109 rows)
+CAPLIPOINT,Not above 150MA/200MA
+CARBORUNIV,MA alignment failed (50>150>200)
+CARTRADE,Not above 150MA/200MA
+CASTROLIND,Not above 150MA/200MA
+CCAVENUE,Not above 150MA/200MA
+CCL,No fresh 50MA crossover in last 15 trading days - trend too old
+CDSL,Not above 150MA/200MA
+CEATLTD,Not above 150MA/200MA
+CELLO,Not above 150MA/200MA
+CEMPRO,MA alignment failed (50>150>200)
+CENTRALBK,Not above 150MA/200MA
+CENTURYPLY,MA alignment failed (50>150>200)
+CERA,Not above 150MA/200MA
+CESC,MA alignment failed (50>150>200)
+CGCL,MA alignment failed (50>150>200)
+CGPOWER,MA alignment failed (50>150>200)
+CHALET,Not above 150MA/200MA
+CHAMBLFERT,Not above 150MA/200MA
+CHENNPETRO,No fresh 50MA crossover in last 15 trading days - trend too old
+CHOICEIN,Not above 150MA/200MA
+CHOLAFIN,Not above 150MA/200MA
+CHOLAHLDNG,Not above 150MA/200MA
+CIEINDIA,Not enough distance above 52-week low
+CIPLA,Not above 150MA/200MA
+CLEAN,Not above 150MA/200MA
+CMSINFO,Not above 150MA/200MA
+COALINDIA,"No volume surge (0.88x, need >=1.3x)"
+COCHINSHIP,MA alignment failed (50>150>200)
+COFORGE,Not above 150MA/200MA
+COHANCE,Not above 150MA/200MA
+COLPAL,Not above 150MA/200MA
+CONCOR,Not above 150MA/200MA
+CONCORDBIO,Not above 150MA/200MA
+COROMANDEL,Not above 150MA/200MA
+CORONA,Insufficient history as of FROM_DATE (92 rows)
+CPPLUS,Insufficient history as of FROM_DATE (182 rows)
+CRAFTSMAN,"No volume surge (0.54x, need >=1.3x)"
+CRAMC,Insufficient history as of FROM_DATE (133 rows)
+CREDITACC,Not above 150MA/200MA
+CRISIL,Not above 150MA/200MA
+CRIZAC,Insufficient history as of FROM_DATE (201 rows)
+CROMPTON,Not above 150MA/200MA
+CSBBANK,Not above 150MA/200MA
+CUB,MA alignment failed (50>150>200)
+CUMMINSIND,No fresh 50MA crossover in last 15 trading days - trend too old
+CUPID,"Too extended above 50MA (32.1%) - already flown, not fresh"
+CYIENT,Not above 150MA/200MA
+DABUR,Not above 150MA/200MA
+DALBHARAT,Not above 150MA/200MA
+DATAMATICS,Not above 150MA/200MA
+DATAPATTNS,"Too extended above 50MA (21.8%) - already flown, not fresh"
+DBL,Not above 150MA/200MA
+DBREALTY,Not above 150MA/200MA
+DCBBANK,No fresh 50MA crossover in last 15 trading days - trend too old
+DCMSHRIRAM,MA alignment failed (50>150>200)
+DEEPAKFERT,Not above 150MA/200MA
+DEEPAKNTR,MA alignment failed (50>150>200)
+DELHIVERY,MA alignment failed (50>150>200)
+DEVYANI,Not above 150MA/200MA
+DIACABS,MA alignment failed (50>150>200)
+DIVISLAB,MA alignment failed (50>150>200)
+DIXON,Not above 150MA/200MA
+DLF,Not above 150MA/200MA
+DMART,MA alignment failed (50>150>200)
+DOMS,Not above 150MA/200MA
+DRREDDY,MA alignment failed (50>150>200)
+DYNAMATECH,No fresh 50MA crossover in last 15 trading days - trend too old
+ECLERX,Not above 150MA/200MA
+EDELWEISS,No fresh 50MA crossover in last 15 trading days - trend too old
+EICHERMOT,Not above 150MA/200MA
+EIDPARRY,Not above 150MA/200MA
+EIEL,Not above 150MA/200MA
+EIHOTEL,Not above 150MA/200MA
+ELECON,MA alignment failed (50>150>200)
+ELECTCAST,Not above 150MA/200MA
+ELGIEQUIP,MA alignment failed (50>150>200)
+ELLEN,Insufficient history as of FROM_DATE (206 rows)
+EMAMILTD,Not above 150MA/200MA
+EMBDL,Not above 150MA/200MA
+EMCURE,No fresh 50MA crossover in last 15 trading days - trend too old
+EMIL,MA alignment failed (50>150>200)
+EMMVEE,Insufficient history as of FROM_DATE (112 rows)
+ENDURANCE,Not above 150MA/200MA
+ENGINERSIN,MA alignment failed (50>150>200)
+ENRIN,Insufficient history as of FROM_DATE (215 rows)
+ENTERO,MA alignment failed (50>150>200)
+EPL,MA alignment failed (50>150>200)
+EQUITASBNK,MA alignment failed (50>150>200)
+ERIS,Not above 150MA/200MA
+ESCORTS,Not above 150MA/200MA
+ETERNAL,Not above 150MA/200MA
+ETHOSLTD,Not above 150MA/200MA
+EUREKAFORB,Not above 150MA/200MA
+EXIDEIND,Not above 150MA/200MA
+FACT,MA alignment failed (50>150>200)
+FEDERALBNK,No fresh 50MA crossover in last 15 trading days - trend too old
+FEDFINA,MA alignment failed (50>150>200)
+FIEMIND,MA alignment failed (50>150>200)
+FINCABLES,MA alignment failed (50>150>200)
+FINPIPE,Not above 150MA/200MA
+FIRSTCRY,Not above 150MA/200MA
+FIVESTAR,Not above 150MA/200MA
+FLUOROCHEM,MA alignment failed (50>150>200)
+FORCEMOT,"No volume surge (0.94x, need >=1.3x)"
+FORTIS,MA alignment failed (50>150>200)
+FSL,Not above 150MA/200MA
+GABRIEL,Not above 150MA/200MA
+GAEL,No fresh 50MA crossover in last 15 trading days - trend too old
+GAIL,Not above 150MA/200MA
+GALLANTT,MA alignment failed (50>150>200)
+GESHIP,"No volume surge (1.01x, need >=1.3x)"
+GHCL,Not above 150MA/200MA
+GICRE,Not enough distance above 52-week low
+GILLETTE,Not above 150MA/200MA
+GLAND,Not above 150MA/200MA
+GLAXO,Not above 150MA/200MA
+GLENMARK,MA alignment failed (50>150>200)
+GMDCLTD,"Too extended above 50MA (22.4%) - already flown, not fresh"
+GMMPFAUDLR,Not above 150MA/200MA
+GMRAIRPORT,Not above 150MA/200MA
+GMRP&UI,Not above 150MA/200MA
+GNFC,Not above 150MA/200MA
+GODFRYPHLP,Not above 150MA/200MA
+GODIGIT,Not above 150MA/200MA
+GODREJAGRO,Not above 150MA/200MA
+GODREJCP,Not above 150MA/200MA
+GODREJIND,Not above 150MA/200MA
+GODREJPROP,Not above 150MA/200MA
+GOKEX,Not above 150MA/200MA
+GOKULAGRO,"Too extended above 50MA (23.9%) - already flown, not fresh"
+GPIL,No fresh 50MA crossover in last 15 trading days - trend too old
+GPPL,Not above 150MA/200MA
+GRANULES,No fresh 50MA crossover in last 15 trading days - trend too old
+GRASIM,MA alignment failed (50>150>200)
+GRAVITA,Not above 150MA/200MA
+GREAVESCOT,Not above 150MA/200MA
+GROWW,Insufficient history as of FROM_DATE (116 rows)
+GRSE,MA alignment failed (50>150>200)
+GRWRHITECH,200MA not trending up
+GSFC,Not above 150MA/200MA
+GVT&D,No fresh 50MA crossover in last 15 trading days - trend too old
+HAL,Not above 150MA/200MA
+HAPPSTMNDS,Not above 150MA/200MA
+HAVELLS,Not above 150MA/200MA
+HBLENGINE,Not above 150MA/200MA
+HCC,Not above 150MA/200MA
+HCG,Not above 150MA/200MA
+HCLTECH,Not above 150MA/200MA
+HDBFS,Insufficient history as of FROM_DATE (206 rows)
+HDFCAMC,MA alignment failed (50>150>200)
+HDFCBANK,Not above 150MA/200MA
+HDFCLIFE,Not above 150MA/200MA
+HEG,No fresh 50MA crossover in last 15 trading days - trend too old
+HEMIPROP,Not above 150MA/200MA
+HERITGFOOD,Not above 150MA/200MA
+HEROMOTOCO,Not above 150MA/200MA
+HEXT,Not above 150MA/200MA
+HFCL,MA alignment failed (50>150>200)
+HGINFRA,Not above 150MA/200MA
+HINDALCO,No fresh 50MA crossover in last 15 trading days - trend too old
+HINDCOPPER,"No volume surge (0.31x, need >=1.3x)"
+HINDPETRO,Not above 150MA/200MA
+HINDUNILVR,Not above 150MA/200MA
+HINDZINC,"No volume surge (1.22x, need >=1.3x)"
+HOMEFIRST,Not above 150MA/200MA
+HONASA,No fresh 50MA crossover in last 15 trading days - trend too old
+HONAUT,Not above 150MA/200MA
+HSCL,MA alignment failed (50>150>200)
+HUDCO,MA alignment failed (50>150>200)
+HYUNDAI,Not above 150MA/200MA
+ICICIAMC,Insufficient history as of FROM_DATE (89 rows)
+ICICIBANK,Not above 150MA/200MA
+ICICIGI,Not above 150MA/200MA
+ICICIPRULI,Not above 150MA/200MA
+ICIL,MA alignment failed (50>150>200)
+IDBI,Not above 150MA/200MA
+IDEA,MA alignment failed (50>150>200)
+IDFCFIRSTB,Not above 150MA/200MA
+IEX,Not above 150MA/200MA
+IFBIND,Not above 150MA/200MA
+IFCI,MA alignment failed (50>150>200)
+IGIL,MA alignment failed (50>150>200)
+IGL,Not above 150MA/200MA
+IIFL,Not above 150MA/200MA
+IIFLCAPS,Not above 150MA/200MA
+IKS,MA alignment failed (50>150>200)
+IMFA,No fresh 50MA crossover in last 15 trading days - trend too old
+INDGN,Not above 150MA/200MA
+INDHOTEL,Not above 150MA/200MA
+INDIACEM,Not above 150MA/200MA
+INDIAGLYCO,MA alignment failed (50>150>200)
+INDIAMART,Not above 150MA/200MA
+INDIANB,Not above 150MA/200MA
+INDIASHLTR,Not above 150MA/200MA
+INDIGO,Not above 150MA/200MA
+INDIGOPNTS,Not above 150MA/200MA
+INDUSINDBK,"No volume surge (0.83x, need >=1.3x)"
+INDUSTOWER,Not above 150MA/200MA
+INFY,Not above 150MA/200MA
+INOXGREEN,Not above 150MA/200MA
+INOXINDIA,No fresh 50MA crossover in last 15 trading days - trend too old
+INOXWIND,Not above 150MA/200MA
+INTELLECT,Not above 150MA/200MA
+IOB,Not above 150MA/200MA
+IOC,Not above 150MA/200MA
+IONEXCHANG,MA alignment failed (50>150>200)
+IPCALAB,Not enough distance above 52-week low
+IRB,MA alignment failed (50>150>200)
+IRCON,Not above 150MA/200MA
+IRCTC,Not above 150MA/200MA
+IREDA,Not above 150MA/200MA
+IRFC,Not above 150MA/200MA
+ITC,Not above 150MA/200MA
+ITCHOTELS,Not above 150MA/200MA
+ITI,Not above 150MA/200MA
+IXIGO,Not above 150MA/200MA
+J&KBANK,No fresh 50MA crossover in last 15 trading days - trend too old
+JAIBALAJI,Not above 150MA/200MA
+JAINREC,Insufficient history as of FROM_DATE (141 rows)
+JAMNAAUTO,"No volume surge (0.30x, need >=1.3x)"
+JAYNECOIND,"Too extended above 50MA (34.0%) - already flown, not fresh"
+JBCHEPHARM,"No volume surge (0.65x, need >=1.3x)"
+JBMA,MA alignment failed (50>150>200)
+JINDALSAW,MA alignment failed (50>150>200)
+JINDALSTEL,No fresh 50MA crossover in last 15 trading days - trend too old
+JIOFIN,Not above 150MA/200MA
+JKCEMENT,Not above 150MA/200MA
+JKLAKSHMI,Not above 150MA/200MA
+JKPAPER,Not above 150MA/200MA
+JKTYRE,Not above 150MA/200MA
+JLHL,Not above 150MA/200MA
+JMFINANCIL,Not above 150MA/200MA
+JPPOWER,MA alignment failed (50>150>200)
+JSFB,MA alignment failed (50>150>200)
+JSL,Not above 150MA/200MA
+JSLL,Not above 150MA/200MA
+JSWCEMENT,Insufficient history as of FROM_DATE (175 rows)
+JSWDULUX,Not above 150MA/200MA
+JSWENERGY,MA alignment failed (50>150>200)
+JSWINFRA,Not above 150MA/200MA
+JSWSTEEL,"No volume surge (1.16x, need >=1.3x)"
+JUBLFOOD,Not above 150MA/200MA
+JUBLINGREA,MA alignment failed (50>150>200)
+JUBLPHARMA,Not above 150MA/200MA
+JUSTDIAL,Not above 150MA/200MA
+JWL,Not above 150MA/200MA
+JYOTHYLAB,Not above 150MA/200MA
+JYOTICNC,Not above 150MA/200MA
+KAJARIACER,MA alignment failed (50>150>200)
+KALYANKJIL,Not above 150MA/200MA
+KANSAINER,Not above 150MA/200MA
+KARURVYSYA,"No volume surge (0.81x, need >=1.3x)"
+KAYNES,Not above 150MA/200MA
+KEC,Not above 150MA/200MA
+KEI,No fresh 50MA crossover in last 15 trading days - trend too old
+KFINTECH,Not above 150MA/200MA
+KIMS,Not above 150MA/200MA
+KIRLOSBROS,Not above 150MA/200MA
+KIRLOSENG,No fresh 50MA crossover in last 15 trading days - trend too old
+KIRLPNU,MA alignment failed (50>150>200)
+KITEX,Not above 150MA/200MA
+KNRCON,Not above 150MA/200MA
+KOTAKBANK,Not above 150MA/200MA
+KPIGREEN,Not above 150MA/200MA
+KPIL,MA alignment failed (50>150>200)
+KPITTECH,Not above 150MA/200MA
+KPRMILL,Not above 150MA/200MA
+KRBL,Not above 150MA/200MA
+KRN,MA alignment failed (50>150>200)
+KSB,MA alignment failed (50>150>200)
+KSCL,Not above 150MA/200MA
+KTKBANK,"Too extended above 50MA (17.7%) - already flown, not fresh"
+LALPATHLAB,Not above 150MA/200MA
+LATENTVIEW,Not above 150MA/200MA
+LAURUSLABS,No fresh 50MA crossover in last 15 trading days - trend too old
+LEMONTREE,Not above 150MA/200MA
+LENSKART,Insufficient history as of FROM_DATE (118 rows)
+LGEINDIA,Insufficient history as of FROM_DATE (135 rows)
+LICHSGFIN,MA alignment failed (50>150>200)
+LICI,Not above 150MA/200MA
+LINDEINDIA,MA alignment failed (50>150>200)
+LLOYDSENGG,MA alignment failed (50>150>200)
+LLOYDSENT,MA alignment failed (50>150>200)
+LLOYDSME,MA alignment failed (50>150>200)
+LODHA,Not above 150MA/200MA
+LOTUSDEV,Insufficient history as of FROM_DATE (181 rows)
+LT,MA alignment failed (50>150>200)
+LTF,Not above 150MA/200MA
+LTFOODS,MA alignment failed (50>150>200)
+LTM,Not above 150MA/200MA
+LTTS,Not above 150MA/200MA
+LUMAXTECH,"No volume surge (0.62x, need >=1.3x)"
+LUPIN,Not enough distance above 52-week low
+LXCHEM,Not above 150MA/200MA
+M&M,Not above 150MA/200MA
+M&MFIN,Not above 150MA/200MA
+MAHABANK,No fresh 50MA crossover in last 15 trading days - trend too old
+MAHSCOOTER,Not above 150MA/200MA
+MAHSEAMLES,MA alignment failed (50>150>200)
+MANAPPURAM,MA alignment failed (50>150>200)
+MANKIND,Not above 150MA/200MA
+MANORAMA,MA alignment failed (50>150>200)
+MANYAVAR,Not above 150MA/200MA
+MAPMYINDIA,Not above 150MA/200MA
+MARICO,Not enough distance above 52-week low
+MARKSANS,MA alignment failed (50>150>200)
+MARUTI,Not above 150MA/200MA
+MASTEK,Not above 150MA/200MA
+MAXHEALTH,Not above 150MA/200MA
+MAZDOCK,MA alignment failed (50>150>200)
+MCX,No fresh 50MA crossover in last 15 trading days - trend too old
+MEDANTA,Not above 150MA/200MA
+MEDPLUS,MA alignment failed (50>150>200)
+MEESHO,Insufficient history as of FROM_DATE (96 rows)
+METROPOLIS,Not above 150MA/200MA
+MFSL,Not above 150MA/200MA
+MGL,Not above 150MA/200MA
+MIDHANI,MA alignment failed (50>150>200)
+MINDACORP,Not above 150MA/200MA
+MMTC,MA alignment failed (50>150>200)
+MOIL,Not above 150MA/200MA
+MOTHERSON,"No volume surge (0.87x, need >=1.3x)"
+MOTILALOFS,Not above 150MA/200MA
+MPHASIS,Not above 150MA/200MA
+MRF,Not above 150MA/200MA
+MRPL,"No volume surge (0.56x, need >=1.3x)"
+MSTCLTD,Not above 150MA/200MA
+MSUMI,Not above 150MA/200MA
+MTARTECH,"Too extended above 50MA (56.8%) - already flown, not fresh"
+MUTHOOTFIN,Not above 150MA/200MA
+NAM-INDIA,No fresh 50MA crossover in last 15 trading days - trend too old
+NATCOPHARM,MA alignment failed (50>150>200)
+NATIONALUM,No fresh 50MA crossover in last 15 trading days - trend too old
+NAUKRI,Not above 150MA/200MA
+NAVA,MA alignment failed (50>150>200)
+NAZARA,Not above 150MA/200MA
+NBCC,Not above 150MA/200MA
+NCC,Not above 150MA/200MA
+NEOGEN,MA alignment failed (50>150>200)
+NESCO,Not above 150MA/200MA
+NESTLEIND,Price move too large for 'quiet' accumulation (13.4% in 10 days)
+NETWEB,"Too extended above 50MA (17.0%) - already flown, not fresh"
+NETWORK18,Not above 150MA/200MA
+NEULANDLAB,MA alignment failed (50>150>200)
+NEWGEN,Not above 150MA/200MA
+NFL,Not above 150MA/200MA
+NH,Not above 150MA/200MA
+NHPC,MA alignment failed (50>150>200)
+NIACL,Not above 150MA/200MA
+NIVABUPA,MA alignment failed (50>150>200)
+NLCINDIA,"Too extended above 50MA (15.9%) - already flown, not fresh"
+NMDC,No fresh 50MA crossover in last 15 trading days - trend too old
+NSLNISP,MA alignment failed (50>150>200)
+NTPC,No fresh 50MA crossover in last 15 trading days - trend too old
+NTPCGREEN,MA alignment failed (50>150>200)
+NUVAMA,Not above 150MA/200MA
+NUVOCO,Not above 150MA/200MA
+NYKAA,No fresh 50MA crossover in last 15 trading days - trend too old
+OBEROIRLTY,MA alignment failed (50>150>200)
+OFSS,MA alignment failed (50>150>200)
+OIL,"No volume surge (0.68x, need >=1.3x)"
+OLAELEC,Not above 150MA/200MA
+OLECTRA,Not above 150MA/200MA
+ONESOURCE,MA alignment failed (50>150>200)
+ONGC,No fresh 50MA crossover in last 15 trading days - trend too old
+OPTIEMUS,Not above 150MA/200MA
+ORIENTCEM,Not above 150MA/200MA
+ORKLAINDIA,Insufficient history as of FROM_DATE (120 rows)
+OSWALPUMPS,Insufficient history as of FROM_DATE (214 rows)
+PAGEIND,Not above 150MA/200MA
+PARADEEP,Not above 150MA/200MA
+PARAS,MA alignment failed (50>150>200)
+PARKHOSPS,Insufficient history as of FROM_DATE (91 rows)
+PATANJALI,Not above 150MA/200MA
+PAYTM,Not above 150MA/200MA
+PCBL,Not above 150MA/200MA
+PCJEWELLER,Not above 150MA/200MA
+PERSISTENT,Not above 150MA/200MA
+PETRONET,Not above 150MA/200MA
+PFC,MA alignment failed (50>150>200)
+PFIZER,Not above 150MA/200MA
+PFOCUS,No fresh 50MA crossover in last 15 trading days - trend too old
+PGEL,Not above 150MA/200MA
+PGIL,"No volume surge (0.63x, need >=1.3x)"
+PHOENIXLTD,MA alignment failed (50>150>200)
+PICCADIL,Insufficient history as of FROM_DATE (206 rows)
+PIDILITIND,Not above 150MA/200MA
+PIIND,Not above 150MA/200MA
+PINELABS,Insufficient history as of FROM_DATE (114 rows)
+PIRAMALFIN,Insufficient history as of FROM_DATE (119 rows)
+PNB,Not above 150MA/200MA
+PNBHOUSING,MA alignment failed (50>150>200)
+PNCINFRA,Not above 150MA/200MA
+PNGJL,MA alignment failed (50>150>200)
+POLICYBZR,Not above 150MA/200MA
+POLYCAB,"No volume surge (0.71x, need >=1.3x)"
+POLYMED,Not above 150MA/200MA
+POONAWALLA,Not above 150MA/200MA
+POWERGRID,MA alignment failed (50>150>200)
+POWERINDIA,"Too extended above 50MA (26.2%) - already flown, not fresh"
+POWERMECH,Not above 150MA/200MA
+PPLPHARMA,Not above 150MA/200MA
+PRAJIND,MA alignment failed (50>150>200)
+PREMIERENE,MA alignment failed (50>150>200)
+PRESTIGE,Not above 150MA/200MA
+PRICOLLTD,Not above 150MA/200MA
+PRIVISCL,No fresh 50MA crossover in last 15 trading days - trend too old
+PRSMJOHNSN,Not above 150MA/200MA
+PRUDENT,MA alignment failed (50>150>200)
+PTC,MA alignment failed (50>150>200)
+PTCIL,Not above 150MA/200MA
+PURVA,Not above 150MA/200MA
+PVRINOX,MA alignment failed (50>150>200)
+PWL,Insufficient history as of FROM_DATE (112 rows)
+QPOWER,"Too extended above 50MA (42.1%) - already flown, not fresh"
+QUESS,Not above 150MA/200MA
+RADICO,MA alignment failed (50>150>200)
+RAILTEL,Not above 150MA/200MA
+RAIN,Not above 150MA/200MA
+RAINBOW,Not above 150MA/200MA
+RALLIS,Not above 150MA/200MA
+RAMCOCEM,Not above 150MA/200MA
+RATEGAIN,Not above 150MA/200MA
+RATNAMANI,MA alignment failed (50>150>200)
+RAYMONDLSL,Not above 150MA/200MA
+RBA,Not above 150MA/200MA
+RBLBANK,No fresh 50MA crossover in last 15 trading days - trend too old
+RCF,Not above 150MA/200MA
+RECLTD,Not above 150MA/200MA
+REDINGTON,Not above 150MA/200MA
+REDTAPE,MA alignment failed (50>150>200)
+REFEX,Not above 150MA/200MA
+RELAXO,Not above 150MA/200MA
+RELIANCE,Not above 150MA/200MA
+RELIGARE,Not above 150MA/200MA
+RENUKA,MA alignment failed (50>150>200)
+RHIM,Not above 150MA/200MA
+RITES,Not above 150MA/200MA
+RKFORGE,MA alignment failed (50>150>200)
+ROUTE,Not above 150MA/200MA
+RPOWER,Not above 150MA/200MA
+RTNINDIA,Not above 150MA/200MA
+RTNPOWER,Not above 150MA/200MA
+RUBICON,Insufficient history as of FROM_DATE (131 rows)
+RVNL,Not above 150MA/200MA
+SAATVIKGL,Insufficient history as of FROM_DATE (146 rows)
+SAFARI,Not above 150MA/200MA
+SAGILITY,Not above 150MA/200MA
+SAIL,No fresh 50MA crossover in last 15 trading days - trend too old
+SAILIFE,"No volume surge (1.03x, need >=1.3x)"
+SAMHI,Not above 150MA/200MA
+SAMMAANCAP,Not above 150MA/200MA
+SANDUMA,MA alignment failed (50>150>200)
+SANOFICONR,MA alignment failed (50>150>200)
+SANSERA,No fresh 50MA crossover in last 15 trading days - trend too old
+SAPPHIRE,Not above 150MA/200MA
+SARDAEN,MA alignment failed (50>150>200)
+SAREGAMA,Not above 150MA/200MA
+SBFC,Not above 150MA/200MA
+SBICARD,Not above 150MA/200MA
+SBILIFE,Not above 150MA/200MA
+SBIN,"No volume surge (0.79x, need >=1.3x)"
+SCHAEFFLER,MA alignment failed (50>150>200)
+SCHNEIDER,MA alignment failed (50>150>200)
+SCI,"Too extended above 50MA (18.3%) - already flown, not fresh"
+SENCO,Not above 150MA/200MA
+SFL,Not above 150MA/200MA
+SHAILY,MA alignment failed (50>150>200)
+SHAKTIPUMP,Not above 150MA/200MA
+SHARDACROP,MA alignment failed (50>150>200)
+SHAREINDIA,Not above 150MA/200MA
+SHILPAMED,MA alignment failed (50>150>200)
+SHREECEM,Not above 150MA/200MA
+SHRIPISTON,No fresh 50MA crossover in last 15 trading days - trend too old
+SHRIRAMFIN,"No volume surge (0.77x, need >=1.3x)"
+SHYAMMETL,MA alignment failed (50>150>200)
+SIEMENS,No fresh 50MA crossover in last 15 trading days - trend too old
+SIGNATURE,Not above 150MA/200MA
+SJVN,Not above 150MA/200MA
+SKFINDIA,Not above 150MA/200MA
+SKFINDUS,Insufficient history as of FROM_DATE (96 rows)
+SKIPPER,MA alignment failed (50>150>200)
+SKYGOLD,"Too extended above 50MA (22.2%) - already flown, not fresh"
+SMARTWORKS,Insufficient history as of FROM_DATE (194 rows)
+SMLMAH,Not above 150MA/200MA
+SOBHA,Not above 150MA/200MA
+SOLARINDS,MA alignment failed (50>150>200)
+SONACOMS,No fresh 50MA crossover in last 15 trading days - trend too old
+SONATSOFTW,Not above 150MA/200MA
+SOUTHBANK,"No volume surge (0.75x, need >=1.3x)"
+SPARC,MA alignment failed (50>150>200)
+SPLPETRO,MA alignment failed (50>150>200)
+SRF,Not above 150MA/200MA
+STAR,No fresh 50MA crossover in last 15 trading days - trend too old
+STARCEMENT,Not above 150MA/200MA
+STARHEALTH,No fresh 50MA crossover in last 15 trading days - trend too old
+STLTECH,"Too extended above 50MA (42.8%) - already flown, not fresh"
+STYL,Insufficient history as of FROM_DATE (144 rows)
+STYRENIX,Not above 150MA/200MA
+SUBROS,Not above 150MA/200MA
+SUDARSCHEM,Not above 150MA/200MA
+SUDEEPPHRM,Insufficient history as of FROM_DATE (104 rows)
+SUMICHEM,Not above 150MA/200MA
+SUNDARMFIN,Not above 150MA/200MA
+SUNPHARMA,Not enough distance above 52-week low
+SUNTECK,Not above 150MA/200MA
+SUNTV,Not enough distance above 52-week low
+SUPREMEIND,Not above 150MA/200MA
+SUPRIYA,Not above 150MA/200MA
+SURYAROSNI,Not above 150MA/200MA
+SUZLON,MA alignment failed (50>150>200)
+SWANCORP,Not above 150MA/200MA
+SWIGGY,Not above 150MA/200MA
+SWSOLAR,Not above 150MA/200MA
+SYNGENE,Not above 150MA/200MA
+SYRMA,No fresh 50MA crossover in last 15 trading days - trend too old
+TANLA,Not above 150MA/200MA
+TARC,Not above 150MA/200MA
+TARIL,Not above 150MA/200MA
+TATACAP,Insufficient history as of FROM_DATE (136 rows)
+TATACHEM,Not above 150MA/200MA
+TATACOMM,Not above 150MA/200MA
+TATACONSUM,MA alignment failed (50>150>200)
+TATAELXSI,Not above 150MA/200MA
+TATAINVEST,Not above 150MA/200MA
+TATAPOWER,MA alignment failed (50>150>200)
+TATASTEEL,No fresh 50MA crossover in last 15 trading days - trend too old
+TATATECH,Not above 150MA/200MA
+TBOTEK,Not above 150MA/200MA
+TCS,Not above 150MA/200MA
+TDPOWERSYS,"Too extended above 50MA (25.8%) - already flown, not fresh"
+TECHM,Not above 150MA/200MA
+TECHNOE,MA alignment failed (50>150>200)
+TEGA,Not above 150MA/200MA
+TEJASNET,Not above 150MA/200MA
+TENNIND,Insufficient history as of FROM_DATE (111 rows)
+TEXRAIL,Not above 150MA/200MA
+THANGAMAYL,No fresh 50MA crossover in last 15 trading days - trend too old
+THELEELA,Insufficient history as of FROM_DATE (227 rows)
+THERMAX,MA alignment failed (50>150>200)
+THOMASCOOK,Not above 150MA/200MA
+THYROCARE,Not above 150MA/200MA
+TI,MA alignment failed (50>150>200)
+TIINDIA,MA alignment failed (50>150>200)
+TIMETECHNO,Not above 150MA/200MA
+TIMKEN,No fresh 50MA crossover in last 15 trading days - trend too old
+TIPSMUSIC,MA alignment failed (50>150>200)
+TITAGARH,Not above 150MA/200MA
+TITAN,No fresh 50MA crossover in last 15 trading days - trend too old
+TMB,Price move too large for 'quiet' accumulation (11.4% in 10 days)
+TMCV,Insufficient history as of FROM_DATE (116 rows)
+TMPV,Not above 150MA/200MA
+TORNTPHARM,"No volume surge (0.67x, need >=1.3x)"
+TORNTPOWER,No fresh 50MA crossover in last 15 trading days - trend too old
+TRANSRAILL,Not above 150MA/200MA
+TRAVELFOOD,Insufficient history as of FROM_DATE (198 rows)
+TRENT,Not above 150MA/200MA
+TRIDENT,Not above 150MA/200MA
+TRITURBINE,MA alignment failed (50>150>200)
+TRIVENI,No fresh 50MA crossover in last 15 trading days - trend too old
+TSFINV,Not above 150MA/200MA
+TTML,Not above 150MA/200MA
+TVSMOTOR,Not above 150MA/200MA
+TVSSCS,Not above 150MA/200MA
+UBL,Not above 150MA/200MA
+UCOBANK,Not above 150MA/200MA
+UJJIVANSFB,"No volume surge (0.76x, need >=1.3x)"
+ULTRACEMCO,Not above 150MA/200MA
+UNIONBANK,"No volume surge (1.28x, need >=1.3x)"
+UNITDSPR,Not above 150MA/200MA
+UNOMINDA,Not above 150MA/200MA
+UPL,Not above 150MA/200MA
+URBANCO,Insufficient history as of FROM_DATE (153 rows)
+USHAMART,MA alignment failed (50>150>200)
+UTIAMC,Not above 150MA/200MA
+UTLSOLAR,Insufficient history as of FROM_DATE (110 rows)
+V2RETAIL,Not above 150MA/200MA
+VAIBHAVGBL,Not above 150MA/200MA
+VARROC,Not above 150MA/200MA
+VBL,MA alignment failed (50>150>200)
+VEDL,Not above 150MA/200MA
+VGUARD,Not above 150MA/200MA
+VIJAYA,MA alignment failed (50>150>200)
+VIKRAMSOLR,Insufficient history as of FROM_DATE (168 rows)
+VIPIND,Not above 150MA/200MA
+VIYASH,Not above 150MA/200MA
+VMART,Not above 150MA/200MA
+VMM,Not above 150MA/200MA
+VOLTAMP,MA alignment failed (50>150>200)
+VOLTAS,Not enough distance above 52-week low
+VTL,No fresh 50MA crossover in last 15 trading days - trend too old
+WAAREEENER,Not above 150MA/200MA
+WAAREERTL,MA alignment failed (50>150>200)
+WABAG,MA alignment failed (50>150>200)
+WAKEFIT,Insufficient history as of FROM_DATE (92 rows)
+WEBELSOLAR,MA alignment failed (50>150>200)
+WELCORP,MA alignment failed (50>150>200)
+WELENT,MA alignment failed (50>150>200)
+WELSPUNLIV,MA alignment failed (50>150>200)
+WESTLIFE,Not above 150MA/200MA
+WEWORK,Insufficient history as of FROM_DATE (135 rows)
+WHIRLPOOL,Not above 150MA/200MA
+WIPRO,Not above 150MA/200MA
+WOCKPHARMA,Not above 150MA/200MA
+YATHARTH,MA alignment failed (50>150>200)
+YESBANK,Not above 150MA/200MA
+ZAGGLE,Not above 150MA/200MA
+ZEEL,Not above 150MA/200MA
+ZENSARTECH,Not above 150MA/200MA
+ZENTEC,MA alignment failed (50>150>200)
+ZFCVINDIA,Not enough distance above 52-week low
+ZYDUSLIFE,Not above 150MA/200MA
+ZYDUSWELL,Unexpected error: 'Close'

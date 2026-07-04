@@ -1,0 +1,4 @@
+Stock,Pick_Date,Price_At_Pick,Evaluation_Date,Price_At_Evaluation,Forward_Return_%,Pct_Above_50MA_At_Pick,Volume_Surge_Ratio,Avg_Daily_Turnover_Cr,Liquidity_Tier,ATR_14,Stop_Loss_Price,Stop_Loss_%,Suggested_Shares,Capital_Allocated_Rs
+RRKABEL,2026-05-01,1571.0,2026-07-03,2343.3,49.16,9.4,2.51,62.76,Strong,59.76,1451.47,7.61,41,64411.0
+NAVINFLUOR,2026-05-01,6821.0,2026-07-03,7552.5,10.72,8.2,2.72,192.83,Strong,207.64,6405.71,6.09,12,81852.0
+GRAPHITE,2026-05-01,707.1,2026-07-03,627.8,-11.21,6.1,1.47,143.49,Strong,29.23,648.65,8.27,85,60103.5
