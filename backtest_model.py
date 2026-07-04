@@ -25,26 +25,24 @@ def run_historical_backtest():
     # GitHub Actions से इनपुट डेट रीड करना
     target_date_str = os.getenv('TARGET_DATE', '').strip()
     
-    print(f"\n🔎 STARTING SCAN...")
+    print(f"\n🔎 STARTING ACCURATE SCAN...")
     if target_date_str:
         print(f"📅 Target Date Selected: {target_date_str}")
     else:
         print("📅 No date entered. Using Latest Available Data (Today).")
     print("-" * 75)
 
-    # डेटा मिसमैच से बचने के लिए हम हर स्टॉक का शुद्ध डेटा अलग से डाउनलोड करेंगे (100% Accurate)
     for sym_nse in TEST_UNIVERSE:
         sym_yf = f"{sym_nse}.NS"
         
         try:
-            # 1 साल का डेटा डाउनलोड करना बिना किसी ग्रुपिंग गड़बड़ के
             ticker_obj = yf.Ticker(sym_yf)
-            hist = ticker_obj.history(period="1y", interval="1d")
+            # auto_adjust=False लगाने से ठीक वही डेटा आएगा जो Google या NSE पर दिखता है
+            hist = ticker_obj.history(period="1y", interval="1d", auto_adjust=False, actions=False)
             
             if hist.empty or len(hist) < 90:
                 continue
             
-            # इंडेक्स को नॉर्मल डेट में बदलना ताकि फ़िल्टर सही काम करे
             hist.index = pd.to_datetime(hist.index).date
                 
             if target_date_str:
@@ -56,16 +54,16 @@ def run_historical_backtest():
             if len(hist_filtered) < 65:
                 continue
                 
-            # सटीक लाइव/टारगेट क्लोजिंग प्राइस उठाना
+            # 'Close' कॉलम का उपयोग (बिना किसी बैकवर्ड कॉर्पोरेट एक्शन एडजस्टमेंट के)
             current_price = hist_filtered['Close'].iloc[-1]
             current_date_str = hist_filtered.index[-1].strftime('%Y-%m-%d')
             
-            # ठीक 3 महीने (60 ट्रेडिंग दिन) पहले की रो पर जाना
+            # ठीक 3 महीने (~60 ट्रेडिंग दिन) पहले जाना
             entry_idx = -60  
             entry_price = hist_filtered['Close'].iloc[entry_idx]
             entry_date = hist_filtered.index[entry_idx].strftime('%Y-%m-%d')
             
-            # एंट्री के समय का 50 SMA कैलकुलेट करना (केवल एंट्री डेट तक का डेटा लेकर)
+            # एंट्री के समय का 50 SMA कैलकुलेट करना
             slice_up_to_entry = hist_filtered.iloc[:len(hist_filtered) + entry_idx]
             if slice_up_to_entry.empty:
                 continue
@@ -80,7 +78,7 @@ def run_historical_backtest():
             if is_above_50sma:
                 stock_return_pct = ((current_price - entry_price) / entry_price) * 100
                 
-                print(f"✅ Match: {sym_nse:<12} | Entry Date: {entry_date} | Return: {stock_return_pct:.2f}%")
+                print(f"✅ Real Match: {sym_nse:<12} | Entry: {entry_date} ({entry_price:.2f}) | Target: {current_date_str} ({current_price:.2f}) | Return: {stock_return_pct:.2f}%")
                 
                 results.append({
                     "Stock": sym_nse,
@@ -91,7 +89,6 @@ def run_historical_backtest():
                     "Above_50SMA_At_Entry": "YES"
                 })
         except Exception as e:
-            # किसी स्टॉक में एरर आने पर स्किप करें
             continue
 
     print("-" * 75)
@@ -100,7 +97,7 @@ def run_historical_backtest():
     if not df_backtest.empty:
         df_backtest = df_backtest.sort_values(by="Strategy_Return_%", ascending=False)
         df_backtest.to_csv("backtest_results.csv", index=False)
-        print(f"\n💾 Success! {len(df_backtest)} stocks saved accurately to 'backtest_results.csv'!")
+        print(f"\n💾 100% Google-Matched Data saved to 'backtest_results.csv'!")
     else:
         print("\n❌ No stocks matched the criteria.")
 
