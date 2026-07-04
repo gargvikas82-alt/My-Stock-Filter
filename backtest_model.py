@@ -20,14 +20,10 @@ TEST_UNIVERSE = sorted(list(set(RAW_STOCKS)))
 def run_historical_backtest():
     results = []
     
-    # GitHub Action के environment variable से इनपुट लेना
-    target_date_str = os.environ.get('TARGET_DATE', '').strip()
+    # 🎯 यहाँ हमने सीधे तारीख फिक्स कर दी है ताकि GitHub Actions की कोई सेटिंग इसे रोक न सके!
+    target_date_str = "2026-06-30"
     
-    print(f"\n🔎 STARTING BACKTEST SYSTEM...")
-    if target_date_str:
-        print(f"📅 User Target Date Received: {target_date_str}")
-    else:
-        print("📅 No date entered. Using system latest date.")
+    print(f"\n🔎 RUNNING FIXED BACKTEST FOR TUESDAY: {target_date_str}")
     print("-" * 75)
 
     for sym_nse in TEST_UNIVERSE:
@@ -35,32 +31,29 @@ def run_historical_backtest():
         
         try:
             ticker_obj = yf.Ticker(sym_yf)
-            # auto_adjust=False ताकि क्लोज प्राइस गूगल से मैच हो
             hist = ticker_obj.history(period="1y", interval="1d", auto_adjust=False, actions=False)
             
             if hist.empty:
                 continue
             
             hist.index = pd.to_datetime(hist.index).date
-                
-            if target_date_str:
-                target_date = pd.to_datetime(target_date_str).date()
-                hist_filtered = hist[hist.index <= target_date]
-            else:
-                hist_filtered = hist.copy()
+            
+            # तारीख के हिसाब से फिल्टर
+            target_date = pd.to_datetime(target_date_str).date()
+            hist_filtered = hist[hist.index <= target_date]
                 
             if len(hist_filtered) < 65:
                 continue
                 
-            # टारगेट डेट का सटीक क्लोजिंग प्राइस
+            # 30 जून का असली क्लोज प्राइस
             current_price = hist_filtered['Close'].iloc[-1]
-            current_date_str = hist_filtered.index[-1].strftime('%Y-%m-%d')
             
-            # ठीक 60 ट्रेडिंग दिन (~3 महीने) पीछे जाना
+            # ठीक 60 ट्रेडिंग दिन पहले जाना (मार्च के आखरी या अप्रैल की शुरुआत की डेट आएगी)
             entry_idx = -60  
             entry_price = hist_filtered['Close'].iloc[entry_idx]
             entry_date = hist_filtered.index[entry_idx].strftime('%Y-%m-%d')
             
+            # 50 SMA कैलकुलेशन
             slice_up_to_entry = hist_filtered.iloc[:len(hist_filtered) + entry_idx]
             if slice_up_to_entry.empty:
                 continue
@@ -69,9 +62,7 @@ def run_historical_backtest():
             if pd.isna(sma_50_at_entry):
                 sma_50_at_entry = entry_price
                 
-            is_above_50sma = entry_price >= sma_50_at_entry
-            
-            if is_above_50sma:
+            if entry_price >= sma_50_at_entry:
                 stock_return_pct = ((current_price - entry_price) / entry_price) * 100
                 
                 results.append({
@@ -89,9 +80,9 @@ def run_historical_backtest():
     if not df_backtest.empty:
         df_backtest = df_backtest.sort_values(by="Strategy_Return_%", ascending=False)
         df_backtest.to_csv("backtest_results.csv", index=False)
-        print("\n💾 Process Finished Successfully!")
+        print(f"\n💾 Results successfully updated for {target_date_str}!")
     else:
-        print("\n❌ No data matching.")
+        print("\n❌ No stocks matched.")
 
 if __name__ == "__main__":
     run_historical_backtest()
