@@ -80,15 +80,17 @@ FETCH_PERIOD = "2y"  # need buffer for 200-day MA trend check + 52-week low/high
 
 MIN_HISTORY_ROWS = 260          # ~1 year of trading days, buffer for 200MA + 52w checks
 MA200_TREND_LOOKBACK = 20       # trading days back, to confirm 200MA is rising
-FRESH_CROSSOVER_WINDOW = 15     # trading days - crossover must be within this window
+FRESH_CROSSOVER_WINDOW = 10      # tightened from 15 - only the most recent crossovers
 EXTENDED_CAP_PCT = 15           # price must be within this % of its 50MA (not extended)
 MIN_ABOVE_52W_LOW_PCT = 25      # price must be at least this % above 52-week low
-VOL_SURGE_MIN_RATIO = 1.3       # recent 10-day avg volume vs prior 40-day avg volume
-PRICE_MOVE_MIN_PCT = -5         # over the same 10-day window
-PRICE_MOVE_MAX_PCT = 10
+VOL_SURGE_MIN_RATIO = 1.5       # tightened from 1.3 - stronger accumulation signal required
+PRICE_MOVE_MIN_PCT = -3         # tightened from -5 - quieter accumulation band
+PRICE_MOVE_MAX_PCT = 8          # tightened from 10
 MIN_TURNOVER_CR = 1.0           # Rs 1 crore minimum average daily turnover
 STRONG_TURNOVER_CR = 5.0        # Rs 5 crore = "Strong" liquidity tier
 CORPORATE_ACTION_THRESHOLD_PCT = 20
+
+TOP_N_PER_SCAN_DATE = int(os.environ.get("TOP_N_PER_SCAN_DATE", "2"))  # hard cap - only the best N picks per scan date, regardless of how many pass the filter - solves the "too many stocks for limited capital" problem structurally
 
 ATR_PERIOD = 14                 # standard ATR lookback
 ATR_STOP_MULTIPLE = 2.0         # stop = entry - (2 x ATR) - standard institutional default
@@ -269,6 +271,11 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         shares_to_buy = int(risk_capital / risk_per_share) if risk_per_share > 0 else 0
         capital_allocated = round(shares_to_buy * entry_price, 2)
 
+    # --- Conviction Score - used to rank picks within a scan date so only the
+    # strongest few are kept (solves "too many stocks for available capital") ---
+    freshness_score = max(0, EXTENDED_CAP_PCT - abs(pct_above_50ma))  # higher = closer to the exact crossover point
+    conviction_score = (vol_ratio * 50) + (min(turnover_cr, 20) * 2) + freshness_score
+
     return {
         "Stock": sym_nse,
         "Pick_Date": entry_date_actual.strftime("%Y-%m-%d"),
@@ -285,6 +292,7 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         "Stop_Loss_%": round(float(stop_loss_pct), 2) if stop_loss_pct is not None else None,
         "Suggested_Shares": shares_to_buy,
         "Capital_Allocated_Rs": capital_allocated,
+        "Conviction_Score": round(float(conviction_score), 2),
     }, None
 
 
@@ -357,11 +365,23 @@ def run():
 
     df_results = pd.DataFrame(results)
     if not df_results.empty:
+        # Hard cap: within each scan date, keep only the top N by Conviction_Score.
+        # This is what actually controls total pick volume for a limited-capital
+        # investor - tightening filter thresholds alone doesn't guarantee a target
+        # count, this does.
+        before_cap = len(df_results)
+        df_results = (
+            df_results.sort_values("Conviction_Score", ascending=False)
+            .groupby("Scan_Date", group_keys=False)
+            .head(TOP_N_PER_SCAN_DATE)
+        )
         df_results = df_results.sort_values(by=["Pick_Date", "Forward_Return_%"], ascending=[True, False])
         df_results.to_csv("stock_hunter_v2_results.csv", index=False)
         unique_stocks = df_results["Stock"].nunique()
-        print(f"\nQUALIFIED: {len(df_results)} pick-instances across {len(scan_dates)} scan dates "
-              f"({unique_stocks} unique stocks). Saved to stock_hunter_v2_results.csv")
+        print(f"\nQUALIFIED (before cap): {before_cap} pick-instances")
+        print(f"AFTER TOP-{TOP_N_PER_SCAN_DATE}-PER-SCAN-DATE CAP: {len(df_results)} pick-instances "
+              f"across {len(scan_dates)} scan dates ({unique_stocks} unique stocks). "
+              f"Saved to stock_hunter_v2_results.csv")
         print("Note: the same stock may appear on multiple scan dates if it stayed fresh - "
               "that's expected, not a duplicate bug.")
     else:
@@ -369,7 +389,7 @@ def run():
             "Stock", "Scan_Date", "Pick_Date", "Price_At_Pick", "Evaluation_Date", "Price_At_Evaluation",
             "Forward_Return_%", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
             "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
-            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs"
+            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score"
         ]).to_csv("stock_hunter_v2_results.csv", index=False)
         print(f"\nNo stocks qualified on any of the {len(scan_dates)} scan dates. The filter is intentionally strict.")
 
