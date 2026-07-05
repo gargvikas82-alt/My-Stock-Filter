@@ -120,8 +120,14 @@ MAX_ADX = 32                    # NEW ceiling - 150-trade backtest showed ADX 32
                                  # not early-stage anymore - defeats the whole point of catching it early
 RS_MA_PERIOD = 50                # relative-strength (stock vs NIFTY) trend check uses the same 50-day
                                  # window as the price trend check, for consistency
-DEFAULT_TOTAL_CAPITAL = float(os.environ.get("TOTAL_CAPITAL", "500000"))  # override via env var
-RISK_PCT_PER_TRADE = float(os.environ.get("RISK_PCT_PER_TRADE", "1.0"))  # % of capital risked per trade
+FIXED_CAPITAL_PER_TRADE = float(os.environ.get("CAPITAL_PER_TRADE", "10000"))  # Rs 10,000/trade - matches
+                                                                                  # actual deployment plan
+ROUND_TRIP_COST_PCT = float(os.environ.get("ROUND_TRIP_COST_PCT", "0.7"))  # combined buy+sell cost as % of
+    # trade value: STT 0.1% each side (~0.20%), stamp duty 0.015% buy side (~0.015%), NSE exchange
+    # transaction charges ~0.003% each side (~0.006%), GST 18% on brokerage+exchange charges, plus
+    # brokerage up to Rs 20/order each way. On a Rs 10,000 ticket this lands around 0.6-0.7% round
+    # trip with a Rs 20/order broker, closer to 0.25% with a zero-brokerage broker - override via
+    # env var if your actual broker/cost structure differs
 
 CRORE = 10_000_000
 
@@ -418,8 +424,10 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     if adx_value > MAX_ADX:
         return None, f"ADX too high ({adx_value:.1f}, need <={MAX_ADX}) - trend already mature, not early-stage"
 
-    # --- Relative strength vs NIFTY (the pending item - Lipacis lens: don't buy a
-    # technically-fresh laggard, buy a stock actually beating the index) ---
+    # --- Relative strength vs NIFTY (Lipacis lens) - tested as a hard filter on the 4-year
+    # backtest and it HURT results (Sharpe 0.44->0.36, win rate 62.7%->56.3%) - this universe
+    # leans on idiosyncratic smallcap/midcap stories that don't need to be beating the index.
+    # Kept as an informational column only, not a gate, in case it's useful in later analysis. ---
     rs_now = None
     if nifty_hist is not None and not nifty_hist.empty:
         nifty_pit = nifty_hist[nifty_hist.index <= from_date]
@@ -427,19 +435,22 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
             aligned = pd.DataFrame({"stock": close, "nifty": nifty_pit["Close"]}).dropna()
             if len(aligned) >= RS_MA_PERIOD:
                 rs_ratio = aligned["stock"] / aligned["nifty"]
-                rs_ma = rs_ratio.rolling(RS_MA_PERIOD).mean()
-                if not pd.isna(rs_ma.iloc[-1]):
+                if not rs_ratio.empty:
                     rs_now = rs_ratio.iloc[-1]
-                    rs_ma_now = rs_ma.iloc[-1]
-                    if rs_now <= rs_ma_now:
-                        return None, "Underperforming NIFTY on a trend basis - not relatively strong"
 
     # --- Passed everything. Now compute forward return to TO_DATE using full history ---
-    hist_full = hist[(hist.index >= from_date) & (hist.index <= to_date)]
-    if hist_full.empty or len(hist_full) < 2:
+    # Entry executes at the NEXT trading day's Open, not from_date's own Close - the signal
+    # itself is only known once from_date's close is in, so buying at that same close is a
+    # look-ahead bias (a real order can't be placed and filled before the price it's based on
+    # exists). This also models realistic slippage instead of a same-day fantasy fill.
+    hist_from_signal = hist[(hist.index >= from_date) & (hist.index <= to_date)]
+    if hist_from_signal.empty or len(hist_from_signal) < 2:
         return None, "No trading data available between FROM_DATE and TO_DATE yet"
+    hist_full = hist_from_signal.iloc[1:]  # shift past the signal day itself
+    if hist_full.empty:
+        return None, "Signal day is the last available trading day - no next-day entry possible yet"
 
-    entry_price = hist_full["Close"].iloc[0]
+    entry_price = hist_full["Open"].iloc[0]
     entry_date_actual = hist_full.index[0]
     exit_price = hist_full["Close"].iloc[-1]
     exit_date_actual = hist_full.index[-1]
@@ -472,8 +483,10 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
 
         risk_per_share = entry_price - stop_loss_price
         stop_loss_pct = (risk_per_share / entry_price) * 100
-        risk_capital = DEFAULT_TOTAL_CAPITAL * (RISK_PCT_PER_TRADE / 100)
-        shares_to_buy = int(risk_capital / risk_per_share) if risk_per_share > 0 else 0
+        # Fixed capital per trade - matches actual deployment (Rs 10,000/trade), not a
+        # risk-based variable size. Real risk-per-trade now varies with Stop_Loss_% -
+        # that's the honest tradeoff of trading fixed tickets instead of volatility sizing.
+        shares_to_buy = int(FIXED_CAPITAL_PER_TRADE / entry_price) if entry_price > 0 else 0
         capital_allocated = round(shares_to_buy * entry_price, 2)
 
     # --- Realistic exit: stop-loss-aware, fixed-horizon-capped ---
@@ -487,6 +500,12 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     exit_reason = exit_sim["exit_reason"]
     holding_days_realistic = exit_sim["holding_days_realistic"]
     realistic_return_pct = ((realistic_exit_price - entry_price) / entry_price) * 100
+
+    # --- Net of transaction costs (STT, stamp duty, exchange charges, GST, brokerage) ---
+    # Applied as a flat round-trip % deduction - both buy and sell always happen regardless
+    # of why the trade closed, so this applies uniformly to every exit reason.
+    forward_return_net_pct = forward_return_pct - ROUND_TRIP_COST_PCT
+    realistic_return_net_pct = realistic_return_pct - ROUND_TRIP_COST_PCT
 
     # Corporate action guard - now only checked over the ACTUAL holding window
     # (entry to realistic exit), not the full span to TO_DATE. A split/bonus
@@ -509,9 +528,11 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
         "Evaluation_Date": exit_date_actual.strftime("%Y-%m-%d"),
         "Price_At_Evaluation": round(float(exit_price), 2),
         "Forward_Return_%": round(float(forward_return_pct), 2),
+        "Forward_Return_Net_%": round(float(forward_return_net_pct), 2),
         "Realistic_Exit_Date": realistic_exit_date.strftime("%Y-%m-%d"),
         "Realistic_Exit_Price": round(float(realistic_exit_price), 2),
         "Realistic_Return_%": round(float(realistic_return_pct), 2),
+        "Realistic_Return_Net_%": round(float(realistic_return_net_pct), 2),
         "Exit_Reason": exit_reason,
         "Holding_Days_Realistic": holding_days_realistic,
         "Pct_Above_50MA_At_Pick": round(float(pct_above_50ma), 1),
@@ -643,8 +664,10 @@ def run():
 
         old_sharpe = sharpe_like(df_results["Forward_Return_%"])
         new_sharpe = sharpe_like(df_results["Realistic_Return_%"])
+        new_sharpe_net = sharpe_like(df_results["Realistic_Return_Net_%"])
         old_win = (df_results["Forward_Return_%"] > 0).mean() * 100
         new_win = (df_results["Realistic_Return_%"] > 0).mean() * 100
+        new_win_net = (df_results["Realistic_Return_Net_%"] > 0).mean() * 100
         stop_outs = (df_results["Exit_Reason"] == "Stop_Loss_Hit").sum()
         max_hold_exits = (df_results["Exit_Reason"] == "Max_Holding_Period").sum()
         eob_exits = (df_results["Exit_Reason"] == "End_Of_Backtest_Data").sum()
@@ -658,12 +681,46 @@ def run():
         print(f"  Mean return: {df_results['Realistic_Return_%'].mean():.2f}%  "
               f"Std: {df_results['Realistic_Return_%'].std():.2f}%  "
               f"Sharpe-like: {new_sharpe:.2f}  Win rate: {new_win:.1f}%")
+        print(f"NEW NET OF COSTS (Rs {FIXED_CAPITAL_PER_TRADE:.0f}/trade, {ROUND_TRIP_COST_PCT:.2f}% round-trip):")
+        print(f"  Mean return: {df_results['Realistic_Return_Net_%'].mean():.2f}%  "
+              f"Std: {df_results['Realistic_Return_Net_%'].std():.2f}%  "
+              f"Sharpe-like: {new_sharpe_net:.2f}  Win rate: {new_win_net:.1f}%")
         print(f"  Exit breakdown: {stop_outs} stopped out, {max_hold_exits} hit max holding period, "
               f"{eob_exits} ran out of backtest data before either (too recent a pick)")
+
+        # --- Permanent audit-trail row - appended every run, so an out-of-sample audit
+        # across many runs doesn't depend on chat memory or which session/model asked for it ---
+        log_row = pd.DataFrame([{
+            "Run_Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "From_Date": from_date.strftime("%Y-%m-%d"),
+            "To_Date": to_date.strftime("%Y-%m-%d"),
+            "N_Picks": len(df_results),
+            "Unique_Stocks": unique_stocks,
+            "Extended_Cap_Pct": EXTENDED_CAP_PCT,
+            "Min_Adx": MIN_ADX,
+            "Max_Adx": MAX_ADX,
+            "Min_Stop_Atr_Mult": MIN_STOP_ATR_MULT,
+            "Max_Stop_Atr_Mult": MAX_STOP_ATR_MULT,
+            "Max_Holding_Days": MAX_HOLDING_DAYS,
+            "Capital_Per_Trade": FIXED_CAPITAL_PER_TRADE,
+            "Round_Trip_Cost_Pct": ROUND_TRIP_COST_PCT,
+            "Sharpe_Realistic_Gross": round(new_sharpe, 3) if new_sharpe is not None else None,
+            "Sharpe_Realistic_Net": round(new_sharpe_net, 3) if new_sharpe_net is not None else None,
+            "Win_Rate_Net_Pct": round(new_win_net, 1),
+            "Mean_Return_Net_Pct": round(df_results["Realistic_Return_Net_%"].mean(), 2),
+            "Stop_Hit_Rate_Pct": round((stop_outs / len(df_results)) * 100, 1) if len(df_results) else None,
+        }])
+        log_path = "backtest_run_log.csv"
+        if os.path.exists(log_path):
+            log_row.to_csv(log_path, mode="a", header=False, index=False)
+        else:
+            log_row.to_csv(log_path, mode="w", header=True, index=False)
+        print(f"\nRun logged to {log_path} for the out-of-sample audit trail.")
     else:
         pd.DataFrame(columns=[
             "Stock", "Scan_Date", "Pick_Date", "Price_At_Pick", "Evaluation_Date", "Price_At_Evaluation",
-            "Forward_Return_%", "Realistic_Exit_Date", "Realistic_Exit_Price", "Realistic_Return_%",
+            "Forward_Return_%", "Forward_Return_Net_%", "Realistic_Exit_Date", "Realistic_Exit_Price",
+            "Realistic_Return_%", "Realistic_Return_Net_%",
             "Exit_Reason", "Holding_Days_Realistic", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
             "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
             "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score", "ADX_14", "RS_Vs_Nifty"
