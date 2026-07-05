@@ -94,6 +94,8 @@ TOP_N_PER_SCAN_DATE = int(os.environ.get("TOP_N_PER_SCAN_DATE", "2"))  # hard ca
 
 ATR_PERIOD = 14                 # standard ATR lookback
 ATR_STOP_MULTIPLE = 2.0         # stop = entry - (2 x ATR) - standard institutional default
+ADX_PERIOD = 14                 # standard ADX lookback
+MIN_ADX = 25                    # ADX >= 25 = genuine trending move, not choppy/noisy sideways action
 DEFAULT_TOTAL_CAPITAL = float(os.environ.get("TOTAL_CAPITAL", "500000"))  # override via env var
 RISK_PCT_PER_TRADE = float(os.environ.get("RISK_PCT_PER_TRADE", "1.0"))  # % of capital risked per trade
 
@@ -159,6 +161,42 @@ def compute_atr(hist_pit, period=ATR_PERIOD):
 
     atr = true_range.rolling(window=period).mean()
     return atr.iloc[-1]
+
+
+def compute_adx(hist_pit, period=ADX_PERIOD):
+    """Standard Wilder's ADX (Average Directional Index) calculation.
+    Measures trend STRENGTH/cleanliness, not direction - high ADX means a
+    genuine directional move, low ADX means choppy/sideways noise, even if
+    price is technically above its moving averages."""
+    high = hist_pit["High"]
+    low = hist_pit["Low"]
+    close = hist_pit["Close"]
+    prev_close = close.shift(1)
+    prev_high = high.shift(1)
+    prev_low = low.shift(1)
+
+    up_move = high - prev_high
+    down_move = prev_low - low
+
+    plus_dm = np.where((up_move > down_move) & (up_move > 0), up_move, 0.0)
+    minus_dm = np.where((down_move > up_move) & (down_move > 0), down_move, 0.0)
+
+    tr1 = high - low
+    tr2 = (high - prev_close).abs()
+    tr3 = (low - prev_close).abs()
+    true_range = pd.concat([tr1, tr2, tr3], axis=1).max(axis=1)
+
+    atr = true_range.ewm(alpha=1/period, adjust=False).mean()
+    plus_dm_smooth = pd.Series(plus_dm, index=hist_pit.index).ewm(alpha=1/period, adjust=False).mean()
+    minus_dm_smooth = pd.Series(minus_dm, index=hist_pit.index).ewm(alpha=1/period, adjust=False).mean()
+
+    plus_di = 100 * (plus_dm_smooth / atr)
+    minus_di = 100 * (minus_dm_smooth / atr)
+
+    dx = 100 * (plus_di - minus_di).abs() / (plus_di + minus_di)
+    adx = dx.ewm(alpha=1/period, adjust=False).mean()
+
+    return adx.iloc[-1]
 
 
 def evaluate_stock(hist, from_date, to_date, sym_nse):
@@ -238,6 +276,13 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         return None, f"Turnover too low (Rs {turnover_cr:.2f} cr/day, need >= Rs {MIN_TURNOVER_CR} cr)"
     liquidity_tier = "Strong" if turnover_cr >= STRONG_TURNOVER_CR else "Adequate"
 
+    # --- Trend quality / noise filter (ADX) ---
+    adx_value = compute_adx(hist_pit, ADX_PERIOD)
+    if pd.isna(adx_value):
+        return None, "ADX not computable (insufficient history)"
+    if adx_value < MIN_ADX:
+        return None, f"ADX too low ({adx_value:.1f}, need >={MIN_ADX}) - trend is choppy/noisy, not clean"
+
     # --- Passed everything. Now compute forward return to TO_DATE using full history ---
     hist_full = hist[(hist.index >= from_date) & (hist.index <= to_date)]
     if hist_full.empty or len(hist_full) < 2:
@@ -293,6 +338,7 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         "Suggested_Shares": shares_to_buy,
         "Capital_Allocated_Rs": capital_allocated,
         "Conviction_Score": round(float(conviction_score), 2),
+        "ADX_14": round(float(adx_value), 1),
     }, None
 
 
@@ -389,7 +435,7 @@ def run():
             "Stock", "Scan_Date", "Pick_Date", "Price_At_Pick", "Evaluation_Date", "Price_At_Evaluation",
             "Forward_Return_%", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
             "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
-            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score"
+            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score", "ADX_14"
         ]).to_csv("stock_hunter_v2_results.csv", index=False)
         print(f"\nNo stocks qualified on any of the {len(scan_dates)} scan dates. The filter is intentionally strict.")
 
