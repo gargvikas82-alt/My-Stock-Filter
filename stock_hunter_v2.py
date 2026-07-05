@@ -89,6 +89,10 @@ PRICE_MOVE_MAX_PCT = 8          # tightened from 10
 MIN_TURNOVER_CR = 1.0           # Rs 1 crore minimum average daily turnover
 STRONG_TURNOVER_CR = 5.0        # Rs 5 crore = "Strong" liquidity tier
 CORPORATE_ACTION_THRESHOLD_PCT = 20
+MAX_HOLDING_DAYS = int(os.environ.get("MAX_HOLDING_DAYS", "60"))  # trading days - fixed horizon cap so every
+                                                                    # trade is measured on comparable footing,
+                                                                    # instead of "held until TO_DATE" which made
+                                                                    # early picks and late picks non-comparable
 
 TOP_N_PER_SCAN_DATE = int(os.environ.get("TOP_N_PER_SCAN_DATE", "2"))  # hard cap - only the best N picks per scan date, regardless of how many pass the filter - solves the "too many stocks for limited capital" problem structurally
 
@@ -199,6 +203,51 @@ def compute_adx(hist_pit, period=ADX_PERIOD):
     return adx.iloc[-1]
 
 
+def simulate_realistic_exit(hist_full, entry_price, stop_loss_price, max_holding_days):
+    """
+    Walk the actual price path forward from entry, day by day, and exit at
+    whichever of these happens FIRST:
+      1. STOP_LOSS_HIT   - that day's Low breaches the ATR stop. Exit is
+         modeled at the stop price itself (ignores gap-through-stop risk -
+         a real fill could be worse on a gap-down day; flagged, not solved).
+      2. MAX_HOLDING_PERIOD - max_holding_days trading days have passed with
+         no stop hit. Exit at that day's Close. This is what makes every
+         trade comparable - nobody gets an unfair extra 300 days to recover.
+      3. END_OF_BACKTEST_DATA - the backtest window itself ends before
+         either of the above (only happens for picks made very close to
+         TO_DATE). Exit at the last available Close, holding_days is
+         whatever data existed - shorter than max_holding_days, and this
+         reason is logged so it isn't silently mixed in with real exits.
+    This replaces the old "hold every pick until TO_DATE regardless of
+    pick date" approach, which made a pick from 300 days ago and a pick
+    from 3 weeks ago look like the same kind of trade.
+    """
+    for i in range(1, len(hist_full)):
+        day_low = hist_full["Low"].iloc[i]
+        day_date = hist_full.index[i]
+        if stop_loss_price is not None and day_low <= stop_loss_price:
+            return {
+                "exit_price": stop_loss_price,
+                "exit_date": day_date,
+                "exit_reason": "Stop_Loss_Hit",
+                "holding_days_realistic": i,
+            }
+        if i >= max_holding_days:
+            return {
+                "exit_price": hist_full["Close"].iloc[i],
+                "exit_date": day_date,
+                "exit_reason": "Max_Holding_Period",
+                "holding_days_realistic": i,
+            }
+    last_idx = len(hist_full) - 1
+    return {
+        "exit_price": hist_full["Close"].iloc[-1],
+        "exit_date": hist_full.index[-1],
+        "exit_reason": "End_Of_Backtest_Data",
+        "holding_days_realistic": last_idx,
+    }
+
+
 def evaluate_stock(hist, from_date, to_date, sym_nse):
     """Run the full Phase B filter as of from_date using only data up to from_date.
     Returns a result dict if the stock qualifies, or (None, reason) if it doesn't."""
@@ -293,15 +342,11 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
     exit_price = hist_full["Close"].iloc[-1]
     exit_date_actual = hist_full.index[-1]
 
-    # Corporate action guard
-    daily_pct_changes = hist_full["Close"].pct_change().dropna() * 100
-    corp_hit = daily_pct_changes[daily_pct_changes.abs() >= CORPORATE_ACTION_THRESHOLD_PCT]
-    if not corp_hit.empty:
-        return None, f"Excluded - likely corporate action on {corp_hit.index[0]}: {corp_hit.iloc[0]:.1f}% single-day move"
-
     forward_return_pct = ((exit_price - entry_price) / entry_price) * 100
 
     # --- ATR-based stop loss and risk-based position sizing (institutional style) ---
+    # Moved ahead of the exit simulation below - the realistic exit needs to know
+    # the stop price to check whether the path ever breached it.
     atr14 = compute_atr(hist_pit, ATR_PERIOD)
     if pd.isna(atr14) or atr14 <= 0:
         stop_loss_price = None
@@ -316,6 +361,27 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         shares_to_buy = int(risk_capital / risk_per_share) if risk_per_share > 0 else 0
         capital_allocated = round(shares_to_buy * entry_price, 2)
 
+    # --- Realistic exit: stop-loss-aware, fixed-horizon-capped ---
+    # This is the actual fix for the Sharpe problem - it stops every trade
+    # being marked to a single fixed TO_DATE regardless of how long it's
+    # had to run, and it actually enforces the stop-loss the model already
+    # computes instead of just printing it as a suggestion.
+    exit_sim = simulate_realistic_exit(hist_full, entry_price, stop_loss_price, MAX_HOLDING_DAYS)
+    realistic_exit_price = exit_sim["exit_price"]
+    realistic_exit_date = exit_sim["exit_date"]
+    exit_reason = exit_sim["exit_reason"]
+    holding_days_realistic = exit_sim["holding_days_realistic"]
+    realistic_return_pct = ((realistic_exit_price - entry_price) / entry_price) * 100
+
+    # Corporate action guard - now only checked over the ACTUAL holding window
+    # (entry to realistic exit), not the full span to TO_DATE. A split/bonus
+    # that happens after we've already exited shouldn't disqualify the trade.
+    hist_held = hist_full.iloc[:holding_days_realistic + 1]
+    daily_pct_changes = hist_held["Close"].pct_change().dropna() * 100
+    corp_hit = daily_pct_changes[daily_pct_changes.abs() >= CORPORATE_ACTION_THRESHOLD_PCT]
+    if not corp_hit.empty:
+        return None, f"Excluded - likely corporate action on {corp_hit.index[0]}: {corp_hit.iloc[0]:.1f}% single-day move"
+
     # --- Conviction Score - used to rank picks within a scan date so only the
     # strongest few are kept (solves "too many stocks for available capital") ---
     freshness_score = max(0, EXTENDED_CAP_PCT - abs(pct_above_50ma))  # higher = closer to the exact crossover point
@@ -328,6 +394,11 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         "Evaluation_Date": exit_date_actual.strftime("%Y-%m-%d"),
         "Price_At_Evaluation": round(float(exit_price), 2),
         "Forward_Return_%": round(float(forward_return_pct), 2),
+        "Realistic_Exit_Date": realistic_exit_date.strftime("%Y-%m-%d"),
+        "Realistic_Exit_Price": round(float(realistic_exit_price), 2),
+        "Realistic_Return_%": round(float(realistic_return_pct), 2),
+        "Exit_Reason": exit_reason,
+        "Holding_Days_Realistic": holding_days_realistic,
         "Pct_Above_50MA_At_Pick": round(float(pct_above_50ma), 1),
         "Volume_Surge_Ratio": round(float(vol_ratio), 2),
         "Avg_Daily_Turnover_Cr": round(float(turnover_cr), 2),
@@ -430,10 +501,38 @@ def run():
               f"Saved to stock_hunter_v2_results.csv")
         print("Note: the same stock may appear on multiple scan dates if it stayed fresh - "
               "that's expected, not a duplicate bug.")
+
+        # --- Metrics: old (held-to-TO_DATE) vs realistic (stop-loss + fixed horizon) ---
+        def sharpe_like(returns):
+            returns = returns.dropna()
+            if len(returns) < 2 or returns.std() == 0:
+                return None
+            return returns.mean() / returns.std()
+
+        old_sharpe = sharpe_like(df_results["Forward_Return_%"])
+        new_sharpe = sharpe_like(df_results["Realistic_Return_%"])
+        old_win = (df_results["Forward_Return_%"] > 0).mean() * 100
+        new_win = (df_results["Realistic_Return_%"] > 0).mean() * 100
+        stop_outs = (df_results["Exit_Reason"] == "Stop_Loss_Hit").sum()
+        max_hold_exits = (df_results["Exit_Reason"] == "Max_Holding_Period").sum()
+        eob_exits = (df_results["Exit_Reason"] == "End_Of_Backtest_Data").sum()
+
+        print("\n--- METRICS COMPARISON ---")
+        print(f"OLD (held to TO_DATE, variable duration 17-318+ days):")
+        print(f"  Mean return: {df_results['Forward_Return_%'].mean():.2f}%  "
+              f"Std: {df_results['Forward_Return_%'].std():.2f}%  "
+              f"Sharpe-like: {old_sharpe:.2f}  Win rate: {old_win:.1f}%")
+        print(f"NEW (stop-loss + {MAX_HOLDING_DAYS}-trading-day fixed horizon, comparable durations):")
+        print(f"  Mean return: {df_results['Realistic_Return_%'].mean():.2f}%  "
+              f"Std: {df_results['Realistic_Return_%'].std():.2f}%  "
+              f"Sharpe-like: {new_sharpe:.2f}  Win rate: {new_win:.1f}%")
+        print(f"  Exit breakdown: {stop_outs} stopped out, {max_hold_exits} hit max holding period, "
+              f"{eob_exits} ran out of backtest data before either (too recent a pick)")
     else:
         pd.DataFrame(columns=[
             "Stock", "Scan_Date", "Pick_Date", "Price_At_Pick", "Evaluation_Date", "Price_At_Evaluation",
-            "Forward_Return_%", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
+            "Forward_Return_%", "Realistic_Exit_Date", "Realistic_Exit_Price", "Realistic_Return_%",
+            "Exit_Reason", "Holding_Days_Realistic", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
             "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
             "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score", "ADX_14"
         ]).to_csv("stock_hunter_v2_results.csv", index=False)
