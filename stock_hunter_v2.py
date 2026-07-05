@@ -81,11 +81,23 @@ FETCH_PERIOD = "2y"  # need buffer for 200-day MA trend check + 52-week low/high
 MIN_HISTORY_ROWS = 260          # ~1 year of trading days, buffer for 200MA + 52w checks
 MA200_TREND_LOOKBACK = 20       # trading days back, to confirm 200MA is rising
 FRESH_CROSSOVER_WINDOW = 10      # tightened from 15 - only the most recent crossovers
+RETEST_LOOKBACK_WINDOW = 20      # wider than FRESH_CROSSOVER_WINDOW - the crossover itself must be recent,
+                                   # but we need extra room after it for a pullback-then-recovery to form
 EXTENDED_CAP_PCT = 15           # price must be within this % of its 50MA (not extended)
 MIN_ABOVE_52W_LOW_PCT = 25      # price must be at least this % above 52-week low
 VOL_SURGE_MIN_RATIO = 1.5       # tightened from 1.3 - stronger accumulation signal required
 PRICE_MOVE_MIN_PCT = -3         # tightened from -5 - quieter accumulation band
 PRICE_MOVE_MAX_PCT = 8          # tightened from 10
+RETEST_MAX_DIST_PCT = 3.0       # after crossover, pullback must come within this % of the 50MA to count as a
+                                 # genuine retest (too far away = still riding the original breakout, no test yet)
+RETEST_MAX_BREACH_PCT = 3.0     # pullback may undershoot the 50MA by up to this % (normal shakeout) before
+                                 # it counts as a failed/broken support rather than a held one
+STRUCTURAL_STOP_BUFFER_ATR = 0.5   # place the stop this many ATRs below the actual retest low, not at a
+                                     # flat multiple of ATR from entry - respects the chart, not just volatility
+MIN_STOP_ATR_MULT = 2.0         # never let the stop be tighter than this many ATRs from entry (avoids the old
+                                 # whipsaw problem where a pure structural stop sat too close to entry)
+MAX_STOP_ATR_MULT = 5.0         # never let the stop be looser than this many ATRs from entry (caps risk sizing
+                                 # from ballooning on names with a distant swing low)
 MIN_TURNOVER_CR = 1.0           # Rs 1 crore minimum average daily turnover
 STRONG_TURNOVER_CR = 5.0        # Rs 5 crore = "Strong" liquidity tier
 CORPORATE_ACTION_THRESHOLD_PCT = 20
@@ -248,6 +260,51 @@ def simulate_realistic_exit(hist_full, entry_price, stop_loss_price, max_holding
     }
 
 
+def find_retest_low(close, ma50, low, cross_window):
+    """
+    Within the last `cross_window` trading days, find the most recent upward
+    crossover of price above the 50MA, then check whether the stock pulled
+    BACK toward the 50MA afterward (a retest) before today.
+
+    This replaces "buy the crossover itself" with "buy the confirmed retest" -
+    the fix for the whipsaw problem where big eventual winners (Laurus Labs,
+    Adani Power, Polycab) were getting stopped out in 5-19 days because we
+    were buying into unconfirmed strength on day 1 of the signal.
+
+    Returns (retest_low_price, retest_distance_pct_from_ma50) or (None, None)
+    if there's no crossover in the window, or the crossover happened too
+    recently to have had a chance to retest yet.
+    """
+    window = min(cross_window, len(close) - 1)
+    recent_close = close.iloc[-window:]
+    recent_ma50 = ma50.iloc[-window:]
+    recent_low = low.iloc[-window:]
+
+    below_mask = recent_close < recent_ma50
+    if not below_mask.any():
+        return None, None  # no crossover in window at all - either always above (stale) or always below
+
+    below_positions = [i for i, v in enumerate(below_mask.values) if v]
+    last_below_pos = below_positions[-1]
+    cross_pos = last_below_pos + 1  # first day back above the 50MA
+
+    if cross_pos >= len(recent_close) - 1:
+        return None, None  # crossed today or yesterday - no time for a retest yet, too fresh
+
+    # Days strictly after the crossover, excluding today (today must show the bounce-back)
+    post_cross_low = recent_low.iloc[cross_pos:-1]
+    post_cross_ma50 = recent_ma50.iloc[cross_pos:-1]
+    if post_cross_low.empty:
+        return None, None
+
+    dist_to_ma = (post_cross_low - post_cross_ma50) / post_cross_ma50 * 100
+    retest_idx_local = dist_to_ma.idxmin()  # closest approach to (or through) the 50MA after the cross
+    retest_low_price = post_cross_low.loc[retest_idx_local]
+    retest_dist_pct = dist_to_ma.loc[retest_idx_local]
+
+    return retest_low_price, retest_dist_pct
+
+
 def evaluate_stock(hist, from_date, to_date, sym_nse):
     """Run the full Phase B filter as of from_date using only data up to from_date.
     Returns a result dict if the stock qualifies, or (None, reason) if it doesn't."""
@@ -264,6 +321,7 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
 
     close = hist_pit["Close"]
     volume = hist_pit["Volume"]
+    low = hist_pit["Low"]
 
     ma50 = close.rolling(50).mean()
     ma150 = close.rolling(150).mean()
@@ -301,6 +359,19 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
     was_below_recently = (recent_close < recent_ma50).any()
     if not was_below_recently:
         return None, f"No fresh 50MA crossover in last {FRESH_CROSSOVER_WINDOW} trading days - trend too old"
+
+    # --- Retest confirmation (the fix for the whipsaw problem) ---
+    # Don't buy the crossover itself - buy the pullback that held. This is what
+    # separates a confirmed trend start from a stock still shaking out.
+    retest_low_price, retest_dist_pct = find_retest_low(close, ma50, low, RETEST_LOOKBACK_WINDOW)
+    if retest_low_price is None:
+        return None, f"No confirmed retest after 50MA crossover in last {RETEST_LOOKBACK_WINDOW} trading days"
+    if retest_dist_pct > RETEST_MAX_DIST_PCT:
+        return None, f"Pullback never came within {RETEST_MAX_DIST_PCT}% of the 50MA - no real retest yet"
+    if retest_dist_pct < -RETEST_MAX_BREACH_PCT:
+        return None, f"Retest broke {abs(retest_dist_pct):.1f}% below the 50MA - failed support, not a hold"
+    if price_now <= retest_low_price:
+        return None, "Price hasn't recovered above its retest low yet - support not yet confirmed"
 
     # --- Quiet accumulation signature ---
     if len(volume) < 50:
@@ -354,8 +425,21 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         shares_to_buy = None
         capital_allocated = None
     else:
-        stop_loss_price = entry_price - (ATR_STOP_MULTIPLE * atr14)
-        risk_per_share = entry_price - stop_loss_price  # = 2 x ATR
+        # --- Structural stop: anchored below the actual retest swing low, not a flat
+        # ATR multiple from entry. This is what respects the chart instead of just
+        # volatility - the stop sits below the level that needs to hold, with a small
+        # buffer, then gets clamped so it's never absurdly tight or absurdly wide. ---
+        structural_stop = retest_low_price - (STRUCTURAL_STOP_BUFFER_ATR * atr14)
+        tightest_allowed = entry_price - (MIN_STOP_ATR_MULT * atr14)   # closest the stop may sit to entry
+        loosest_allowed = entry_price - (MAX_STOP_ATR_MULT * atr14)    # farthest the stop may sit from entry
+
+        stop_loss_price = structural_stop
+        if stop_loss_price > tightest_allowed:
+            stop_loss_price = tightest_allowed   # structural stop was too tight - widen to the ATR floor
+        if stop_loss_price < loosest_allowed:
+            stop_loss_price = loosest_allowed    # structural stop was too wide - cap risk at the ATR ceiling
+
+        risk_per_share = entry_price - stop_loss_price
         stop_loss_pct = (risk_per_share / entry_price) * 100
         risk_capital = DEFAULT_TOTAL_CAPITAL * (RISK_PCT_PER_TRADE / 100)
         shares_to_buy = int(risk_capital / risk_per_share) if risk_per_share > 0 else 0
