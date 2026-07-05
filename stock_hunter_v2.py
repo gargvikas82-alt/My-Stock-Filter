@@ -83,7 +83,9 @@ MA200_TREND_LOOKBACK = 20       # trading days back, to confirm 200MA is rising
 FRESH_CROSSOVER_WINDOW = 10      # tightened from 15 - only the most recent crossovers
 RETEST_LOOKBACK_WINDOW = 20      # wider than FRESH_CROSSOVER_WINDOW - the crossover itself must be recent,
                                    # but we need extra room after it for a pullback-then-recovery to form
-EXTENDED_CAP_PCT = 15           # price must be within this % of its 50MA (not extended)
+EXTENDED_CAP_PCT = 8            # tightened from 15 - 150-trade backtest showed 8%+ extension above the 50MA
+                                 # averaged only +0.8% return vs +9-11% for 0-8% - past 8% it's no longer
+                                 # "early stage," it's already running
 MIN_ABOVE_52W_LOW_PCT = 25      # price must be at least this % above 52-week low
 VOL_SURGE_MIN_RATIO = 1.5       # tightened from 1.3 - stronger accumulation signal required
 PRICE_MOVE_MIN_PCT = -3         # tightened from -5 - quieter accumulation band
@@ -112,6 +114,9 @@ ATR_PERIOD = 14                 # standard ATR lookback
 ATR_STOP_MULTIPLE = 2.0         # stop = entry - (2 x ATR) - standard institutional default
 ADX_PERIOD = 14                 # standard ADX lookback
 MIN_ADX = 25                    # ADX >= 25 = genuine trending move, not choppy/noisy sideways action
+MAX_ADX = 32                    # NEW ceiling - 150-trade backtest showed ADX 32+ averaged only +3.4% return
+                                 # vs +9-11% for 26-32; above this the trend is already mature/established,
+                                 # not early-stage anymore - defeats the whole point of catching it early
 DEFAULT_TOTAL_CAPITAL = float(os.environ.get("TOTAL_CAPITAL", "500000"))  # override via env var
 RISK_PCT_PER_TRADE = float(os.environ.get("RISK_PCT_PER_TRADE", "1.0"))  # % of capital risked per trade
 
@@ -407,6 +412,8 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         return None, "ADX not computable (insufficient history)"
     if adx_value < MIN_ADX:
         return None, f"ADX too low ({adx_value:.1f}, need >={MIN_ADX}) - trend is choppy/noisy, not clean"
+    if adx_value > MAX_ADX:
+        return None, f"ADX too high ({adx_value:.1f}, need <={MAX_ADX}) - trend already mature, not early-stage"
 
     # --- Passed everything. Now compute forward return to TO_DATE using full history ---
     hist_full = hist[(hist.index >= from_date) & (hist.index <= to_date)]
