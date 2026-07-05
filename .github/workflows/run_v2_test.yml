@@ -10,6 +10,10 @@ on:
         description: 'TO_DATE - evaluation date to measure return until (YYYY-MM-DD). Leave blank for today.'
         required: false
         default: ''
+      scan_weekdays:
+        description: 'Scan days as comma-separated weekday numbers (0=Mon..6=Sun). Default 1,4 = Tue+Fri. Use just "1" for Tuesday-only (once a week).'
+        required: false
+        default: '1,4'
 
 jobs:
   run-screener:
@@ -32,6 +36,7 @@ jobs:
         env:
           FROM_DATE: ${{ github.event.inputs.from_date }}
           TO_DATE: ${{ github.event.inputs.to_date }}
+          SCAN_WEEKDAYS: ${{ github.event.inputs.scan_weekdays }}
         run: |
           python stock_hunter_v2.py
 
