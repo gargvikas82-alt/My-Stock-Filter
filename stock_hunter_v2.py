@@ -72,11 +72,11 @@ import time
 import pandas as pd
 import numpy as np
 import yfinance as yf
-from datetime import datetime
+from datetime import datetime, timedelta
 
 UNIVERSE_FILE = "nifty_total_market.csv"
 CHUNK_SIZE = 50
-FETCH_PERIOD = "2y"  # need buffer for 200-day MA trend check + 52-week low/high
+FETCH_BUFFER_DAYS = 400  # calendar-day buffer before FROM_DATE, for the 200MA/52-week lookback
 
 MIN_HISTORY_ROWS = 260          # ~1 year of trading days, buffer for 200MA + 52w checks
 MA200_TREND_LOOKBACK = 20       # trading days back, to confirm 200MA is rising
@@ -534,8 +534,10 @@ def run():
         print(f"[{chunk_num}/{total_chunks}] Fetching {len(chunk)} tickers...")
 
         try:
+            fetch_start = (from_date - timedelta(days=FETCH_BUFFER_DAYS)).strftime("%Y-%m-%d")  # buffer for 200MA/52wk-low lookback
+            fetch_end = (to_date + timedelta(days=1)).strftime("%Y-%m-%d")        # yfinance end is exclusive
             data = yf.download(
-                tickers=yf_tickers, period=FETCH_PERIOD, interval="1d",
+                tickers=yf_tickers, start=fetch_start, end=fetch_end, interval="1d",
                 auto_adjust=False, actions=False, group_by="ticker",
                 threads=True, progress=False,
             )
