@@ -324,7 +324,7 @@ def find_retest_low(close, ma50, low, cross_window):
     return retest_low_price, retest_dist_pct
 
 
-def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
+def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     """Run the full Phase B filter as of from_date using only data up to from_date.
     Returns a result dict if the stock qualifies, or (None, reason) if it doesn't."""
 
@@ -380,8 +380,6 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
         return None, f"No fresh 50MA crossover in last {FRESH_CROSSOVER_WINDOW} trading days - trend too old"
 
     # --- Retest confirmation (the fix for the whipsaw problem) ---
-    # Don't buy the crossover itself - buy the pullback that held. This is what
-    # separates a confirmed trend start from a stock still shaking out.
     retest_low_price, retest_dist_pct = find_retest_low(close, ma50, low, RETEST_LOOKBACK_WINDOW)
     if retest_low_price is None:
         return None, f"No confirmed retest after 50MA crossover in last {RETEST_LOOKBACK_WINDOW} trading days"
@@ -424,6 +422,14 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     if adx_value > MAX_ADX:
         return None, f"ADX too high ({adx_value:.1f}, need <={MAX_ADX}) - trend already mature, not early-stage"
 
+    # --- NEW: Market regime filter (Nifty above its own 200 EMA) ---
+    if nifty_hist is not None and not nifty_hist.empty:
+        nifty_pit = nifty_hist[nifty_hist.index <= from_date]
+        if len(nifty_pit) >= 200:
+            nifty_ema200 = nifty_pit["Close"].ewm(span=200, adjust=False).mean()
+            if nifty_pit["Close"].iloc[-1] <= nifty_ema200.iloc[-1]:
+                return None, "Market regime filter: Nifty below its 200 EMA"
+
     # --- Relative strength vs NIFTY (Lipacis lens) - tested as a hard filter on the 4-year
     # backtest and it HURT results (Sharpe 0.44->0.36, win rate 62.7%->56.3%) - this universe
     # leans on idiosyncratic smallcap/midcap stories that don't need to be beating the index.
@@ -439,10 +445,6 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
                     rs_now = rs_ratio.iloc[-1]
 
     # --- Passed everything. Now compute forward return to TO_DATE using full history ---
-    # Entry executes at the NEXT trading day's Open, not from_date's own Close - the signal
-    # itself is only known once from_date's close is in, so buying at that same close is a
-    # look-ahead bias (a real order can't be placed and filled before the price it's based on
-    # exists). This also models realistic slippage instead of a same-day fantasy fill.
     hist_from_signal = hist[(hist.index >= from_date) & (hist.index <= to_date)]
     if hist_from_signal.empty or len(hist_from_signal) < 2:
         return None, "No trading data available between FROM_DATE and TO_DATE yet"
@@ -458,8 +460,6 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     forward_return_pct = ((exit_price - entry_price) / entry_price) * 100
 
     # --- ATR-based stop loss and risk-based position sizing (institutional style) ---
-    # Moved ahead of the exit simulation below - the realistic exit needs to know
-    # the stop price to check whether the path ever breached it.
     atr14 = compute_atr(hist_pit, ATR_PERIOD)
     if pd.isna(atr14) or atr14 <= 0:
         stop_loss_price = None
@@ -467,33 +467,22 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
         shares_to_buy = None
         capital_allocated = None
     else:
-        # --- Structural stop: anchored below the actual retest swing low, not a flat
-        # ATR multiple from entry. This is what respects the chart instead of just
-        # volatility - the stop sits below the level that needs to hold, with a small
-        # buffer, then gets clamped so it's never absurdly tight or absurdly wide. ---
         structural_stop = retest_low_price - (STRUCTURAL_STOP_BUFFER_ATR * atr14)
-        tightest_allowed = entry_price - (MIN_STOP_ATR_MULT * atr14)   # closest the stop may sit to entry
-        loosest_allowed = entry_price - (MAX_STOP_ATR_MULT * atr14)    # farthest the stop may sit from entry
+        tightest_allowed = entry_price - (MIN_STOP_ATR_MULT * atr14)
+        loosest_allowed = entry_price - (MAX_STOP_ATR_MULT * atr14)
 
         stop_loss_price = structural_stop
         if stop_loss_price > tightest_allowed:
-            stop_loss_price = tightest_allowed   # structural stop was too tight - widen to the ATR floor
+            stop_loss_price = tightest_allowed
         if stop_loss_price < loosest_allowed:
-            stop_loss_price = loosest_allowed    # structural stop was too wide - cap risk at the ATR ceiling
+            stop_loss_price = loosest_allowed
 
         risk_per_share = entry_price - stop_loss_price
         stop_loss_pct = (risk_per_share / entry_price) * 100
-        # Fixed capital per trade - matches actual deployment (Rs 10,000/trade), not a
-        # risk-based variable size. Real risk-per-trade now varies with Stop_Loss_% -
-        # that's the honest tradeoff of trading fixed tickets instead of volatility sizing.
         shares_to_buy = int(FIXED_CAPITAL_PER_TRADE / entry_price) if entry_price > 0 else 0
         capital_allocated = round(shares_to_buy * entry_price, 2)
 
     # --- Realistic exit: stop-loss-aware, fixed-horizon-capped ---
-    # This is the actual fix for the Sharpe problem - it stops every trade
-    # being marked to a single fixed TO_DATE regardless of how long it's
-    # had to run, and it actually enforces the stop-loss the model already
-    # computes instead of just printing it as a suggestion.
     exit_sim = simulate_realistic_exit(hist_full, entry_price, stop_loss_price, MAX_HOLDING_DAYS)
     realistic_exit_price = exit_sim["exit_price"]
     realistic_exit_date = exit_sim["exit_date"]
@@ -502,23 +491,18 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     realistic_return_pct = ((realistic_exit_price - entry_price) / entry_price) * 100
 
     # --- Net of transaction costs (STT, stamp duty, exchange charges, GST, brokerage) ---
-    # Applied as a flat round-trip % deduction - both buy and sell always happen regardless
-    # of why the trade closed, so this applies uniformly to every exit reason.
     forward_return_net_pct = forward_return_pct - ROUND_TRIP_COST_PCT
     realistic_return_net_pct = realistic_return_pct - ROUND_TRIP_COST_PCT
 
-    # Corporate action guard - now only checked over the ACTUAL holding window
-    # (entry to realistic exit), not the full span to TO_DATE. A split/bonus
-    # that happens after we've already exited shouldn't disqualify the trade.
+    # Corporate action guard
     hist_held = hist_full.iloc[:holding_days_realistic + 1]
     daily_pct_changes = hist_held["Close"].pct_change().dropna() * 100
     corp_hit = daily_pct_changes[daily_pct_changes.abs() >= CORPORATE_ACTION_THRESHOLD_PCT]
     if not corp_hit.empty:
         return None, f"Excluded - likely corporate action on {corp_hit.index[0]}: {corp_hit.iloc[0]:.1f}% single-day move"
 
-    # --- Conviction Score - used to rank picks within a scan date so only the
-    # strongest few are kept (solves "too many stocks for available capital") ---
-    freshness_score = max(0, EXTENDED_CAP_PCT - abs(pct_above_50ma))  # higher = closer to the exact crossover point
+    # --- Conviction Score ---
+    freshness_score = max(0, EXTENDED_CAP_PCT - abs(pct_above_50ma))
     conviction_score = (vol_ratio * 50) + (min(turnover_cr, 20) * 2) + freshness_score
 
     return {
@@ -548,188 +532,3 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
         "ADX_14": round(float(adx_value), 1),
         "RS_Vs_Nifty": round(float(rs_now), 4) if rs_now is not None else None,
     }, None
-
-
-def get_scan_dates(from_date, to_date):
-    """Generate every Tuesday (weekday 1) and Friday (weekday 4) between from_date
-    and to_date inclusive - matching the real twice-weekly live schedule, so a
-    From/To backtest simulates what the system would actually have found on each
-    scheduled run, not just a single point-in-time snapshot."""
-    all_days = pd.date_range(from_date, to_date, freq="D")
-    scan_dates = [d.date() for d in all_days if d.weekday() in (1, 4)]
-    if not scan_dates or scan_dates[0] != from_date:
-        scan_dates = [from_date] + scan_dates  # always include the exact FROM_DATE requested
-    return sorted(set(scan_dates))
-
-
-def run():
-    from_date, to_date = get_dates()
-    scan_dates = get_scan_dates(from_date, to_date)
-    print(f"\nSTOCK HUNTER v2 - Early-Stage Screener (Walk-Forward Mode)")
-    print(f"Simulating {len(scan_dates)} scan dates (every Tue/Fri) between {from_date} and {to_date}")
-    print(f"Each pick's return is measured from its own pick date through to {to_date}")
-    print("-" * 75)
-
-    symbols = load_universe()
-    print(f"Universe: {len(symbols)} stocks")
-
-    fetch_start = (from_date - timedelta(days=FETCH_BUFFER_DAYS)).strftime("%Y-%m-%d")  # buffer for 200MA/52wk-low lookback
-    fetch_end = (to_date + timedelta(days=1)).strftime("%Y-%m-%d")                      # yfinance end is exclusive
-
-    print("Fetching NIFTY index data for relative-strength comparison...")
-    try:
-        nifty_hist = yf.download(
-            tickers=NIFTY_TICKER, start=fetch_start, end=fetch_end, interval="1d",
-            auto_adjust=False, actions=False, progress=False,
-        )
-        if isinstance(nifty_hist.columns, pd.MultiIndex):
-            nifty_hist.columns = nifty_hist.columns.get_level_values(0)
-        nifty_hist.index = pd.to_datetime(nifty_hist.index).date
-    except Exception as e:
-        print(f"WARNING: NIFTY fetch failed ({e}) - relative-strength filter will be skipped for this run")
-        nifty_hist = None
-
-    results = []
-    skipped = []
-
-    total_chunks = (len(symbols) + CHUNK_SIZE - 1) // CHUNK_SIZE
-    for chunk_num, chunk in enumerate(chunk_list(symbols, CHUNK_SIZE), start=1):
-        yf_tickers = [f"{s}.NS" for s in chunk]
-        print(f"[{chunk_num}/{total_chunks}] Fetching {len(chunk)} tickers...")
-
-        try:
-            data = yf.download(
-                tickers=yf_tickers, start=fetch_start, end=fetch_end, interval="1d",
-                auto_adjust=False, actions=False, group_by="ticker",
-                threads=True, progress=False,
-            )
-        except Exception as e:
-            for s in chunk:
-                skipped.append({"Stock": s, "Scan_Date": "ALL", "Reason": f"Chunk download failed: {e}"})
-            continue
-
-        for sym_nse, sym_yf in zip(chunk, yf_tickers):
-            try:
-                if len(yf_tickers) == 1:
-                    hist = data
-                else:
-                    if sym_yf not in data.columns.get_level_values(0):
-                        skipped.append({"Stock": sym_nse, "Scan_Date": "ALL", "Reason": "No data returned"})
-                        continue
-                    hist = data[sym_yf]
-
-                # Same downloaded history reused across every scan date - no extra network calls
-                for scan_date in scan_dates:
-                    if scan_date >= to_date:
-                        continue
-                    result, reason = evaluate_stock(hist, scan_date, to_date, sym_nse, nifty_hist)
-                    if result:
-                        result["Scan_Date"] = scan_date.strftime("%Y-%m-%d")
-                        results.append(result)
-                    else:
-                        skipped.append({"Stock": sym_nse, "Scan_Date": scan_date.strftime("%Y-%m-%d"), "Reason": reason})
-            except Exception as e:
-                skipped.append({"Stock": sym_nse, "Scan_Date": "ALL", "Reason": f"Unexpected error: {e}"})
-
-        time.sleep(1)
-
-    df_results = pd.DataFrame(results)
-    if not df_results.empty:
-        # Hard cap: within each scan date, keep only the top N by Conviction_Score.
-        # This is what actually controls total pick volume for a limited-capital
-        # investor - tightening filter thresholds alone doesn't guarantee a target
-        # count, this does.
-        before_cap = len(df_results)
-        df_results = (
-            df_results.sort_values("Conviction_Score", ascending=False)
-            .groupby("Scan_Date", group_keys=False)
-            .head(TOP_N_PER_SCAN_DATE)
-        )
-        df_results = df_results.sort_values(by=["Pick_Date", "Forward_Return_%"], ascending=[True, False])
-        df_results.to_csv("stock_hunter_v2_results.csv", index=False)
-        unique_stocks = df_results["Stock"].nunique()
-        print(f"\nQUALIFIED (before cap): {before_cap} pick-instances")
-        print(f"AFTER TOP-{TOP_N_PER_SCAN_DATE}-PER-SCAN-DATE CAP: {len(df_results)} pick-instances "
-              f"across {len(scan_dates)} scan dates ({unique_stocks} unique stocks). "
-              f"Saved to stock_hunter_v2_results.csv")
-        print("Note: the same stock may appear on multiple scan dates if it stayed fresh - "
-              "that's expected, not a duplicate bug.")
-
-        # --- Metrics: old (held-to-TO_DATE) vs realistic (stop-loss + fixed horizon) ---
-        def sharpe_like(returns):
-            returns = returns.dropna()
-            if len(returns) < 2 or returns.std() == 0:
-                return None
-            return returns.mean() / returns.std()
-
-        old_sharpe = sharpe_like(df_results["Forward_Return_%"])
-        new_sharpe = sharpe_like(df_results["Realistic_Return_%"])
-        new_sharpe_net = sharpe_like(df_results["Realistic_Return_Net_%"])
-        old_win = (df_results["Forward_Return_%"] > 0).mean() * 100
-        new_win = (df_results["Realistic_Return_%"] > 0).mean() * 100
-        new_win_net = (df_results["Realistic_Return_Net_%"] > 0).mean() * 100
-        stop_outs = (df_results["Exit_Reason"] == "Stop_Loss_Hit").sum()
-        max_hold_exits = (df_results["Exit_Reason"] == "Max_Holding_Period").sum()
-        eob_exits = (df_results["Exit_Reason"] == "End_Of_Backtest_Data").sum()
-
-        print("\n--- METRICS COMPARISON ---")
-        print(f"OLD (held to TO_DATE, variable duration 17-318+ days):")
-        print(f"  Mean return: {df_results['Forward_Return_%'].mean():.2f}%  "
-              f"Std: {df_results['Forward_Return_%'].std():.2f}%  "
-              f"Sharpe-like: {old_sharpe:.2f}  Win rate: {old_win:.1f}%")
-        print(f"NEW (stop-loss + {MAX_HOLDING_DAYS}-trading-day fixed horizon, comparable durations):")
-        print(f"  Mean return: {df_results['Realistic_Return_%'].mean():.2f}%  "
-              f"Std: {df_results['Realistic_Return_%'].std():.2f}%  "
-              f"Sharpe-like: {new_sharpe:.2f}  Win rate: {new_win:.1f}%")
-        print(f"NEW NET OF COSTS (Rs {FIXED_CAPITAL_PER_TRADE:.0f}/trade, {ROUND_TRIP_COST_PCT:.2f}% round-trip):")
-        print(f"  Mean return: {df_results['Realistic_Return_Net_%'].mean():.2f}%  "
-              f"Std: {df_results['Realistic_Return_Net_%'].std():.2f}%  "
-              f"Sharpe-like: {new_sharpe_net:.2f}  Win rate: {new_win_net:.1f}%")
-        print(f"  Exit breakdown: {stop_outs} stopped out, {max_hold_exits} hit max holding period, "
-              f"{eob_exits} ran out of backtest data before either (too recent a pick)")
-
-        # --- Permanent audit-trail row - appended every run, so an out-of-sample audit
-        # across many runs doesn't depend on chat memory or which session/model asked for it ---
-        log_row = pd.DataFrame([{
-            "Run_Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "From_Date": from_date.strftime("%Y-%m-%d"),
-            "To_Date": to_date.strftime("%Y-%m-%d"),
-            "N_Picks": len(df_results),
-            "Unique_Stocks": unique_stocks,
-            "Extended_Cap_Pct": EXTENDED_CAP_PCT,
-            "Min_Adx": MIN_ADX,
-            "Max_Adx": MAX_ADX,
-            "Min_Stop_Atr_Mult": MIN_STOP_ATR_MULT,
-            "Max_Stop_Atr_Mult": MAX_STOP_ATR_MULT,
-            "Max_Holding_Days": MAX_HOLDING_DAYS,
-            "Capital_Per_Trade": FIXED_CAPITAL_PER_TRADE,
-            "Round_Trip_Cost_Pct": ROUND_TRIP_COST_PCT,
-            "Sharpe_Realistic_Gross": round(new_sharpe, 3) if new_sharpe is not None else None,
-            "Sharpe_Realistic_Net": round(new_sharpe_net, 3) if new_sharpe_net is not None else None,
-            "Win_Rate_Net_Pct": round(new_win_net, 1),
-            "Mean_Return_Net_Pct": round(df_results["Realistic_Return_Net_%"].mean(), 2),
-            "Stop_Hit_Rate_Pct": round((stop_outs / len(df_results)) * 100, 1) if len(df_results) else None,
-        }])
-        log_path = "backtest_run_log.csv"
-        if os.path.exists(log_path):
-            log_row.to_csv(log_path, mode="a", header=False, index=False)
-        else:
-            log_row.to_csv(log_path, mode="w", header=True, index=False)
-        print(f"\nRun logged to {log_path} for the out-of-sample audit trail.")
-    else:
-        pd.DataFrame(columns=[
-            "Stock", "Scan_Date", "Pick_Date", "Price_At_Pick", "Evaluation_Date", "Price_At_Evaluation",
-            "Forward_Return_%", "Forward_Return_Net_%", "Realistic_Exit_Date", "Realistic_Exit_Price",
-            "Realistic_Return_%", "Realistic_Return_Net_%",
-            "Exit_Reason", "Holding_Days_Realistic", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
-            "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
-            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score", "ADX_14", "RS_Vs_Nifty"
-        ]).to_csv("stock_hunter_v2_results.csv", index=False)
-        print(f"\nNo stocks qualified on any of the {len(scan_dates)} scan dates. The filter is intentionally strict.")
-
-    pd.DataFrame(skipped).to_csv("stock_hunter_v2_skipped.csv", index=False)
-    print(f"Did not qualify / failed: {len(skipped)} rows (see stock_hunter_v2_skipped.csv for reasons)")
-
-
-if __name__ == "__main__":
-    run()
