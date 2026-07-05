@@ -1,2 +1,3 @@
 Run_Timestamp,From_Date,To_Date,N_Picks,Unique_Stocks,Extended_Cap_Pct,Min_Adx,Max_Adx,Min_Stop_Atr_Mult,Max_Stop_Atr_Mult,Max_Holding_Days,Capital_Per_Trade,Round_Trip_Cost_Pct,Sharpe_Realistic_Gross,Sharpe_Realistic_Net,Win_Rate_Net_Pct,Mean_Return_Net_Pct,Stop_Hit_Rate_Pct
 2026-07-05 12:38:42,2022-07-01,2026-07-03,118,83,8,25,32,3.0,7.0,60,10000.0,0.7,0.424,0.394,59.3,9.18,29.7
+2026-07-05 13:08:03,2019-07-01,2022-06-01,77,56,8,25,32,3.0,7.0,60,10000.0,0.7,0.334,0.303,54.5,6.92,33.8
