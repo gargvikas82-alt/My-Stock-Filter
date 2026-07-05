@@ -559,12 +559,14 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
 
 
 def get_scan_dates(from_date, to_date):
-    """Generate every Tuesday (weekday 1) and Friday (weekday 4) between from_date
-    and to_date inclusive - matching the real twice-weekly live schedule, so a
-    From/To backtest simulates what the system would actually have found on each
-    scheduled run, not just a single point-in-time snapshot."""
+    """Generate scan dates on the configured weekdays between from_date and to_date
+    inclusive. Defaults to Tuesday+Friday (weekday 1,4) matching the live twice-weekly
+    schedule. Override via SCAN_WEEKDAYS env var, e.g. "1" for Tuesday-only (once a
+    week) - lets the same backtest test scan frequency itself as a variable."""
+    weekday_str = os.environ.get("SCAN_WEEKDAYS", "1,4")
+    scan_weekdays = tuple(int(x.strip()) for x in weekday_str.split(",") if x.strip() != "")
     all_days = pd.date_range(from_date, to_date, freq="D")
-    scan_dates = [d.date() for d in all_days if d.weekday() in (1, 4)]
+    scan_dates = [d.date() for d in all_days if d.weekday() in scan_weekdays]
     if not scan_dates or scan_dates[0] != from_date:
         scan_dates = [from_date] + scan_dates  # always include the exact FROM_DATE requested
     return sorted(set(scan_dates))
@@ -574,7 +576,8 @@ def run():
     from_date, to_date = get_dates()
     scan_dates = get_scan_dates(from_date, to_date)
     print(f"\nSTOCK HUNTER v2 - Early-Stage Screener (Walk-Forward Mode)")
-    print(f"Simulating {len(scan_dates)} scan dates (every Tue/Fri) between {from_date} and {to_date}")
+    print(f"Simulating {len(scan_dates)} scan dates (weekdays={os.environ.get('SCAN_WEEKDAYS', '1,4')}, "
+          f"0=Mon..6=Sun) between {from_date} and {to_date}")
     print(f"Each pick's return is measured from its own pick date through to {to_date}")
     print("-" * 75)
 
@@ -712,6 +715,7 @@ def run():
             "Max_Holding_Days": MAX_HOLDING_DAYS,
             "Capital_Per_Trade": FIXED_CAPITAL_PER_TRADE,
             "Round_Trip_Cost_Pct": ROUND_TRIP_COST_PCT,
+            "Scan_Weekdays": os.environ.get("SCAN_WEEKDAYS", "1,4"),
             "Sharpe_Realistic_Gross": round(new_sharpe, 3) if new_sharpe is not None else None,
             "Sharpe_Realistic_Net": round(new_sharpe_net, 3) if new_sharpe_net is not None else None,
             "Win_Rate_Net_Pct": round(new_win_net, 1),
