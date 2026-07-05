@@ -75,6 +75,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 
 UNIVERSE_FILE = "nifty_total_market.csv"
+NIFTY_TICKER = "^NSEI"
 CHUNK_SIZE = 50
 FETCH_BUFFER_DAYS = 400  # calendar-day buffer before FROM_DATE, for the 200MA/52-week lookback
 
@@ -117,6 +118,8 @@ MIN_ADX = 25                    # ADX >= 25 = genuine trending move, not choppy/
 MAX_ADX = 32                    # NEW ceiling - 150-trade backtest showed ADX 32+ averaged only +3.4% return
                                  # vs +9-11% for 26-32; above this the trend is already mature/established,
                                  # not early-stage anymore - defeats the whole point of catching it early
+RS_MA_PERIOD = 50                # relative-strength (stock vs NIFTY) trend check uses the same 50-day
+                                 # window as the price trend check, for consistency
 DEFAULT_TOTAL_CAPITAL = float(os.environ.get("TOTAL_CAPITAL", "500000"))  # override via env var
 RISK_PCT_PER_TRADE = float(os.environ.get("RISK_PCT_PER_TRADE", "1.0"))  # % of capital risked per trade
 
@@ -315,7 +318,7 @@ def find_retest_low(close, ma50, low, cross_window):
     return retest_low_price, retest_dist_pct
 
 
-def evaluate_stock(hist, from_date, to_date, sym_nse):
+def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
     """Run the full Phase B filter as of from_date using only data up to from_date.
     Returns a result dict if the stock qualifies, or (None, reason) if it doesn't."""
 
@@ -415,6 +418,22 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
     if adx_value > MAX_ADX:
         return None, f"ADX too high ({adx_value:.1f}, need <={MAX_ADX}) - trend already mature, not early-stage"
 
+    # --- Relative strength vs NIFTY (the pending item - Lipacis lens: don't buy a
+    # technically-fresh laggard, buy a stock actually beating the index) ---
+    rs_now = None
+    if nifty_hist is not None and not nifty_hist.empty:
+        nifty_pit = nifty_hist[nifty_hist.index <= from_date]
+        if len(nifty_pit) >= RS_MA_PERIOD:
+            aligned = pd.DataFrame({"stock": close, "nifty": nifty_pit["Close"]}).dropna()
+            if len(aligned) >= RS_MA_PERIOD:
+                rs_ratio = aligned["stock"] / aligned["nifty"]
+                rs_ma = rs_ratio.rolling(RS_MA_PERIOD).mean()
+                if not pd.isna(rs_ma.iloc[-1]):
+                    rs_now = rs_ratio.iloc[-1]
+                    rs_ma_now = rs_ma.iloc[-1]
+                    if rs_now <= rs_ma_now:
+                        return None, "Underperforming NIFTY on a trend basis - not relatively strong"
+
     # --- Passed everything. Now compute forward return to TO_DATE using full history ---
     hist_full = hist[(hist.index >= from_date) & (hist.index <= to_date)]
     if hist_full.empty or len(hist_full) < 2:
@@ -506,6 +525,7 @@ def evaluate_stock(hist, from_date, to_date, sym_nse):
         "Capital_Allocated_Rs": capital_allocated,
         "Conviction_Score": round(float(conviction_score), 2),
         "ADX_14": round(float(adx_value), 1),
+        "RS_Vs_Nifty": round(float(rs_now), 4) if rs_now is not None else None,
     }, None
 
 
@@ -532,6 +552,22 @@ def run():
     symbols = load_universe()
     print(f"Universe: {len(symbols)} stocks")
 
+    fetch_start = (from_date - timedelta(days=FETCH_BUFFER_DAYS)).strftime("%Y-%m-%d")  # buffer for 200MA/52wk-low lookback
+    fetch_end = (to_date + timedelta(days=1)).strftime("%Y-%m-%d")                      # yfinance end is exclusive
+
+    print("Fetching NIFTY index data for relative-strength comparison...")
+    try:
+        nifty_hist = yf.download(
+            tickers=NIFTY_TICKER, start=fetch_start, end=fetch_end, interval="1d",
+            auto_adjust=False, actions=False, progress=False,
+        )
+        if isinstance(nifty_hist.columns, pd.MultiIndex):
+            nifty_hist.columns = nifty_hist.columns.get_level_values(0)
+        nifty_hist.index = pd.to_datetime(nifty_hist.index).date
+    except Exception as e:
+        print(f"WARNING: NIFTY fetch failed ({e}) - relative-strength filter will be skipped for this run")
+        nifty_hist = None
+
     results = []
     skipped = []
 
@@ -541,8 +577,6 @@ def run():
         print(f"[{chunk_num}/{total_chunks}] Fetching {len(chunk)} tickers...")
 
         try:
-            fetch_start = (from_date - timedelta(days=FETCH_BUFFER_DAYS)).strftime("%Y-%m-%d")  # buffer for 200MA/52wk-low lookback
-            fetch_end = (to_date + timedelta(days=1)).strftime("%Y-%m-%d")        # yfinance end is exclusive
             data = yf.download(
                 tickers=yf_tickers, start=fetch_start, end=fetch_end, interval="1d",
                 auto_adjust=False, actions=False, group_by="ticker",
@@ -567,7 +601,7 @@ def run():
                 for scan_date in scan_dates:
                     if scan_date >= to_date:
                         continue
-                    result, reason = evaluate_stock(hist, scan_date, to_date, sym_nse)
+                    result, reason = evaluate_stock(hist, scan_date, to_date, sym_nse, nifty_hist)
                     if result:
                         result["Scan_Date"] = scan_date.strftime("%Y-%m-%d")
                         results.append(result)
@@ -632,7 +666,7 @@ def run():
             "Forward_Return_%", "Realistic_Exit_Date", "Realistic_Exit_Price", "Realistic_Return_%",
             "Exit_Reason", "Holding_Days_Realistic", "Pct_Above_50MA_At_Pick", "Volume_Surge_Ratio",
             "Avg_Daily_Turnover_Cr", "Liquidity_Tier", "ATR_14", "Stop_Loss_Price",
-            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score", "ADX_14"
+            "Stop_Loss_%", "Suggested_Shares", "Capital_Allocated_Rs", "Conviction_Score", "ADX_14", "RS_Vs_Nifty"
         ]).to_csv("stock_hunter_v2_results.csv", index=False)
         print(f"\nNo stocks qualified on any of the {len(scan_dates)} scan dates. The filter is intentionally strict.")
 
