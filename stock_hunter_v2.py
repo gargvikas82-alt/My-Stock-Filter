@@ -94,10 +94,10 @@ RETEST_MAX_BREACH_PCT = 3.0     # pullback may undershoot the 50MA by up to this
                                  # it counts as a failed/broken support rather than a held one
 STRUCTURAL_STOP_BUFFER_ATR = 0.5   # place the stop this many ATRs below the actual retest low, not at a
                                      # flat multiple of ATR from entry - respects the chart, not just volatility
-MIN_STOP_ATR_MULT = 2.0         # never let the stop be tighter than this many ATRs from entry (avoids the old
-                                 # whipsaw problem where a pure structural stop sat too close to entry)
-MAX_STOP_ATR_MULT = 5.0         # never let the stop be looser than this many ATRs from entry (caps risk sizing
-                                 # from ballooning on names with a distant swing low)
+MIN_STOP_ATR_MULT = 3.0         # widened from 2.0 - the 2x floor was still averaging ~7.8% stop distance,
+                                 # too tight for a 60-day swing hold; risk-based sizing already shrinks share
+                                 # count for a wider stop, so this doesn't increase total risk per trade
+MAX_STOP_ATR_MULT = 7.0         # widened from 5.0 - gives real structural swing lows room to breathe
 MIN_TURNOVER_CR = 1.0           # Rs 1 crore minimum average daily turnover
 STRONG_TURNOVER_CR = 5.0        # Rs 5 crore = "Strong" liquidity tier
 CORPORATE_ACTION_THRESHOLD_PCT = 20
@@ -219,9 +219,14 @@ def simulate_realistic_exit(hist_full, entry_price, stop_loss_price, max_holding
     """
     Walk the actual price path forward from entry, day by day, and exit at
     whichever of these happens FIRST:
-      1. STOP_LOSS_HIT   - that day's Low breaches the ATR stop. Exit is
-         modeled at the stop price itself (ignores gap-through-stop risk -
-         a real fill could be worse on a gap-down day; flagged, not solved).
+      1. STOP_LOSS_HIT   - that day's CLOSE breaches the stop (not the
+         intraday Low). A single wick touching the stop and closing back
+         above it is normal noise, not a real breakdown - only a confirmed
+         close below the level counts. This is a deliberate change from the
+         earlier Low-based trigger, which was catching wicks, not failures.
+         Exit is modeled at that day's Close (roughly where a same-day stop
+         order would fill once the close confirms the breach - still ignores
+         gap-through risk on the day itself, flagged not solved).
       2. MAX_HOLDING_PERIOD - max_holding_days trading days have passed with
          no stop hit. Exit at that day's Close. This is what makes every
          trade comparable - nobody gets an unfair extra 300 days to recover.
@@ -235,18 +240,18 @@ def simulate_realistic_exit(hist_full, entry_price, stop_loss_price, max_holding
     from 3 weeks ago look like the same kind of trade.
     """
     for i in range(1, len(hist_full)):
-        day_low = hist_full["Low"].iloc[i]
+        day_close = hist_full["Close"].iloc[i]
         day_date = hist_full.index[i]
-        if stop_loss_price is not None and day_low <= stop_loss_price:
+        if stop_loss_price is not None and day_close <= stop_loss_price:
             return {
-                "exit_price": stop_loss_price,
+                "exit_price": day_close,
                 "exit_date": day_date,
                 "exit_reason": "Stop_Loss_Hit",
                 "holding_days_realistic": i,
             }
         if i >= max_holding_days:
             return {
-                "exit_price": hist_full["Close"].iloc[i],
+                "exit_price": day_close,
                 "exit_date": day_date,
                 "exit_reason": "Max_Holding_Period",
                 "holding_days_realistic": i,
