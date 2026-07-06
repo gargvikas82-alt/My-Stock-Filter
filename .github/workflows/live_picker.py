@@ -1,0 +1,51 @@
+name: Stock Hunter Backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: 'Enter Target Date (YYYY-MM-DD) - leave blank for manual runs to use today'
+        required: false
+        default: ''
+  schedule:
+    # 12:30 UTC = 18:00 IST. Runs every Tuesday and Friday evening.
+    # On scheduled runs there is no manual input, so the script falls back to today's date automatically.
+    - cron: '30 12 * * 2,5'
+
+jobs:
+  run-backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas yfinance numpy requests
+
+      - name: Run Model
+        env:
+          TARGET_DATE: ${{ github.event.inputs.target_date }}
+        run: |
+          python live_picker.py
+
+      - name: Send Telegram Notification
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python telegram_notify.py
+
+      - name: Commit and Push Results
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add backtest_results.csv skipped_stocks.csv
+          git commit -m "Stock Hunter automated run [skip ci]" || echo "No changes to commit"
+          git push
