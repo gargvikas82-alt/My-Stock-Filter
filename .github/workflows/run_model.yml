@@ -42,6 +42,12 @@ jobs:
         run: |
           python telegram_notify.py
 
+      - name: Sync Picks To Google Sheet
+        env:
+          SHEET_WEBHOOK_URL: ${{ secrets.SHEET_WEBHOOK_URL }}
+        run: |
+          python sync_to_sheet.py
+
       - name: Commit and Push Results
         run: |
           git config --global user.name "github-actions[bot]"
