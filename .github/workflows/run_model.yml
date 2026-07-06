@@ -33,7 +33,7 @@ jobs:
         env:
           TARGET_DATE: ${{ github.event.inputs.target_date }}
         run: |
-          python backtest_model.py
+          python live_picker.py
 
       - name: Send Telegram Notification
         env:
