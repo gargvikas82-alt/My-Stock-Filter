@@ -41,10 +41,10 @@ def build_message():
     top = df.head(TOP_N)
     lines = [f"<b>Stock Hunter - Top {min(TOP_N, len(df))} of {len(df)} qualified</b>\n"]
     for _, row in top.iterrows():
-        lines.append(
-            f"{row['Stock']}: {row['Strategy_Return_%']:+.1f}% "
-            f"(Entry {row['Entry_Date']} @ {row['Price_At_Entry']})"
-        )
+        sl = row.get("Stop_Loss_Price")
+        sl_pct = row.get("Stop_Loss_%")
+        sl_text = f", SL {sl} ({sl_pct}%)" if pd.notna(sl) else ""
+        lines.append(f"{row['Stock']}: Entry {row['Price_At_Pick']}{sl_text}")
     lines.append(f"\nTotal qualified: {len(df)} | Skipped/excluded: {skipped_count}")
     lines.append("Full results in the GitHub repo.")
     return "\n".join(lines)
