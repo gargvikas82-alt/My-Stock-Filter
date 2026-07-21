@@ -680,7 +680,7 @@ THERMAX,No volume surge (0.86x)
 THOMASCOOK,Not above 150MA/200MA
 THYROCARE,Too extended above 50MA (8.8%)
 TI,Not above 150MA/200MA
-TIINDIA,Empty history
+TIINDIA,MA alignment failed (50>150>200)
 TIMETECHNO,MA alignment failed (50>150>200)
 TIMKEN,Not above 150MA/200MA
 TIPSMUSIC,No fresh 50MA crossover in last 10 days
