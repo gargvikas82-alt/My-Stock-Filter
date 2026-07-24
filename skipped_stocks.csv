@@ -3,12 +3,12 @@ Stock,Reason
 3MINDIA,MA alignment failed (50>150>200)
 AADHARHFC,MA alignment failed (50>150>200)
 AARTIDRUGS,MA alignment failed (50>150>200)
-AARTIIND,No volume surge (0.87x)
+AARTIIND,No fresh 50MA crossover in last 10 days
 AARTIPHARM,Not above 150MA/200MA
-AAVAS,MA alignment failed (50>150>200)
-ABB,Too extended above 50MA (8.1%)
+AAVAS,Not above 150MA/200MA
+ABB,Price move too large for quiet accumulation (8.4%)
 ABBOTINDIA,MA alignment failed (50>150>200)
-ABCAPITAL,Too extended above 50MA (9.2%)
+ABCAPITAL,No fresh 50MA crossover in last 10 days
 ABDL,MA alignment failed (50>150>200)
 ABFRL,Not above 150MA/200MA
 ABLBL,Not above 150MA/200MA
@@ -16,49 +16,49 @@ ABREL,Not above 150MA/200MA
 ABSLAMC,No confirmed retest yet
 ACC,Not above 150MA/200MA
 ACE,MA alignment failed (50>150>200)
-ACI,MA alignment failed (50>150>200)
-ACMESOLAR,Too extended above 50MA (9.1%)
-ACUTAAS,Too extended above 50MA (13.7%)
-ADANIENSOL,Too extended above 50MA (14.4%)
+ACI,Not above 150MA/200MA
+ACMESOLAR,No fresh 50MA crossover in last 10 days
+ACUTAAS,No confirmed retest yet
+ADANIENSOL,Too extended above 50MA (10.1%)
 ADANIENT,No fresh 50MA crossover in last 10 days
-ADANIGREEN,No fresh 50MA crossover in last 10 days
-ADANIPORTS,No fresh 50MA crossover in last 10 days
+ADANIGREEN,No confirmed retest yet
+ADANIPORTS,No confirmed retest yet
 ADANIPOWER,No confirmed retest yet
 ADVENZYMES,200MA not trending up
-AEGISLOG,Too extended above 50MA (32.9%)
+AEGISLOG,Too extended above 50MA (31.0%)
 AEGISVOPAK,MA alignment failed (50>150>200)
-AEQUS,Insufficient history (153 rows)
-AETHER,Too extended above 50MA (17.0%)
+AEQUS,Insufficient history (156 rows)
+AETHER,Too extended above 50MA (13.4%)
 AFCONS,Not above 150MA/200MA
 AFFLE,Not above 150MA/200MA
 AGARWALEYE,MA alignment failed (50>150>200)
-AGL,Insufficient history (13 rows)
+AGL,Insufficient history (16 rows)
 AHLUCONT,Not above 150MA/200MA
 AIAENG,No fresh 50MA crossover in last 10 days
 AIIL,MA alignment failed (50>150>200)
-AJANTPHARM,Too extended above 50MA (12.0%)
-AKUMS,Too extended above 50MA (17.2%)
+AJANTPHARM,No fresh 50MA crossover in last 10 days
+AKUMS,Too extended above 50MA (14.0%)
 ALIVUS,No fresh 50MA crossover in last 10 days
 ALKEM,MA alignment failed (50>150>200)
 ALKYLAMINE,MA alignment failed (50>150>200)
 ALOKINDS,Not above 150MA/200MA
-AMBER,MA alignment failed (50>150>200)
+AMBER,Not above 150MA/200MA
 AMBUJACEM,Not above 150MA/200MA
-ANANDRATHI,Too extended above 50MA (10.8%)
+ANANDRATHI,No fresh 50MA crossover in last 10 days
 ANANTRAJ,MA alignment failed (50>150>200)
 ANGELONE,No confirmed retest yet
-ANTHEM,Insufficient history (250 rows)
+ANTHEM,Insufficient history (253 rows)
 ANUP,MA alignment failed (50>150>200)
 ANURAS,Not above 150MA/200MA
 APARINDS,No confirmed retest yet
 APLAPOLLO,Not above 150MA/200MA
-APLLTD,MA alignment failed (50>150>200)
+APLLTD,Not above 150MA/200MA
 APOLLO,No confirmed retest yet
 APOLLOHOSP,No fresh 50MA crossover in last 10 days
 APOLLOTYRE,Not above 150MA/200MA
 APTUS,MA alignment failed (50>150>200)
-ARE&M,MA alignment failed (50>150>200)
-ARVIND,No fresh 50MA crossover in last 10 days
+ARE&M,Not above 150MA/200MA
+ARVIND,No confirmed retest yet
 ARVINDFASN,Not above 150MA/200MA
 ASAHIINDIA,Not above 150MA/200MA
 ASHAPURMIN,MA alignment failed (50>150>200)
@@ -68,10 +68,10 @@ ASIANPAINT,MA alignment failed (50>150>200)
 ASKAUTOLTD,MA alignment failed (50>150>200)
 ASTERDM,No fresh 50MA crossover in last 10 days
 ASTRAL,Not above 150MA/200MA
-ASTRAMICRO,Too extended above 50MA (14.7%)
+ASTRAMICRO,Too extended above 50MA (16.0%)
 ATGL,MA alignment failed (50>150>200)
-ATHERENERG,Too extended above 50MA (22.9%)
-ATLANTAELE,Insufficient history (201 rows)
+ATHERENERG,Too extended above 50MA (13.4%)
+ATLANTAELE,Insufficient history (204 rows)
 ATUL,Not above 150MA/200MA
 AUBANK,No confirmed retest yet
 AURIONPRO,Not above 150MA/200MA
@@ -82,22 +82,22 @@ AVL,MA alignment failed (50>150>200)
 AWFIS,Not above 150MA/200MA
 AWL,Not above 150MA/200MA
 AXISBANK,Not above 150MA/200MA
-AXISCADES,Not above 150MA/200MA
-AZAD,Too extended above 50MA (10.8%)
-BAJAJ-AUTO,No volume surge (1.45x)
+AXISCADES,200MA not trending up
+AZAD,Too extended above 50MA (12.9%)
+BAJAJ-AUTO,Too extended above 50MA (8.8%)
 BAJAJELEC,Not above 150MA/200MA
 BAJAJFINSV,Not above 150MA/200MA
 BAJAJHFL,Not above 150MA/200MA
 BAJAJHLDNG,Not above 150MA/200MA
 BAJFINANCE,MA alignment failed (50>150>200)
-BALAMINES,Too extended above 50MA (16.0%)
+BALAMINES,No fresh 50MA crossover in last 10 days
 BALKRISIND,Not above 150MA/200MA
-BALRAMCHIN,Too extended above 50MA (12.2%)
+BALRAMCHIN,Too extended above 50MA (9.9%)
 BALUFORGE,Not above 150MA/200MA
 BANCOINDIA,Not above 150MA/200MA
-BANDHANBNK,No volume surge (1.25x)
+BANDHANBNK,Not above 150MA/200MA
 BANKBARODA,Not above 150MA/200MA
-BANKINDIA,MA alignment failed (50>150>200)
+BANKINDIA,Not above 150MA/200MA
 BATAINDIA,Not above 150MA/200MA
 BAYERCROP,Not above 150MA/200MA
 BBOX,No confirmed retest yet
@@ -107,20 +107,20 @@ BECTORFOOD,Not above 150MA/200MA
 BEL,Not above 150MA/200MA
 BELRISE,No fresh 50MA crossover in last 10 days
 BEML,Not above 150MA/200MA
-BERGEPAINT,MA alignment failed (50>150>200)
-BHARATFORG,Too extended above 50MA (8.8%)
+BERGEPAINT,Not above 150MA/200MA
+BHARATFORG,No fresh 50MA crossover in last 10 days
 BHARTIARTL,Not above 150MA/200MA
-BHARTIHEXA,MA alignment failed (50>150>200)
-BHEL,Price move too large for quiet accumulation (9.7%)
+BHARTIHEXA,Not above 150MA/200MA
+BHEL,No fresh 50MA crossover in last 10 days
 BIKAJI,Not above 150MA/200MA
-BIOCON,Price move too large for quiet accumulation (10.9%)
+BIOCON,Market regime filter: Nifty below its 200 EMA
 BIRLACORPN,Not above 150MA/200MA
 BLACKBUCK,Not above 150MA/200MA
 BLS,Not above 150MA/200MA
 BLUEDART,Not above 150MA/200MA
 BLUEJET,MA alignment failed (50>150>200)
 BLUESTARCO,Not above 150MA/200MA
-BLUESTONE,Insufficient history (229 rows)
+BLUESTONE,Insufficient history (232 rows)
 BORORENEW,MA alignment failed (50>150>200)
 BOSCHLTD,MA alignment failed (50>150>200)
 BPCL,Not above 150MA/200MA
@@ -132,8 +132,8 @@ CAMPUS,Not above 150MA/200MA
 CAMS,MA alignment failed (50>150>200)
 CANBK,Not above 150MA/200MA
 CANFINHOME,Not above 150MA/200MA
-CANHLIFE,Insufficient history (189 rows)
-CAPILLARY,Insufficient history (166 rows)
+CANHLIFE,Insufficient history (192 rows)
+CAPILLARY,Insufficient history (169 rows)
 CAPLIPOINT,MA alignment failed (50>150>200)
 CARBORUNIV,No confirmed retest yet
 CARTRADE,MA alignment failed (50>150>200)
@@ -143,20 +143,20 @@ CCL,No fresh 50MA crossover in last 10 days
 CDSL,Not above 150MA/200MA
 CEATLTD,Not above 150MA/200MA
 CELLO,Not above 150MA/200MA
-CEMPRO,Too extended above 50MA (34.6%)
+CEMPRO,Too extended above 50MA (14.9%)
 CENTRALBK,Not above 150MA/200MA
 CENTURYPLY,MA alignment failed (50>150>200)
 CERA,MA alignment failed (50>150>200)
 CESC,Not above 150MA/200MA
 CGCL,MA alignment failed (50>150>200)
-CGPOWER,No volume surge (0.77x)
-CHALET,MA alignment failed (50>150>200)
+CGPOWER,No confirmed retest yet
+CHALET,Not above 150MA/200MA
 CHAMBLFERT,Not above 150MA/200MA
-CHENNPETRO,Too extended above 50MA (12.4%)
+CHENNPETRO,No fresh 50MA crossover in last 10 days
 CHOICEIN,MA alignment failed (50>150>200)
 CHOLAFIN,MA alignment failed (50>150>200)
 CHOLAHLDNG,Not above 150MA/200MA
-CIEINDIA,Not enough distance above 52-week low
+CIEINDIA,Not above 150MA/200MA
 CIPLA,MA alignment failed (50>150>200)
 CLEAN,Not above 150MA/200MA
 CMSINFO,Not above 150MA/200MA
@@ -166,72 +166,72 @@ COFORGE,Not above 150MA/200MA
 COHANCE,Not above 150MA/200MA
 COLPAL,MA alignment failed (50>150>200)
 CONCOR,Not above 150MA/200MA
-CONCORDBIO,MA alignment failed (50>150>200)
+CONCORDBIO,Not above 150MA/200MA
 COROMANDEL,Not above 150MA/200MA
-CORONA,Insufficient history (149 rows)
-CPPLUS,Insufficient history (239 rows)
+CORONA,Insufficient history (152 rows)
+CPPLUS,Insufficient history (242 rows)
 CRAFTSMAN,No fresh 50MA crossover in last 10 days
-CRAMC,Insufficient history (190 rows)
+CRAMC,Insufficient history (193 rows)
 CREDITACC,MA alignment failed (50>150>200)
-CRISIL,Not above 150MA/200MA
-CRIZAC,Insufficient history (258 rows)
+CRISIL,MA alignment failed (50>150>200)
+CRIZAC,Not above 150MA/200MA
 CROMPTON,Not above 150MA/200MA
 CSBBANK,Not above 150MA/200MA
-CUB,MA alignment failed (50>150>200)
-CUMMINSIND,No confirmed retest yet
-CUPID,Too extended above 50MA (27.8%)
+CUB,No fresh 50MA crossover in last 10 days
+CUMMINSIND,No volume surge (0.79x)
+CUPID,Too extended above 50MA (25.2%)
 CYIENT,Not above 150MA/200MA
 DABUR,Not above 150MA/200MA
 DALBHARAT,Not above 150MA/200MA
 DATAMATICS,MA alignment failed (50>150>200)
-DATAPATTNS,No confirmed retest yet
+DATAPATTNS,No volume surge (1.24x)
 DBL,Not above 150MA/200MA
 DBREALTY,Not above 150MA/200MA
-DCBBANK,No volume surge (0.99x)
+DCBBANK,No fresh 50MA crossover in last 10 days
 DCMSHRIRAM,Not above 150MA/200MA
 DEEPAKFERT,MA alignment failed (50>150>200)
 DEEPAKNTR,MA alignment failed (50>150>200)
-DELHIVERY,No fresh 50MA crossover in last 10 days
+DELHIVERY,Not enough distance above 52-week low
 DEVYANI,Not above 150MA/200MA
-DIACABS,Too extended above 50MA (29.8%)
-DIVISLAB,No fresh 50MA crossover in last 10 days
+DIACABS,Too extended above 50MA (38.7%)
+DIVISLAB,MA alignment failed (50>150>200)
 DIXON,MA alignment failed (50>150>200)
-DLF,MA alignment failed (50>150>200)
+DLF,Not above 150MA/200MA
 DMART,Not above 150MA/200MA
 DOMS,Not above 150MA/200MA
 DRREDDY,Not above 150MA/200MA
 DYNAMATECH,No confirmed retest yet
 ECLERX,MA alignment failed (50>150>200)
-EDELWEISS,No fresh 50MA crossover in last 10 days
-EICHERMOT,No volume surge (0.99x)
+EDELWEISS,No confirmed retest yet
+EICHERMOT,No volume surge (0.84x)
 EIDPARRY,Not above 150MA/200MA
 EIEL,MA alignment failed (50>150>200)
 EIHOTEL,Not above 150MA/200MA
 ELECON,Not above 150MA/200MA
 ELECTCAST,Not above 150MA/200MA
-ELGIEQUIP,No volume surge (0.48x)
+ELGIEQUIP,No confirmed retest yet
 ELLEN,Not above 150MA/200MA
 EMAMILTD,Not above 150MA/200MA
 EMBDL,Not above 150MA/200MA
-EMCURE,Too extended above 50MA (8.8%)
+EMCURE,No fresh 50MA crossover in last 10 days
 EMIL,MA alignment failed (50>150>200)
-EMMVEE,Insufficient history (169 rows)
+EMMVEE,Insufficient history (172 rows)
 ENDURANCE,MA alignment failed (50>150>200)
 ENGINERSIN,No confirmed retest yet
 ENRIN,MA alignment failed (50>150>200)
-ENTERO,No volume surge (0.44x)
+ENTERO,No volume surge (0.49x)
 EPL,No fresh 50MA crossover in last 10 days
-EQUITASBNK,Too extended above 50MA (9.2%)
-ERIS,MA alignment failed (50>150>200)
+EQUITASBNK,No fresh 50MA crossover in last 10 days
+ERIS,Not above 150MA/200MA
 ESCORTS,Not above 150MA/200MA
 ETERNAL,MA alignment failed (50>150>200)
-ETHOSLTD,MA alignment failed (50>150>200)
+ETHOSLTD,Not above 150MA/200MA
 EUREKAFORB,Not above 150MA/200MA
 EXIDEIND,MA alignment failed (50>150>200)
 FACT,Not above 150MA/200MA
-FEDERALBNK,Too extended above 50MA (13.8%)
-FEDFINA,Retest broke below the 50MA - failed support
-FIEMIND,No volume surge (0.90x)
+FEDERALBNK,Too extended above 50MA (11.7%)
+FEDFINA,Not enough distance above 52-week low
+FIEMIND,No volume surge (1.01x)
 FINCABLES,No confirmed retest yet
 FINPIPE,Not above 150MA/200MA
 FIRSTCRY,Not above 150MA/200MA
@@ -241,7 +241,7 @@ FORCEMOT,Not above 150MA/200MA
 FORTIS,MA alignment failed (50>150>200)
 FSL,Not above 150MA/200MA
 GABRIEL,MA alignment failed (50>150>200)
-GAEL,Not above 150MA/200MA
+GAEL,No confirmed retest yet
 GAIL,MA alignment failed (50>150>200)
 GALLANTT,Not above 150MA/200MA
 GESHIP,No confirmed retest yet
@@ -266,33 +266,33 @@ GOKEX,MA alignment failed (50>150>200)
 GOKULAGRO,No confirmed retest yet
 GPIL,Not above 150MA/200MA
 GPPL,Not above 150MA/200MA
-GRANULES,Too extended above 50MA (9.7%)
-GRAPHITE,Not above 150MA/200MA
-GRASIM,No volume surge (0.79x)
+GRANULES,No fresh 50MA crossover in last 10 days
+GRAPHITE,No confirmed retest yet
+GRASIM,Not enough distance above 52-week low
 GRAVITA,MA alignment failed (50>150>200)
 GREAVESCOT,MA alignment failed (50>150>200)
-GROWW,Insufficient history (173 rows)
-GRSE,MA alignment failed (50>150>200)
-GRWRHITECH,Too extended above 50MA (9.4%)
+GROWW,Insufficient history (176 rows)
+GRSE,Not above 150MA/200MA
+GRWRHITECH,No fresh 50MA crossover in last 10 days
 GSFC,Not above 150MA/200MA
 GVT&D,No confirmed retest yet
 HAL,MA alignment failed (50>150>200)
 HAPPSTMNDS,Not above 150MA/200MA
 HAVELLS,Not above 150MA/200MA
 HBLENGINE,Not above 150MA/200MA
-HCC,MA alignment failed (50>150>200)
+HCC,Not above 150MA/200MA
 HCG,MA alignment failed (50>150>200)
 HCLTECH,Not above 150MA/200MA
-HDBFS,MA alignment failed (50>150>200)
+HDBFS,Not above 150MA/200MA
 HDFCAMC,Not above 150MA/200MA
 HDFCBANK,Not above 150MA/200MA
 HDFCLIFE,Not above 150MA/200MA
 HEG,MA alignment failed (50>150>200)
-HEMIPROP,MA alignment failed (50>150>200)
+HEMIPROP,Not above 150MA/200MA
 HERITGFOOD,Not above 150MA/200MA
 HEROMOTOCO,Not above 150MA/200MA
 HEXT,Not above 150MA/200MA
-HFCL,Too extended above 50MA (14.6%)
+HFCL,No fresh 50MA crossover in last 10 days
 HGINFRA,Not above 150MA/200MA
 HINDALCO,Not above 150MA/200MA
 HINDCOPPER,Not above 150MA/200MA
@@ -302,14 +302,14 @@ HINDZINC,Not above 150MA/200MA
 HOMEFIRST,MA alignment failed (50>150>200)
 HONASA,No fresh 50MA crossover in last 10 days
 HONAUT,MA alignment failed (50>150>200)
-HSCL,Too extended above 50MA (22.6%)
+HSCL,Too extended above 50MA (19.0%)
 HUDCO,Not above 150MA/200MA
 HYUNDAI,Not above 150MA/200MA
-ICICIAMC,Insufficient history (146 rows)
+ICICIAMC,Insufficient history (149 rows)
 ICICIBANK,MA alignment failed (50>150>200)
 ICICIGI,Not above 150MA/200MA
 ICICIPRULI,Not above 150MA/200MA
-ICIL,Too extended above 50MA (8.7%)
+ICIL,Too extended above 50MA (8.6%)
 IDBI,Not above 150MA/200MA
 IDEA,No confirmed retest yet
 IDFCFIRSTB,MA alignment failed (50>150>200)
@@ -320,28 +320,28 @@ IGIL,200MA not trending up
 IGL,Not above 150MA/200MA
 IIFL,MA alignment failed (50>150>200)
 IIFLCAPS,No confirmed retest yet
-IKS,Too extended above 50MA (9.1%)
-IMFA,No confirmed retest yet
-INDGN,MA alignment failed (50>150>200)
+IKS,No fresh 50MA crossover in last 10 days
+IMFA,Not above 150MA/200MA
+INDGN,Not above 150MA/200MA
 INDHOTEL,MA alignment failed (50>150>200)
 INDIACEM,Not above 150MA/200MA
 INDIAGLYCO,MA alignment failed (50>150>200)
 INDIAMART,Not above 150MA/200MA
-INDIANB,MA alignment failed (50>150>200)
-INDIASHLTR,MA alignment failed (50>150>200)
+INDIANB,Not above 150MA/200MA
+INDIASHLTR,Not above 150MA/200MA
 INDIGO,MA alignment failed (50>150>200)
 INDIGOPNTS,MA alignment failed (50>150>200)
-INDUSINDBK,Too extended above 50MA (13.2%)
+INDUSINDBK,No fresh 50MA crossover in last 10 days
 INDUSTOWER,Not above 150MA/200MA
 INFY,Not above 150MA/200MA
-INOXGREEN,MA alignment failed (50>150>200)
-INOXINDIA,Too extended above 50MA (20.2%)
+INOXGREEN,Not above 150MA/200MA
+INOXINDIA,Too extended above 50MA (12.7%)
 INOXWIND,Not above 150MA/200MA
 INTELLECT,Not above 150MA/200MA
 IOB,Not above 150MA/200MA
 IOC,Not above 150MA/200MA
-IONEXCHANG,Too extended above 50MA (11.7%)
-IPCALAB,Too extended above 50MA (8.5%)
+IONEXCHANG,No fresh 50MA crossover in last 10 days
+IPCALAB,No fresh 50MA crossover in last 10 days
 IRB,Not above 150MA/200MA
 IRCON,Not above 150MA/200MA
 IRCTC,Not above 150MA/200MA
@@ -351,11 +351,11 @@ ITC,Not above 150MA/200MA
 ITCHOTELS,Not above 150MA/200MA
 ITI,Not above 150MA/200MA
 IXIGO,Not above 150MA/200MA
-J&KBANK,Too extended above 50MA (19.6%)
+J&KBANK,Too extended above 50MA (8.6%)
 JAIBALAJI,Not above 150MA/200MA
-JAINREC,Insufficient history (198 rows)
-JAMNAAUTO,MA alignment failed (50>150>200)
-JAYNECOIND,No confirmed retest yet
+JAINREC,Insufficient history (201 rows)
+JAMNAAUTO,No fresh 50MA crossover in last 10 days
+JAYNECOIND,Not above 150MA/200MA
 JBCHEPHARM,No fresh 50MA crossover in last 10 days
 JBMA,MA alignment failed (50>150>200)
 JINDALSAW,No fresh 50MA crossover in last 10 days
@@ -367,18 +367,18 @@ JKPAPER,MA alignment failed (50>150>200)
 JKTYRE,Not above 150MA/200MA
 JLHL,MA alignment failed (50>150>200)
 JMFINANCIL,Not above 150MA/200MA
-JPPOWER,MA alignment failed (50>150>200)
+JPPOWER,Not above 150MA/200MA
 JSFB,MA alignment failed (50>150>200)
 JSL,Not above 150MA/200MA
 JSLL,Not above 150MA/200MA
-JSWCEMENT,Insufficient history (232 rows)
+JSWCEMENT,Insufficient history (235 rows)
 JSWDULUX,Not above 150MA/200MA
-JSWENERGY,Retest broke below the 50MA - failed support
+JSWENERGY,No confirmed retest yet
 JSWINFRA,MA alignment failed (50>150>200)
 JSWSTEEL,Not enough distance above 52-week low
 JUBLFOOD,Not above 150MA/200MA
 JUBLINGREA,MA alignment failed (50>150>200)
-JUBLPHARMA,MA alignment failed (50>150>200)
+JUBLPHARMA,Not above 150MA/200MA
 JUSTDIAL,MA alignment failed (50>150>200)
 JWL,Not above 150MA/200MA
 JYOTHYLAB,Not above 150MA/200MA
@@ -386,12 +386,12 @@ JYOTICNC,Not above 150MA/200MA
 KAJARIACER,MA alignment failed (50>150>200)
 KALYANKJIL,MA alignment failed (50>150>200)
 KANSAINER,Not above 150MA/200MA
-KARURVYSYA,Too extended above 50MA (15.7%)
+KARURVYSYA,Too extended above 50MA (15.0%)
 KAYNES,Not above 150MA/200MA
 KEC,Not above 150MA/200MA
 KEI,No confirmed retest yet
 KFINTECH,Not above 150MA/200MA
-KIMS,No fresh 50MA crossover in last 10 days
+KIMS,No confirmed retest yet
 KIRLOSBROS,MA alignment failed (50>150>200)
 KIRLOSENG,No fresh 50MA crossover in last 10 days
 KIRLPNU,No confirmed retest yet
@@ -404,23 +404,23 @@ KPITTECH,Not above 150MA/200MA
 KPRMILL,MA alignment failed (50>150>200)
 KRBL,Not above 150MA/200MA
 KRN,No fresh 50MA crossover in last 10 days
-KSB,No fresh 50MA crossover in last 10 days
+KSB,No confirmed retest yet
 KSCL,Not above 150MA/200MA
-KTKBANK,No volume surge (0.72x)
+KTKBANK,No fresh 50MA crossover in last 10 days
 LALPATHLAB,MA alignment failed (50>150>200)
 LATENTVIEW,Not above 150MA/200MA
-LAURUSLABS,Too extended above 50MA (11.0%)
+LAURUSLABS,Too extended above 50MA (10.3%)
 LEMONTREE,Not above 150MA/200MA
-LENSKART,Insufficient history (175 rows)
-LGEINDIA,Insufficient history (192 rows)
-LICHSGFIN,MA alignment failed (50>150>200)
+LENSKART,Insufficient history (178 rows)
+LGEINDIA,Insufficient history (195 rows)
+LICHSGFIN,Not above 150MA/200MA
 LICI,MA alignment failed (50>150>200)
-LINDEINDIA,Not enough distance above 52-week low
-LLOYDSENGG,Too extended above 50MA (14.7%)
+LINDEINDIA,Not above 150MA/200MA
+LLOYDSENGG,Too extended above 50MA (9.9%)
 LLOYDSENT,MA alignment failed (50>150>200)
-LLOYDSME,Too extended above 50MA (9.0%)
+LLOYDSME,Too extended above 50MA (8.7%)
 LODHA,MA alignment failed (50>150>200)
-LOTUSDEV,Insufficient history (238 rows)
+LOTUSDEV,Insufficient history (241 rows)
 LT,Not above 150MA/200MA
 LTF,No fresh 50MA crossover in last 10 days
 LTFOODS,Not above 150MA/200MA
@@ -434,13 +434,13 @@ M&MFIN,MA alignment failed (50>150>200)
 MAHABANK,No confirmed retest yet
 MAHSCOOTER,Not above 150MA/200MA
 MAHSEAMLES,Not above 150MA/200MA
-MANAPPURAM,Too extended above 50MA (9.7%)
+MANAPPURAM,Too extended above 50MA (9.2%)
 MANKIND,MA alignment failed (50>150>200)
 MANORAMA,No fresh 50MA crossover in last 10 days
 MANYAVAR,Not above 150MA/200MA
 MAPMYINDIA,Not above 150MA/200MA
 MARICO,Not enough distance above 52-week low
-MARKSANS,No fresh 50MA crossover in last 10 days
+MARKSANS,No confirmed retest yet
 MARUTI,Not above 150MA/200MA
 MASTEK,Not above 150MA/200MA
 MAXHEALTH,MA alignment failed (50>150>200)
@@ -448,7 +448,7 @@ MAZDOCK,Not above 150MA/200MA
 MCX,No confirmed retest yet
 MEDANTA,MA alignment failed (50>150>200)
 MEDPLUS,Not above 150MA/200MA
-MEESHO,Insufficient history (153 rows)
+MEESHO,Insufficient history (156 rows)
 METROPOLIS,No fresh 50MA crossover in last 10 days
 MFSL,Not above 150MA/200MA
 MGL,Not above 150MA/200MA
@@ -465,7 +465,7 @@ MSTCLTD,MA alignment failed (50>150>200)
 MSUMI,Not above 150MA/200MA
 MTARTECH,No confirmed retest yet
 MUTHOOTFIN,Not above 150MA/200MA
-NAM-INDIA,No fresh 50MA crossover in last 10 days
+NAM-INDIA,No confirmed retest yet
 NATCOPHARM,Not above 150MA/200MA
 NATIONALUM,Not above 150MA/200MA
 NAUKRI,MA alignment failed (50>150>200)
@@ -474,7 +474,7 @@ NAVINFLUOR,No fresh 50MA crossover in last 10 days
 NAZARA,No fresh 50MA crossover in last 10 days
 NBCC,Not above 150MA/200MA
 NCC,Not above 150MA/200MA
-NEOGEN,Too extended above 50MA (11.8%)
+NEOGEN,No fresh 50MA crossover in last 10 days
 NESCO,Not above 150MA/200MA
 NESTLEIND,No fresh 50MA crossover in last 10 days
 NETWEB,No confirmed retest yet
@@ -482,50 +482,50 @@ NETWORK18,Not above 150MA/200MA
 NEULANDLAB,MA alignment failed (50>150>200)
 NEWGEN,Not above 150MA/200MA
 NFL,Not above 150MA/200MA
-NH,Not enough distance above 52-week low
+NH,MA alignment failed (50>150>200)
 NHPC,MA alignment failed (50>150>200)
 NIACL,MA alignment failed (50>150>200)
-NIVABUPA,No fresh 50MA crossover in last 10 days
+NIVABUPA,No confirmed retest yet
 NLCINDIA,No confirmed retest yet
-NMDC,No confirmed retest yet
-NSLNISP,MA alignment failed (50>150>200)
+NMDC,Not above 150MA/200MA
+NSLNISP,Not above 150MA/200MA
 NTPC,Not above 150MA/200MA
 NTPCGREEN,Not above 150MA/200MA
-NUVAMA,Too extended above 50MA (12.6%)
+NUVAMA,Too extended above 50MA (15.9%)
 NUVOCO,MA alignment failed (50>150>200)
-NYKAA,Too extended above 50MA (12.8%)
+NYKAA,Too extended above 50MA (9.8%)
 OBEROIRLTY,MA alignment failed (50>150>200)
-OFSS,Too extended above 50MA (13.0%)
+OFSS,No fresh 50MA crossover in last 10 days
 OIL,Not above 150MA/200MA
-OLAELEC,MA alignment failed (50>150>200)
+OLAELEC,Not above 150MA/200MA
 OLECTRA,MA alignment failed (50>150>200)
 ONESOURCE,MA alignment failed (50>150>200)
 ONGC,Not above 150MA/200MA
 OPTIEMUS,MA alignment failed (50>150>200)
 ORIENTCEM,Not above 150MA/200MA
-ORKLAINDIA,Insufficient history (177 rows)
+ORKLAINDIA,Insufficient history (180 rows)
 OSWALPUMPS,Not above 150MA/200MA
 PAGEIND,MA alignment failed (50>150>200)
 PARADEEP,Not above 150MA/200MA
-PARAS,Too extended above 50MA (13.6%)
-PARKHOSPS,Insufficient history (148 rows)
+PARAS,Too extended above 50MA (8.4%)
+PARKHOSPS,Insufficient history (151 rows)
 PATANJALI,Not above 150MA/200MA
 PAYTM,MA alignment failed (50>150>200)
 PCBL,MA alignment failed (50>150>200)
-PCJEWELLER,MA alignment failed (50>150>200)
+PCJEWELLER,Not above 150MA/200MA
 PERSISTENT,Not above 150MA/200MA
 PETRONET,Not above 150MA/200MA
 PFC,No confirmed retest yet
 PFIZER,Not above 150MA/200MA
 PFOCUS,MA alignment failed (50>150>200)
 PGEL,MA alignment failed (50>150>200)
-PGIL,Too extended above 50MA (13.5%)
-PHOENIXLTD,Too extended above 50MA (11.0%)
+PGIL,No fresh 50MA crossover in last 10 days
+PHOENIXLTD,No fresh 50MA crossover in last 10 days
 PICCADIL,MA alignment failed (50>150>200)
 PIDILITIND,MA alignment failed (50>150>200)
 PIIND,Not above 150MA/200MA
-PINELABS,Insufficient history (171 rows)
-PIRAMALFIN,Insufficient history (176 rows)
+PINELABS,Insufficient history (174 rows)
+PIRAMALFIN,Insufficient history (179 rows)
 PNB,Not above 150MA/200MA
 PNBHOUSING,No fresh 50MA crossover in last 10 days
 PNCINFRA,MA alignment failed (50>150>200)
@@ -546,27 +546,27 @@ PRIVISCL,No fresh 50MA crossover in last 10 days
 PRSMJOHNSN,Not above 150MA/200MA
 PRUDENT,No confirmed retest yet
 PTC,Not above 150MA/200MA
-PTCIL,No volume surge (0.43x)
+PTCIL,MA alignment failed (50>150>200)
 PURVA,Not above 150MA/200MA
-PVRINOX,Not above 150MA/200MA
-PWL,Insufficient history (169 rows)
+PVRINOX,MA alignment failed (50>150>200)
+PWL,Insufficient history (172 rows)
 QPOWER,No confirmed retest yet
 QUESS,MA alignment failed (50>150>200)
-RADICO,Too extended above 50MA (9.7%)
+RADICO,Too extended above 50MA (8.9%)
 RAILTEL,Not above 150MA/200MA
-RAIN,Too extended above 50MA (18.3%)
+RAIN,Too extended above 50MA (16.9%)
 RAINBOW,MA alignment failed (50>150>200)
 RALLIS,Not above 150MA/200MA
 RAMCOCEM,Not above 150MA/200MA
 RATEGAIN,MA alignment failed (50>150>200)
-RATNAMANI,No confirmed retest yet
+RATNAMANI,Not above 150MA/200MA
 RAYMONDLSL,Not above 150MA/200MA
 RBA,Not above 150MA/200MA
-RBLBANK,No fresh 50MA crossover in last 10 days
+RBLBANK,No confirmed retest yet
 RCF,Not above 150MA/200MA
 RECLTD,MA alignment failed (50>150>200)
 REDINGTON,MA alignment failed (50>150>200)
-REDTAPE,MA alignment failed (50>150>200)
+REDTAPE,Not above 150MA/200MA
 REFEX,MA alignment failed (50>150>200)
 RELAXO,MA alignment failed (50>150>200)
 RELIANCE,Not above 150MA/200MA
@@ -574,31 +574,31 @@ RELIGARE,MA alignment failed (50>150>200)
 RENUKA,Not above 150MA/200MA
 RHIM,Not above 150MA/200MA
 RITES,Not above 150MA/200MA
-RKFORGE,Not enough distance above 52-week low
+RKFORGE,ADX too low (13.2) - choppy/noisy
 ROUTE,Not above 150MA/200MA
 RPOWER,Not above 150MA/200MA
-RRKABEL,No fresh 50MA crossover in last 10 days
+RRKABEL,Too extended above 50MA (12.2%)
 RTNINDIA,Not above 150MA/200MA
 RTNPOWER,Not above 150MA/200MA
-RUBICON,Insufficient history (188 rows)
+RUBICON,Insufficient history (191 rows)
 RVNL,Not above 150MA/200MA
-SAATVIKGL,Insufficient history (203 rows)
+SAATVIKGL,Insufficient history (206 rows)
 SAFARI,Not above 150MA/200MA
 SAGILITY,Not above 150MA/200MA
 SAIL,Not above 150MA/200MA
 SAILIFE,No fresh 50MA crossover in last 10 days
-SAMHI,Not above 150MA/200MA
+SAMHI,MA alignment failed (50>150>200)
 SAMMAANCAP,MA alignment failed (50>150>200)
 SANDUMA,Not above 150MA/200MA
 SANOFICONR,MA alignment failed (50>150>200)
-SANSERA,Too extended above 50MA (10.9%)
+SANSERA,No fresh 50MA crossover in last 10 days
 SAPPHIRE,Not above 150MA/200MA
 SARDAEN,Not above 150MA/200MA
 SAREGAMA,MA alignment failed (50>150>200)
 SBFC,Not above 150MA/200MA
 SBICARD,Not above 150MA/200MA
 SBILIFE,Not above 150MA/200MA
-SBIN,MA alignment failed (50>150>200)
+SBIN,Not above 150MA/200MA
 SCHAEFFLER,Not enough distance above 52-week low
 SCHNEIDER,Retest broke below the 50MA - failed support
 SCI,No confirmed retest yet
@@ -608,37 +608,37 @@ SHAILY,MA alignment failed (50>150>200)
 SHAKTIPUMP,Not above 150MA/200MA
 SHARDACROP,Not above 150MA/200MA
 SHAREINDIA,MA alignment failed (50>150>200)
-SHILPAMED,Too extended above 50MA (15.8%)
+SHILPAMED,No fresh 50MA crossover in last 10 days
 SHREECEM,MA alignment failed (50>150>200)
-SHRIPISTON,Too extended above 50MA (19.5%)
+SHRIPISTON,Too extended above 50MA (9.5%)
 SHRIRAMFIN,MA alignment failed (50>150>200)
-SHYAMMETL,Too extended above 50MA (10.0%)
+SHYAMMETL,No fresh 50MA crossover in last 10 days
 SIEMENS,No volume surge (0.83x)
 SIGNATURE,Not above 150MA/200MA
 SJVN,Not above 150MA/200MA
 SKFINDIA,Not above 150MA/200MA
-SKFINDUS,Insufficient history (153 rows)
+SKFINDUS,Insufficient history (156 rows)
 SKIPPER,MA alignment failed (50>150>200)
-SKYGOLD,Too extended above 50MA (23.5%)
-SMARTWORKS,Insufficient history (251 rows)
-SMLMAH,MA alignment failed (50>150>200)
-SOBHA,MA alignment failed (50>150>200)
-SOLARINDS,No volume surge (0.81x)
-SONACOMS,Too extended above 50MA (17.8%)
-SONATSOFTW,MA alignment failed (50>150>200)
+SKYGOLD,Too extended above 50MA (20.1%)
+SMARTWORKS,Insufficient history (254 rows)
+SMLMAH,Not above 150MA/200MA
+SOBHA,Not above 150MA/200MA
+SOLARINDS,No fresh 50MA crossover in last 10 days
+SONACOMS,Too extended above 50MA (13.9%)
+SONATSOFTW,Not above 150MA/200MA
 SOUTHBANK,No fresh 50MA crossover in last 10 days
-SPARC,No fresh 50MA crossover in last 10 days
+SPARC,No confirmed retest yet
 SPLPETRO,MA alignment failed (50>150>200)
-SRF,MA alignment failed (50>150>200)
+SRF,Not above 150MA/200MA
 STAR,No confirmed retest yet
 STARCEMENT,Not above 150MA/200MA
 STARHEALTH,No fresh 50MA crossover in last 10 days
 STLTECH,No confirmed retest yet
-STYL,Insufficient history (201 rows)
+STYL,Insufficient history (204 rows)
 STYRENIX,MA alignment failed (50>150>200)
 SUBROS,Not above 150MA/200MA
 SUDARSCHEM,MA alignment failed (50>150>200)
-SUDEEPPHRM,Insufficient history (161 rows)
+SUDEEPPHRM,Insufficient history (164 rows)
 SUMICHEM,MA alignment failed (50>150>200)
 SUNDARMFIN,Not above 150MA/200MA
 SUNPHARMA,No fresh 50MA crossover in last 10 days
@@ -652,11 +652,11 @@ SWANCORP,Not above 150MA/200MA
 SWIGGY,Not above 150MA/200MA
 SWSOLAR,Not above 150MA/200MA
 SYNGENE,Not above 150MA/200MA
-SYRMA,Too extended above 50MA (9.4%)
+SYRMA,No fresh 50MA crossover in last 10 days
 TANLA,MA alignment failed (50>150>200)
 TARC,Not above 150MA/200MA
 TARIL,Not above 150MA/200MA
-TATACAP,Insufficient history (193 rows)
+TATACAP,Insufficient history (196 rows)
 TATACHEM,Not above 150MA/200MA
 TATACOMM,MA alignment failed (50>150>200)
 TATACONSUM,Not above 150MA/200MA
@@ -672,75 +672,75 @@ TECHM,MA alignment failed (50>150>200)
 TECHNOE,Not above 150MA/200MA
 TEGA,Not above 150MA/200MA
 TEJASNET,MA alignment failed (50>150>200)
-TENNIND,Insufficient history (168 rows)
+TENNIND,Insufficient history (171 rows)
 TEXRAIL,Not above 150MA/200MA
-THANGAMAYL,Too extended above 50MA (22.1%)
-THELEELA,Too extended above 50MA (8.1%)
-THERMAX,No volume surge (0.86x)
+THANGAMAYL,Too extended above 50MA (26.5%)
+THELEELA,Not enough distance above 52-week low
+THERMAX,No confirmed retest yet
 THOMASCOOK,Not above 150MA/200MA
-THYROCARE,Too extended above 50MA (8.8%)
+THYROCARE,No fresh 50MA crossover in last 10 days
 TI,Not above 150MA/200MA
-TIINDIA,MA alignment failed (50>150>200)
+TIINDIA,Not above 150MA/200MA
 TIMETECHNO,MA alignment failed (50>150>200)
 TIMKEN,Not above 150MA/200MA
-TIPSMUSIC,No fresh 50MA crossover in last 10 days
+TIPSMUSIC,Retest broke below the 50MA - failed support
 TITAGARH,MA alignment failed (50>150>200)
-TITAN,Too extended above 50MA (9.1%)
-TMB,Too extended above 50MA (10.7%)
-TMCV,Insufficient history (173 rows)
+TITAN,Too extended above 50MA (8.0%)
+TMB,No fresh 50MA crossover in last 10 days
+TMCV,Insufficient history (176 rows)
 TMPV,Not above 150MA/200MA
-TORNTPHARM,Too extended above 50MA (9.9%)
+TORNTPHARM,No fresh 50MA crossover in last 10 days
 TORNTPOWER,Not above 150MA/200MA
 TRANSRAILL,Not above 150MA/200MA
-TRAVELFOOD,Insufficient history (255 rows)
+TRAVELFOOD,Insufficient history (258 rows)
 TRENT,Not above 150MA/200MA
 TRIDENT,Not above 150MA/200MA
 TRITURBINE,No confirmed retest yet
-TRIVENI,Too extended above 50MA (14.9%)
-TSFINV,MA alignment failed (50>150>200)
+TRIVENI,Not above 150MA/200MA
+TSFINV,Not above 150MA/200MA
 TTML,Not above 150MA/200MA
 TVSMOTOR,MA alignment failed (50>150>200)
 TVSSCS,MA alignment failed (50>150>200)
 UBL,Not above 150MA/200MA
 UCOBANK,Not above 150MA/200MA
-UJJIVANSFB,MA alignment failed (50>150>200)
+UJJIVANSFB,Too extended above 50MA (21.3%)
 ULTRACEMCO,MA alignment failed (50>150>200)
 UNIONBANK,MA alignment failed (50>150>200)
 UNITDSPR,MA alignment failed (50>150>200)
 UNOMINDA,Not above 150MA/200MA
 UPL,Not above 150MA/200MA
-URBANCO,Insufficient history (210 rows)
+URBANCO,Insufficient history (213 rows)
 USHAMART,No fresh 50MA crossover in last 10 days
 UTIAMC,Not above 150MA/200MA
-UTLSOLAR,Insufficient history (167 rows)
+UTLSOLAR,Insufficient history (170 rows)
 V2RETAIL,MA alignment failed (50>150>200)
 VAIBHAVGBL,MA alignment failed (50>150>200)
 VARROC,MA alignment failed (50>150>200)
 VBL,Not above 150MA/200MA
 VEDL,Not above 150MA/200MA
 VGUARD,Not above 150MA/200MA
-VIJAYA,No fresh 50MA crossover in last 10 days
-VIKRAMSOLR,Insufficient history (225 rows)
+VIJAYA,No confirmed retest yet
+VIKRAMSOLR,Insufficient history (228 rows)
 VIPIND,Not above 150MA/200MA
-VIYASH,No fresh 50MA crossover in last 10 days
+VIYASH,No confirmed retest yet
 VMART,MA alignment failed (50>150>200)
 VMM,Not above 150MA/200MA
 VOLTAMP,No confirmed retest yet
 VOLTAS,Not above 150MA/200MA
 VTL,No confirmed retest yet
 WAAREEENER,Not above 150MA/200MA
-WAAREERTL,MA alignment failed (50>150>200)
-WABAG,Too extended above 50MA (17.6%)
-WAKEFIT,Insufficient history (149 rows)
+WAAREERTL,Not above 150MA/200MA
+WABAG,Too extended above 50MA (11.8%)
+WAKEFIT,Insufficient history (152 rows)
 WEBELSOLAR,MA alignment failed (50>150>200)
-WELCORP,Too extended above 50MA (13.3%)
+WELCORP,Too extended above 50MA (9.8%)
 WELENT,MA alignment failed (50>150>200)
-WELSPUNLIV,Too extended above 50MA (8.7%)
-WESTLIFE,MA alignment failed (50>150>200)
-WEWORK,Insufficient history (192 rows)
+WELSPUNLIV,No fresh 50MA crossover in last 10 days
+WESTLIFE,Not above 150MA/200MA
+WEWORK,Insufficient history (195 rows)
 WHIRLPOOL,Not above 150MA/200MA
 WIPRO,Not above 150MA/200MA
-WOCKPHARMA,No volume surge (0.29x)
+WOCKPHARMA,No confirmed retest yet
 YATHARTH,MA alignment failed (50>150>200)
 YESBANK,MA alignment failed (50>150>200)
 ZAGGLE,Not above 150MA/200MA
@@ -749,4 +749,4 @@ ZENSARTECH,Not above 150MA/200MA
 ZENTEC,No fresh 50MA crossover in last 10 days
 ZFCVINDIA,Not above 150MA/200MA
 ZYDUSLIFE,No fresh 50MA crossover in last 10 days
-ZYDUSWELL,Too extended above 50MA (11.6%)
+ZYDUSWELL,No fresh 50MA crossover in last 10 days
