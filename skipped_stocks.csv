@@ -76,7 +76,7 @@ ATUL,Not enough distance above 52-week low
 AUBANK,No fresh 50MA crossover in last 10 days
 AURIONPRO,Not above 150MA/200MA
 AUROPHARMA,No fresh 50MA crossover in last 10 days
-AVALON,Too extended above 50MA (11.8%)
+AVALON,Too extended above 50MA (12.2%)
 AVANTIFEED,Not above 150MA/200MA
 AVL,No confirmed retest yet
 AWFIS,Not above 150MA/200MA
@@ -287,7 +287,7 @@ HDBFS,Not above 150MA/200MA
 HDFCAMC,Not above 150MA/200MA
 HDFCBANK,Not above 150MA/200MA
 HDFCLIFE,Not above 150MA/200MA
-HEG,Too extended above 50MA (17.9%)
+HEG,Too extended above 50MA (18.3%)
 HEMIPROP,MA alignment failed (50>150>200)
 HERITGFOOD,Not above 150MA/200MA
 HEROMOTOCO,MA alignment failed (50>150>200)
@@ -549,7 +549,7 @@ PTC,Price move too large for quiet accumulation (15.5%)
 PTCIL,MA alignment failed (50>150>200)
 PURVA,Not above 150MA/200MA
 PVRINOX,MA alignment failed (50>150>200)
-PWL,Insufficient history (184 rows)
+PWL,Insufficient history (183 rows)
 QPOWER,No volume surge (0.65x)
 QUESS,Too extended above 50MA (17.3%)
 RADICO,Too extended above 50MA (14.3%)
@@ -617,7 +617,7 @@ SIEMENS,Too extended above 50MA (9.7%)
 SIGNATURE,Not above 150MA/200MA
 SJVN,Not above 150MA/200MA
 SKFINDIA,Not above 150MA/200MA
-SKFINDUS,Insufficient history (168 rows)
+SKFINDUS,Insufficient history (167 rows)
 SKIPPER,MA alignment failed (50>150>200)
 SKYGOLD,Too extended above 50MA (33.2%)
 SMARTWORKS,MA alignment failed (50>150>200)
