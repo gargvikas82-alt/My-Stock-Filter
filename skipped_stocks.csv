@@ -265,7 +265,7 @@ GODREJPROP,MA alignment failed (50>150>200)
 GOKEX,MA alignment failed (50>150>200)
 GOKULAGRO,Too extended above 50MA (14.1%)
 GPIL,Not above 150MA/200MA
-GPPL,Empty history
+GPPL,MA alignment failed (50>150>200)
 GRANULES,No fresh 50MA crossover in last 10 days
 GRAPHITE,MA alignment failed (50>150>200)
 GRASIM,No fresh 50MA crossover in last 10 days
