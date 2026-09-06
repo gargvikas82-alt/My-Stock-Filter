@@ -81,19 +81,20 @@ FETCH_BUFFER_DAYS = 400  # calendar-day buffer before FROM_DATE, for the 200MA/5
 
 MIN_HISTORY_ROWS = 260          # ~1 year of trading days, buffer for 200MA + 52w checks
 MA200_TREND_LOOKBACK = 20       # trading days back, to confirm 200MA is rising
-FRESH_CROSSOVER_WINDOW = 15      # LOOSENED (was 10, tightened from 15) - back to original 15-day window,
-                                   # 10 was rejecting valid fresh crossovers that were 11-15 days old
+FRESH_CROSSOVER_WINDOW = 10      # tightened from 15 - only the most recent crossovers
 RETEST_LOOKBACK_WINDOW = 20      # wider than FRESH_CROSSOVER_WINDOW - the crossover itself must be recent,
                                    # but we need extra room after it for a pullback-then-recovery to form
-EXTENDED_CAP_PCT = 12            # LOOSENED (was 8) - 8% was too close to typical daily noise for a stock
-                                 # that just broke out; 12% gives a bit more room before calling it "flown"
+EXTENDED_CAP_PCT = 8            # tightened from 15 - 150-trade backtest showed 8%+ extension above the 50MA
+                                 # averaged only +0.8% return vs +9-11% for 0-8% - past 8% it's no longer
+                                 # "early stage," it's already running
 MIN_ABOVE_52W_LOW_PCT = 25      # price must be at least this % above 52-week low
-VOL_SURGE_MIN_RATIO = 1.3       # LOOSENED (was 1.5, tightened from 1.3) - back to original threshold
-PRICE_MOVE_MIN_PCT = -5         # LOOSENED (was -3, tightened from -5) - back to original quiet-accumulation band
-PRICE_MOVE_MAX_PCT = 10         # LOOSENED (was 8) - back to original
-RETEST_MAX_DIST_PCT = 5.0       # LOOSENED (was 3.0) - retest can now land up to 5% from the 50MA and still count
-RETEST_MAX_BREACH_PCT = 5.0     # LOOSENED (was 3.0) - allows a slightly deeper shakeout before calling
-                                 # support "broken" rather than "held"
+VOL_SURGE_MIN_RATIO = 1.5       # tightened from 1.3 - stronger accumulation signal required
+PRICE_MOVE_MIN_PCT = -3         # tightened from -5 - quieter accumulation band
+PRICE_MOVE_MAX_PCT = 8          # tightened from 10
+RETEST_MAX_DIST_PCT = 3.0       # after crossover, pullback must come within this % of the 50MA to count as a
+                                 # genuine retest (too far away = still riding the original breakout, no test yet)
+RETEST_MAX_BREACH_PCT = 3.0     # pullback may undershoot the 50MA by up to this % (normal shakeout) before
+                                 # it counts as a failed/broken support rather than a held one
 STRUCTURAL_STOP_BUFFER_ATR = 0.5   # place the stop this many ATRs below the actual retest low, not at a
                                      # flat multiple of ATR from entry - respects the chart, not just volatility
 MIN_STOP_ATR_MULT = 3.0         # widened from 2.0 - the 2x floor was still averaging ~7.8% stop distance,
@@ -114,21 +115,13 @@ ATR_PERIOD = 14                 # standard ATR lookback
 ATR_STOP_MULTIPLE = 2.0         # stop = entry - (2 x ATR) - standard institutional default
 ADX_PERIOD = 14                 # standard ADX lookback
 MIN_ADX = 25                    # ADX >= 25 = genuine trending move, not choppy/noisy sideways action
-MAX_ADX = 40                    # LOOSENED (was 32) - 32 was rejecting stocks in the middle of their strongest
-                                 # early move, right as the breakout confirms. 40 still excludes fully blown-off,
-                                 # exhausted trends but stops choking off the best-quality setups.
+MAX_ADX = 32                    # NEW ceiling - 150-trade backtest showed ADX 32+ averaged only +3.4% return
+                                 # vs +9-11% for 26-32; above this the trend is already mature/established,
+                                 # not early-stage anymore - defeats the whole point of catching it early
 RS_MA_PERIOD = 50                # relative-strength (stock vs NIFTY) trend check uses the same 50-day
                                  # window as the price trend check, for consistency
-TOTAL_CAPITAL = float(os.environ.get("TOTAL_CAPITAL", "1000000"))  # Rs 10 lakh total kitty
-RISK_PCT_PER_TRADE = float(os.environ.get("RISK_PCT_PER_TRADE", "0.5"))  # % of TOTAL_CAPITAL risked per
-    # trade if the stop is hit - NOT the ticket size. At 0.5% of Rs 10L this is Rs 5,000 of risk per
-    # trade. Kept low deliberately: this system is self-rated ~2.5-3/5, unvalidated, Phase 1 zero-capital -
-    # 10 straight losers at 0.5% costs ~4.9% of capital (needs a 5.2% gain to recover); at 1.5% it costs
-    # ~14% (needs 16%+ to recover). An unproven system should risk less, not more.
-MAX_POSITION_PCT_OF_CAPITAL = float(os.environ.get("MAX_POSITION_PCT_OF_CAPITAL", "20"))  # hard cap - no
-    # single trade may consume more than this % of TOTAL_CAPITAL, however tight its stop is. Without this,
-    # a stock with an unusually tight ATR stop could size up to an absurd share count on the risk formula
-    # alone. At 20% of Rs 10L that's a Rs 2,00,000 ceiling per position.
+FIXED_CAPITAL_PER_TRADE = float(os.environ.get("CAPITAL_PER_TRADE", "10000"))  # Rs 10,000/trade - matches
+                                                                                  # actual deployment plan
 ROUND_TRIP_COST_PCT = float(os.environ.get("ROUND_TRIP_COST_PCT", "0.7"))  # combined buy+sell cost as % of
     # trade value: STT 0.1% each side (~0.20%), stamp duty 0.015% buy side (~0.015%), NSE exchange
     # transaction charges ~0.003% each side (~0.006%), GST 18% on brokerage+exchange charges, plus
@@ -498,29 +491,11 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
 
         risk_per_share = entry_price - stop_loss_price
         stop_loss_pct = (risk_per_share / entry_price) * 100
-
-        # --- Risk-based position sizing off the Rs 10L kitty ---
-        # Every trade risks the same rupee amount (RISK_PCT_PER_TRADE% of TOTAL_CAPITAL) if its
-        # stop is hit, regardless of the stock's own volatility - a wide-stop stock gets fewer
-        # shares, a tight-stop stock gets more, but the loss in rupees if wrong is the same.
-        sizing_capped = False
-        if risk_per_share > 0 and entry_price > 0:
-            risk_amount_rs = TOTAL_CAPITAL * (RISK_PCT_PER_TRADE / 100)
-            shares_by_risk = int(risk_amount_rs / risk_per_share)
-            capital_by_risk = shares_by_risk * entry_price
-
-            max_capital_allowed = TOTAL_CAPITAL * (MAX_POSITION_PCT_OF_CAPITAL / 100)
-            if capital_by_risk > max_capital_allowed:
-                # Stop was tight enough that risk-sizing alone would over-concentrate capital
-                # in one name - cap the position size and accept a lower realized risk% instead.
-                shares_to_buy = int(max_capital_allowed / entry_price)
-                sizing_capped = True
-            else:
-                shares_to_buy = shares_by_risk
-        else:
-            shares_to_buy = 0
+        # Fixed capital per trade - matches actual deployment (Rs 10,000/trade), not a
+        # risk-based variable size. Real risk-per-trade now varies with Stop_Loss_% -
+        # that's the honest tradeoff of trading fixed tickets instead of volatility sizing.
+        shares_to_buy = int(FIXED_CAPITAL_PER_TRADE / entry_price) if entry_price > 0 else 0
         capital_allocated = round(shares_to_buy * entry_price, 2)
-        actual_risk_rs = round(shares_to_buy * risk_per_share, 2) if shares_to_buy else 0.0
 
     # --- Realistic exit: stop-loss-aware, fixed-horizon-capped ---
     # This is the actual fix for the Sharpe problem - it stops every trade
@@ -577,9 +552,6 @@ def evaluate_stock(hist, from_date, to_date, sym_nse, nifty_hist=None):
         "Stop_Loss_%": round(float(stop_loss_pct), 2) if stop_loss_pct is not None else None,
         "Suggested_Shares": shares_to_buy,
         "Capital_Allocated_Rs": capital_allocated,
-        "Actual_Risk_Rs": actual_risk_rs if stop_loss_price is not None else None,
-        "Position_Size_Capped": sizing_capped if stop_loss_price is not None else None,
-        "Pct_Of_Capital_Deployed": round((capital_allocated / TOTAL_CAPITAL) * 100, 2) if stop_loss_price is not None and TOTAL_CAPITAL else None,
         "Conviction_Score": round(float(conviction_score), 2),
         "ADX_14": round(float(adx_value), 1),
         "RS_Vs_Nifty": round(float(rs_now), 4) if rs_now is not None else None,
@@ -720,11 +692,7 @@ def run():
         print(f"  Mean return: {df_results['Realistic_Return_%'].mean():.2f}%  "
               f"Std: {df_results['Realistic_Return_%'].std():.2f}%  "
               f"Sharpe-like: {new_sharpe:.2f}  Win rate: {new_win:.1f}%")
-        avg_capital_per_trade = df_results["Capital_Allocated_Rs"].mean()
-        n_capped = df_results["Position_Size_Capped"].sum() if "Position_Size_Capped" in df_results else 0
-        print(f"NEW NET OF COSTS (avg Rs {avg_capital_per_trade:,.0f}/trade off Rs {TOTAL_CAPITAL:,.0f} kitty "
-              f"at {RISK_PCT_PER_TRADE}% risk/trade, {n_capped} position(s) hit the {MAX_POSITION_PCT_OF_CAPITAL}% "
-              f"size cap, {ROUND_TRIP_COST_PCT:.2f}% round-trip cost):")
+        print(f"NEW NET OF COSTS (Rs {FIXED_CAPITAL_PER_TRADE:.0f}/trade, {ROUND_TRIP_COST_PCT:.2f}% round-trip):")
         print(f"  Mean return: {df_results['Realistic_Return_Net_%'].mean():.2f}%  "
               f"Std: {df_results['Realistic_Return_Net_%'].std():.2f}%  "
               f"Sharpe-like: {new_sharpe_net:.2f}  Win rate: {new_win_net:.1f}%")
@@ -745,10 +713,7 @@ def run():
             "Min_Stop_Atr_Mult": MIN_STOP_ATR_MULT,
             "Max_Stop_Atr_Mult": MAX_STOP_ATR_MULT,
             "Max_Holding_Days": MAX_HOLDING_DAYS,
-            "Total_Capital": TOTAL_CAPITAL,
-            "Risk_Pct_Per_Trade": RISK_PCT_PER_TRADE,
-            "Max_Position_Pct_Of_Capital": MAX_POSITION_PCT_OF_CAPITAL,
-            "Avg_Capital_Per_Trade": round(df_results["Capital_Allocated_Rs"].mean(), 2),
+            "Capital_Per_Trade": FIXED_CAPITAL_PER_TRADE,
             "Round_Trip_Cost_Pct": ROUND_TRIP_COST_PCT,
             "Scan_Weekdays": os.environ.get("SCAN_WEEKDAYS", "1,4"),
             "Sharpe_Realistic_Gross": round(new_sharpe, 3) if new_sharpe is not None else None,
