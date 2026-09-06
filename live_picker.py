@@ -151,7 +151,21 @@ def screen_stock_live(hist, as_of_date, sym_nse, nifty_hist=None):
 
         risk_per_share = price_now - stop_loss_price
         stop_loss_pct = (risk_per_share / price_now) * 100
-        shares_to_buy = int(sh2.FIXED_CAPITAL_PER_TRADE / price_now) if price_now > 0 else 0
+
+        # Risk-based sizing off the Rs 10L kitty - same logic as stock_hunter_v2.py, kept in
+        # sync deliberately so a live pick and a backtest pick on the same setup get the same
+        # share count. See sh2.TOTAL_CAPITAL / sh2.RISK_PCT_PER_TRADE / sh2.MAX_POSITION_PCT_OF_CAPITAL.
+        if risk_per_share > 0 and price_now > 0:
+            risk_amount_rs = sh2.TOTAL_CAPITAL * (sh2.RISK_PCT_PER_TRADE / 100)
+            shares_by_risk = int(risk_amount_rs / risk_per_share)
+            capital_by_risk = shares_by_risk * price_now
+            max_capital_allowed = sh2.TOTAL_CAPITAL * (sh2.MAX_POSITION_PCT_OF_CAPITAL / 100)
+            if capital_by_risk > max_capital_allowed:
+                shares_to_buy = int(max_capital_allowed / price_now)
+            else:
+                shares_to_buy = shares_by_risk
+        else:
+            shares_to_buy = 0
         capital_allocated = round(shares_to_buy * price_now, 2)
 
     freshness_score = max(0, sh2.EXTENDED_CAP_PCT - abs(pct_above_50ma))
