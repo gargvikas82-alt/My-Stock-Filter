@@ -14,6 +14,10 @@ on:
         description: 'Scan days as comma-separated weekday numbers (0=Mon..6=Sun). Default 1,4 = Tue+Fri. Use just "1" for Tuesday-only (once a week).'
         required: false
         default: '1,4'
+      script:
+        description: 'Which script to run: stock_hunter_v2.py (default, single-config backtest) or sweep_test.py (4-config comparison in one run)'
+        required: false
+        default: 'stock_hunter_v2.py'
 
 jobs:
   run-screener:
@@ -38,12 +42,12 @@ jobs:
           TO_DATE: ${{ github.event.inputs.to_date }}
           SCAN_WEEKDAYS: ${{ github.event.inputs.scan_weekdays }}
         run: |
-          python stock_hunter_v2.py
+          python ${{ github.event.inputs.script || 'stock_hunter_v2.py' }}
 
       - name: Commit and Push Results
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add stock_hunter_v2_results.csv stock_hunter_v2_skipped.csv backtest_run_log.csv
+          git add -A
           git commit -m "Stock Hunter v2 test run [skip ci]" || echo "No changes to commit"
           git push
