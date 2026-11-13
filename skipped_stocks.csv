@@ -1,752 +1,752 @@
 Stock,Reason
-360ONE,MA alignment failed (50>150>200)
-3MINDIA,Not above 150MA/200MA
-AADHARHFC,Not above 150MA/200MA
-AARTIDRUGS,Too extended above 50MA (18.2%)
-AARTIIND,MA alignment failed (50>150>200)
-AARTIPHARM,Too extended above 50MA (12.4%)
-AAVAS,Not above 150MA/200MA
-ABB,MA alignment failed (50>150>200)
-ABBOTINDIA,MA alignment failed (50>150>200)
-ABCAPITAL,Price move too large for quiet accumulation (10.4%)
-ABDL,Too extended above 50MA (10.7%)
-ABFRL,Not above 150MA/200MA
-ABLBL,Not above 150MA/200MA
-ABREL,Not above 150MA/200MA
-ABSLAMC,Not above 150MA/200MA
-ACC,Not above 150MA/200MA
-ACE,Retest broke below the 50MA - failed support
-ACI,Not above 150MA/200MA
-ACMESOLAR,No confirmed retest yet
-ACUTAAS,Too extended above 50MA (18.8%)
-ADANIENSOL,Not above 150MA/200MA
-ADANIENT,Not above 150MA/200MA
-ADANIGREEN,MA alignment failed (50>150>200)
-ADANIPORTS,No fresh 50MA crossover in last 10 days
-ADANIPOWER,Not above 150MA/200MA
-ADVENZYMES,Not above 150MA/200MA
-AEGISLOG,No confirmed retest yet
-AEGISVOPAK,No confirmed retest yet
+360ONE,Moving averages not computable
+3MINDIA,Moving averages not computable
+AADHARHFC,Moving averages not computable
+AARTIDRUGS,Moving averages not computable
+AARTIIND,Moving averages not computable
+AARTIPHARM,Moving averages not computable
+AAVAS,Moving averages not computable
+ABB,Moving averages not computable
+ABBOTINDIA,Moving averages not computable
+ABCAPITAL,Moving averages not computable
+ABDL,Moving averages not computable
+ABFRL,Moving averages not computable
+ABLBL,Moving averages not computable
+ABREL,Moving averages not computable
+ABSLAMC,Moving averages not computable
+ACC,Moving averages not computable
+ACE,Moving averages not computable
+ACI,Moving averages not computable
+ACMESOLAR,Moving averages not computable
+ACUTAAS,Moving averages not computable
+ADANIENSOL,Moving averages not computable
+ADANIENT,Moving averages not computable
+ADANIGREEN,Moving averages not computable
+ADANIPORTS,Moving averages not computable
+ADANIPOWER,Moving averages not computable
+ADVENZYMES,Moving averages not computable
+AEGISLOG,Moving averages not computable
+AEGISVOPAK,Moving averages not computable
 AEQUS,Insufficient history (229 rows)
-AETHER,No volume surge (1.39x)
-AFCONS,Not above 150MA/200MA
-AFFLE,MA alignment failed (50>150>200)
-AGARWALEYE,Too extended above 50MA (10.6%)
+AETHER,Moving averages not computable
+AFCONS,Moving averages not computable
+AFFLE,Moving averages not computable
+AGARWALEYE,Moving averages not computable
 AGL,Insufficient history (92 rows)
-AHLUCONT,Not above 150MA/200MA
-AIAENG,Not above 150MA/200MA
-AIIL,200MA not trending up
-AJANTPHARM,No confirmed retest yet
-AKUMS,No confirmed retest yet
-ALIVUS,No fresh 50MA crossover in last 10 days
-ALKEM,Not above 150MA/200MA
-ALKYLAMINE,Not above 150MA/200MA
-ALOKINDS,Not above 150MA/200MA
-AMBER,Not above 150MA/200MA
-AMBUJACEM,Not above 150MA/200MA
-ANANDRATHI,No fresh 50MA crossover in last 10 days
-ANANTRAJ,Not above 150MA/200MA
-ANGELONE,MA alignment failed (50>150>200)
-ANTHEM,Retest broke below the 50MA - failed support
-ANUP,Not above 150MA/200MA
-ANURAS,MA alignment failed (50>150>200)
-APARINDS,Not above 150MA/200MA
-APLAPOLLO,MA alignment failed (50>150>200)
-APLLTD,Too extended above 50MA (23.1%)
-APOLLO,Too extended above 50MA (17.0%)
-APOLLOHOSP,MA alignment failed (50>150>200)
-APOLLOTYRE,Not above 150MA/200MA
-APTUS,Not above 150MA/200MA
-ARE&M,Not above 150MA/200MA
-ARVIND,No confirmed retest yet
-ARVINDFASN,Not above 150MA/200MA
-ASAHIINDIA,200MA not trending up
-ASHAPURMIN,Not above 150MA/200MA
-ASHOKA,Not above 150MA/200MA
-ASHOKLEY,MA alignment failed (50>150>200)
-ASIANPAINT,MA alignment failed (50>150>200)
-ASKAUTOLTD,Retest broke below the 50MA - failed support
-ASTERDM,Not above 150MA/200MA
-ASTRAL,Not above 150MA/200MA
-ASTRAMICRO,Price move too large for quiet accumulation (12.5%)
-ATGL,Not above 150MA/200MA
-ATHERENERG,Too extended above 50MA (22.2%)
-ATLANTAELE,Not above 150MA/200MA
-ATUL,Not above 150MA/200MA
-AUBANK,Not above 150MA/200MA
-AURIONPRO,Not above 150MA/200MA
-AUROPHARMA,Too extended above 50MA (8.4%)
-AVALON,No confirmed retest yet
-AVANTIFEED,Not above 150MA/200MA
-AVL,Not above 150MA/200MA
-AWFIS,Not above 150MA/200MA
-AWL,Not above 150MA/200MA
-AXISBANK,MA alignment failed (50>150>200)
-AXISCADES,No confirmed retest yet
-AZAD,No confirmed retest yet
-BAJAJ-AUTO,No confirmed retest yet
-BAJAJELEC,Not above 150MA/200MA
-BAJAJFINSV,MA alignment failed (50>150>200)
-BAJAJHFL,Not above 150MA/200MA
-BAJAJHLDNG,No volume surge (0.71x)
-BAJFINANCE,Too extended above 50MA (11.8%)
-BALAMINES,Not above 150MA/200MA
-BALKRISIND,MA alignment failed (50>150>200)
-BALRAMCHIN,No confirmed retest yet
-BALUFORGE,200MA not trending up
-BANCOINDIA,MA alignment failed (50>150>200)
-BANDHANBNK,Not above 150MA/200MA
-BANKBARODA,MA alignment failed (50>150>200)
-BANKINDIA,MA alignment failed (50>150>200)
-BATAINDIA,Not above 150MA/200MA
-BAYERCROP,Not above 150MA/200MA
-BBOX,MA alignment failed (50>150>200)
-BBTC,Not above 150MA/200MA
-BDL,Not above 150MA/200MA
-BECTORFOOD,MA alignment failed (50>150>200)
-BEL,Not above 150MA/200MA
-BELRISE,Not above 150MA/200MA
-BEML,ADX too low (20.7) - choppy/noisy
-BERGEPAINT,Not above 150MA/200MA
-BHARATFORG,Not above 150MA/200MA
-BHARTIARTL,MA alignment failed (50>150>200)
-BHARTIHEXA,MA alignment failed (50>150>200)
-BHEL,No volume surge (1.07x)
-BIKAJI,Not above 150MA/200MA
-BIOCON,Not above 150MA/200MA
-BIRLACORPN,Not above 150MA/200MA
-BLACKBUCK,Not above 150MA/200MA
-BLS,Not above 150MA/200MA
-BLUEDART,Not above 150MA/200MA
-BLUEJET,No confirmed retest yet
-BLUESTARCO,Not above 150MA/200MA
-BLUESTONE,No confirmed retest yet
-BORORENEW,Not above 150MA/200MA
-BOSCHLTD,No fresh 50MA crossover in last 10 days
-BPCL,Not above 150MA/200MA
-BRIGADE,Not above 150MA/200MA
-BRITANNIA,Not above 150MA/200MA
-BSE,MA alignment failed (50>150>200)
-BSOFT,Not above 150MA/200MA
-CAMPUS,Not above 150MA/200MA
-CAMS,Not above 150MA/200MA
-CANBK,MA alignment failed (50>150>200)
-CANFINHOME,Not above 150MA/200MA
-CANHLIFE,Not above 150MA/200MA
+AHLUCONT,Moving averages not computable
+AIAENG,Moving averages not computable
+AIIL,Moving averages not computable
+AJANTPHARM,Moving averages not computable
+AKUMS,Moving averages not computable
+ALIVUS,Moving averages not computable
+ALKEM,Moving averages not computable
+ALKYLAMINE,Moving averages not computable
+ALOKINDS,Moving averages not computable
+AMBER,Moving averages not computable
+AMBUJACEM,Moving averages not computable
+ANANDRATHI,Moving averages not computable
+ANANTRAJ,Moving averages not computable
+ANGELONE,Moving averages not computable
+ANTHEM,Moving averages not computable
+ANUP,Moving averages not computable
+ANURAS,Moving averages not computable
+APARINDS,Moving averages not computable
+APLAPOLLO,Moving averages not computable
+APLLTD,Moving averages not computable
+APOLLO,Moving averages not computable
+APOLLOHOSP,Moving averages not computable
+APOLLOTYRE,Moving averages not computable
+APTUS,Moving averages not computable
+ARE&M,Moving averages not computable
+ARVIND,Moving averages not computable
+ARVINDFASN,Moving averages not computable
+ASAHIINDIA,Moving averages not computable
+ASHAPURMIN,Moving averages not computable
+ASHOKA,Moving averages not computable
+ASHOKLEY,Moving averages not computable
+ASIANPAINT,Moving averages not computable
+ASKAUTOLTD,Moving averages not computable
+ASTERDM,Moving averages not computable
+ASTRAL,Moving averages not computable
+ASTRAMICRO,Moving averages not computable
+ATGL,Moving averages not computable
+ATHERENERG,Moving averages not computable
+ATLANTAELE,Moving averages not computable
+ATUL,Moving averages not computable
+AUBANK,Moving averages not computable
+AURIONPRO,Moving averages not computable
+AUROPHARMA,Moving averages not computable
+AVALON,Moving averages not computable
+AVANTIFEED,Moving averages not computable
+AVL,Moving averages not computable
+AWFIS,Moving averages not computable
+AWL,Moving averages not computable
+AXISBANK,Moving averages not computable
+AXISCADES,Moving averages not computable
+AZAD,Moving averages not computable
+BAJAJ-AUTO,Moving averages not computable
+BAJAJELEC,Moving averages not computable
+BAJAJFINSV,Moving averages not computable
+BAJAJHFL,Moving averages not computable
+BAJAJHLDNG,Moving averages not computable
+BAJFINANCE,Moving averages not computable
+BALAMINES,Moving averages not computable
+BALKRISIND,Moving averages not computable
+BALRAMCHIN,Moving averages not computable
+BALUFORGE,Moving averages not computable
+BANCOINDIA,Moving averages not computable
+BANDHANBNK,Moving averages not computable
+BANKBARODA,Moving averages not computable
+BANKINDIA,Moving averages not computable
+BATAINDIA,Moving averages not computable
+BAYERCROP,Moving averages not computable
+BBOX,Moving averages not computable
+BBTC,Moving averages not computable
+BDL,Moving averages not computable
+BECTORFOOD,Moving averages not computable
+BEL,Moving averages not computable
+BELRISE,Moving averages not computable
+BEML,Moving averages not computable
+BERGEPAINT,Moving averages not computable
+BHARATFORG,Moving averages not computable
+BHARTIARTL,Moving averages not computable
+BHARTIHEXA,Moving averages not computable
+BHEL,Moving averages not computable
+BIKAJI,Moving averages not computable
+BIOCON,Moving averages not computable
+BIRLACORPN,Moving averages not computable
+BLACKBUCK,Moving averages not computable
+BLS,Moving averages not computable
+BLUEDART,Moving averages not computable
+BLUEJET,Moving averages not computable
+BLUESTARCO,Moving averages not computable
+BLUESTONE,Moving averages not computable
+BORORENEW,Moving averages not computable
+BOSCHLTD,Moving averages not computable
+BPCL,Moving averages not computable
+BRIGADE,Moving averages not computable
+BRITANNIA,Moving averages not computable
+BSE,Moving averages not computable
+BSOFT,Moving averages not computable
+CAMPUS,Moving averages not computable
+CAMS,Moving averages not computable
+CANBK,Moving averages not computable
+CANFINHOME,Moving averages not computable
+CANHLIFE,Moving averages not computable
 CAPILLARY,Insufficient history (242 rows)
-CAPLIPOINT,No confirmed retest yet
-CARBORUNIV,Not above 150MA/200MA
-CARTRADE,200MA not trending up
-CASTROLIND,Not enough distance above 52-week low
-CCAVENUE,Not above 150MA/200MA
-CCL,Not above 150MA/200MA
-CDSL,200MA not trending up
-CEATLTD,MA alignment failed (50>150>200)
-CELLO,Not above 150MA/200MA
-CEMPRO,No fresh 50MA crossover in last 10 days
-CENTRALBK,Not above 150MA/200MA
-CENTURYPLY,Not above 150MA/200MA
-CERA,Not above 150MA/200MA
-CESC,Not above 150MA/200MA
-CGCL,No confirmed retest yet
-CGPOWER,Not above 150MA/200MA
-CHALET,200MA not trending up
-CHAMBLFERT,Not above 150MA/200MA
-CHENNPETRO,No confirmed retest yet
-CHOICEIN,Not above 150MA/200MA
-CHOLAFIN,MA alignment failed (50>150>200)
-CHOLAHLDNG,Not above 150MA/200MA
-CIEINDIA,Not above 150MA/200MA
-CIPLA,MA alignment failed (50>150>200)
-CLEAN,Not above 150MA/200MA
-CMSINFO,Not above 150MA/200MA
-COALINDIA,Not above 150MA/200MA
-COCHINSHIP,Not above 150MA/200MA
-COFORGE,No fresh 50MA crossover in last 10 days
-COHANCE,200MA not trending up
-COLPAL,Not above 150MA/200MA
-CONCOR,Not above 150MA/200MA
-CONCORDBIO,Not above 150MA/200MA
-COROMANDEL,Not above 150MA/200MA
+CAPLIPOINT,Moving averages not computable
+CARBORUNIV,Moving averages not computable
+CARTRADE,Moving averages not computable
+CASTROLIND,Moving averages not computable
+CCAVENUE,Moving averages not computable
+CCL,Moving averages not computable
+CDSL,Moving averages not computable
+CEATLTD,Moving averages not computable
+CELLO,Moving averages not computable
+CEMPRO,Moving averages not computable
+CENTRALBK,Moving averages not computable
+CENTURYPLY,Moving averages not computable
+CERA,Moving averages not computable
+CESC,Moving averages not computable
+CGCL,Moving averages not computable
+CGPOWER,Moving averages not computable
+CHALET,Moving averages not computable
+CHAMBLFERT,Moving averages not computable
+CHENNPETRO,Moving averages not computable
+CHOICEIN,Moving averages not computable
+CHOLAFIN,Moving averages not computable
+CHOLAHLDNG,Moving averages not computable
+CIEINDIA,Moving averages not computable
+CIPLA,Moving averages not computable
+CLEAN,Moving averages not computable
+CMSINFO,Moving averages not computable
+COALINDIA,Moving averages not computable
+COCHINSHIP,Moving averages not computable
+COFORGE,Moving averages not computable
+COHANCE,Moving averages not computable
+COLPAL,Moving averages not computable
+CONCOR,Moving averages not computable
+CONCORDBIO,Moving averages not computable
+COROMANDEL,Moving averages not computable
 CORONA,Insufficient history (226 rows)
-CPPLUS,No fresh 50MA crossover in last 10 days
-CRAFTSMAN,No volume surge (0.78x)
-CRAMC,Not above 150MA/200MA
-CREDITACC,Not above 150MA/200MA
-CRISIL,Not enough distance above 52-week low
-CRIZAC,Not above 150MA/200MA
-CROMPTON,Not above 150MA/200MA
-CSBBANK,Not above 150MA/200MA
-CUB,No volume surge (1.28x)
-CUMMINSIND,Not above 150MA/200MA
-CUPID,Too extended above 50MA (20.8%)
-CYIENT,No confirmed retest yet
-DABUR,Not above 150MA/200MA
-DALBHARAT,Not above 150MA/200MA
-DATAMATICS,Not above 150MA/200MA
-DATAPATTNS,MA alignment failed (50>150>200)
-DBL,Not above 150MA/200MA
-DBREALTY,Not above 150MA/200MA
-DCBBANK,Too extended above 50MA (10.9%)
-DCMSHRIRAM,Not above 150MA/200MA
-DEEPAKFERT,Not above 150MA/200MA
-DEEPAKNTR,Not above 150MA/200MA
-DELHIVERY,Not above 150MA/200MA
-DEVYANI,200MA not trending up
-DIACABS,Price move too large for quiet accumulation (9.8%)
-DIVISLAB,Too extended above 50MA (19.4%)
-DIXON,No confirmed retest yet
-DLF,Too extended above 50MA (12.1%)
-DMART,Not above 150MA/200MA
-DOMS,Not above 150MA/200MA
-DRREDDY,MA alignment failed (50>150>200)
-DYNAMATECH,Retest broke below the 50MA - failed support
-ECLERX,Not above 150MA/200MA
-EDELWEISS,No volume surge (0.62x)
-EICHERMOT,MA alignment failed (50>150>200)
-EIDPARRY,Not above 150MA/200MA
-EIEL,Not above 150MA/200MA
-EIHOTEL,MA alignment failed (50>150>200)
-ELECON,Not above 150MA/200MA
-ELECTCAST,Not above 150MA/200MA
-ELGIEQUIP,No confirmed retest yet
-ELLEN,Not above 150MA/200MA
-EMAMILTD,Not above 150MA/200MA
-EMBDL,Not above 150MA/200MA
-EMCURE,Too extended above 50MA (21.3%)
-EMIL,Not above 150MA/200MA
+CPPLUS,Moving averages not computable
+CRAFTSMAN,Moving averages not computable
+CRAMC,Moving averages not computable
+CREDITACC,Moving averages not computable
+CRISIL,Moving averages not computable
+CRIZAC,Moving averages not computable
+CROMPTON,Moving averages not computable
+CSBBANK,Moving averages not computable
+CUB,Moving averages not computable
+CUMMINSIND,Moving averages not computable
+CUPID,Moving averages not computable
+CYIENT,Moving averages not computable
+DABUR,Moving averages not computable
+DALBHARAT,Moving averages not computable
+DATAMATICS,Moving averages not computable
+DATAPATTNS,Moving averages not computable
+DBL,Moving averages not computable
+DBREALTY,Moving averages not computable
+DCBBANK,Moving averages not computable
+DCMSHRIRAM,Moving averages not computable
+DEEPAKFERT,Moving averages not computable
+DEEPAKNTR,Moving averages not computable
+DELHIVERY,Moving averages not computable
+DEVYANI,Moving averages not computable
+DIACABS,Moving averages not computable
+DIVISLAB,Moving averages not computable
+DIXON,Moving averages not computable
+DLF,Moving averages not computable
+DMART,Moving averages not computable
+DOMS,Moving averages not computable
+DRREDDY,Moving averages not computable
+DYNAMATECH,Moving averages not computable
+ECLERX,Moving averages not computable
+EDELWEISS,Moving averages not computable
+EICHERMOT,Moving averages not computable
+EIDPARRY,Moving averages not computable
+EIEL,Moving averages not computable
+EIHOTEL,Moving averages not computable
+ELECON,Moving averages not computable
+ELECTCAST,Moving averages not computable
+ELGIEQUIP,Moving averages not computable
+ELLEN,Moving averages not computable
+EMAMILTD,Moving averages not computable
+EMBDL,Moving averages not computable
+EMCURE,Moving averages not computable
+EMIL,Moving averages not computable
 EMMVEE,Insufficient history (245 rows)
-ENDURANCE,Not above 150MA/200MA
-ENGINERSIN,Too extended above 50MA (10.6%)
-ENRIN,Not above 150MA/200MA
-ENTERO,Too extended above 50MA (14.1%)
-EPL,Retest broke below the 50MA - failed support
-EQUITASBNK,Not above 150MA/200MA
-ERIS,Not above 150MA/200MA
-ESCORTS,Not above 150MA/200MA
-ETERNAL,Too extended above 50MA (10.0%)
-ETHOSLTD,200MA not trending up
-EUREKAFORB,Not above 150MA/200MA
-EXIDEIND,Not above 150MA/200MA
-FACT,Not above 150MA/200MA
-FEDERALBNK,No volume surge (0.91x)
-FEDFINA,200MA not trending up
-FIEMIND,MA alignment failed (50>150>200)
-FINCABLES,No confirmed retest yet
-FINPIPE,Not above 150MA/200MA
-FIRSTCRY,Not above 150MA/200MA
-FIVESTAR,Not above 150MA/200MA
-FLUOROCHEM,No volume surge (1.13x)
-FORCEMOT,MA alignment failed (50>150>200)
-FORTIS,Not above 150MA/200MA
-FSL,200MA not trending up
-GABRIEL,Too extended above 50MA (11.9%)
-GAEL,Not above 150MA/200MA
-GAIL,Too extended above 50MA (8.6%)
-GALLANTT,Not above 150MA/200MA
-GESHIP,No confirmed retest yet
-GHCL,MA alignment failed (50>150>200)
-GICRE,Not above 150MA/200MA
-GILLETTE,Not above 150MA/200MA
-GLAND,Too extended above 50MA (10.9%)
-GLAXO,No confirmed retest yet
-GLENMARK,Too extended above 50MA (10.8%)
-GMDCLTD,Not above 150MA/200MA
-GMMPFAUDLR,No confirmed retest yet
-GMRAIRPORT,Not above 150MA/200MA
-GMRP&UI,Not above 150MA/200MA
-GNFC,Not above 150MA/200MA
-GODFRYPHLP,Not above 150MA/200MA
-GODIGIT,Not above 150MA/200MA
-GODREJAGRO,Not enough distance above 52-week low
-GODREJCP,Not above 150MA/200MA
-GODREJIND,MA alignment failed (50>150>200)
-GODREJPROP,MA alignment failed (50>150>200)
-GOKEX,Not above 150MA/200MA
-GOKULAGRO,MA alignment failed (50>150>200)
-GPIL,Not above 150MA/200MA
-GPPL,MA alignment failed (50>150>200)
-GRANULES,No confirmed retest yet
-GRAPHITE,No volume surge (0.34x)
-GRASIM,Not above 150MA/200MA
-GRAVITA,Not above 150MA/200MA
-GREAVESCOT,Too extended above 50MA (10.8%)
+ENDURANCE,Moving averages not computable
+ENGINERSIN,Moving averages not computable
+ENRIN,Moving averages not computable
+ENTERO,Moving averages not computable
+EPL,Moving averages not computable
+EQUITASBNK,Moving averages not computable
+ERIS,Moving averages not computable
+ESCORTS,Moving averages not computable
+ETERNAL,Moving averages not computable
+ETHOSLTD,Moving averages not computable
+EUREKAFORB,Moving averages not computable
+EXIDEIND,Moving averages not computable
+FACT,Moving averages not computable
+FEDERALBNK,Moving averages not computable
+FEDFINA,Moving averages not computable
+FIEMIND,Moving averages not computable
+FINCABLES,Moving averages not computable
+FINPIPE,Moving averages not computable
+FIRSTCRY,Moving averages not computable
+FIVESTAR,Moving averages not computable
+FLUOROCHEM,Moving averages not computable
+FORCEMOT,Moving averages not computable
+FORTIS,Moving averages not computable
+FSL,Moving averages not computable
+GABRIEL,Moving averages not computable
+GAEL,Moving averages not computable
+GAIL,Moving averages not computable
+GALLANTT,Moving averages not computable
+GESHIP,Moving averages not computable
+GHCL,Moving averages not computable
+GICRE,Moving averages not computable
+GILLETTE,Moving averages not computable
+GLAND,Moving averages not computable
+GLAXO,Moving averages not computable
+GLENMARK,Moving averages not computable
+GMDCLTD,Moving averages not computable
+GMMPFAUDLR,Moving averages not computable
+GMRAIRPORT,Moving averages not computable
+GMRP&UI,Moving averages not computable
+GNFC,Moving averages not computable
+GODFRYPHLP,Moving averages not computable
+GODIGIT,Moving averages not computable
+GODREJAGRO,Moving averages not computable
+GODREJCP,Moving averages not computable
+GODREJIND,Moving averages not computable
+GODREJPROP,Moving averages not computable
+GOKEX,Moving averages not computable
+GOKULAGRO,Moving averages not computable
+GPIL,Moving averages not computable
+GPPL,Moving averages not computable
+GRANULES,Moving averages not computable
+GRAPHITE,Moving averages not computable
+GRASIM,Moving averages not computable
+GRAVITA,Moving averages not computable
+GREAVESCOT,Moving averages not computable
 GROWW,Insufficient history (249 rows)
-GRSE,Not above 150MA/200MA
-GRWRHITECH,No fresh 50MA crossover in last 10 days
-GSFC,Not above 150MA/200MA
-GVT&D,Not above 150MA/200MA
-HAL,No confirmed retest yet
-HAPPSTMNDS,Not above 150MA/200MA
-HAVELLS,Not above 150MA/200MA
-HBLENGINE,200MA not trending up
-HCC,Not above 150MA/200MA
-HCG,Not above 150MA/200MA
-HCLTECH,MA alignment failed (50>150>200)
-HDBFS,Not above 150MA/200MA
-HDFCAMC,MA alignment failed (50>150>200)
-HDFCBANK,MA alignment failed (50>150>200)
-HDFCLIFE,MA alignment failed (50>150>200)
+GRSE,Moving averages not computable
+GRWRHITECH,Moving averages not computable
+GSFC,Moving averages not computable
+GVT&D,Moving averages not computable
+HAL,Moving averages not computable
+HAPPSTMNDS,Moving averages not computable
+HAVELLS,Moving averages not computable
+HBLENGINE,Moving averages not computable
+HCC,Moving averages not computable
+HCG,Moving averages not computable
+HCLTECH,Moving averages not computable
+HDBFS,Moving averages not computable
+HDFCAMC,Moving averages not computable
+HDFCBANK,Moving averages not computable
+HDFCLIFE,Moving averages not computable
 HEG,Insufficient history (81 rows)
-HEMIPROP,Not above 150MA/200MA
-HERITGFOOD,200MA not trending up
-HEROMOTOCO,MA alignment failed (50>150>200)
-HEXT,Not above 150MA/200MA
-HFCL,No confirmed retest yet
-HGINFRA,Not above 150MA/200MA
-HINDALCO,Not above 150MA/200MA
-HINDCOPPER,Not above 150MA/200MA
-HINDPETRO,MA alignment failed (50>150>200)
-HINDUNILVR,Not above 150MA/200MA
-HINDZINC,Not above 150MA/200MA
-HOMEFIRST,Not above 150MA/200MA
-HONASA,Too extended above 50MA (8.3%)
-HONAUT,Not above 150MA/200MA
-HSCL,Not above 150MA/200MA
-HUDCO,Not above 150MA/200MA
-HYUNDAI,MA alignment failed (50>150>200)
+HEMIPROP,Moving averages not computable
+HERITGFOOD,Moving averages not computable
+HEROMOTOCO,Moving averages not computable
+HEXT,Moving averages not computable
+HFCL,Moving averages not computable
+HGINFRA,Moving averages not computable
+HINDALCO,Moving averages not computable
+HINDCOPPER,Moving averages not computable
+HINDPETRO,Moving averages not computable
+HINDUNILVR,Moving averages not computable
+HINDZINC,Moving averages not computable
+HOMEFIRST,Moving averages not computable
+HONASA,Moving averages not computable
+HONAUT,Moving averages not computable
+HSCL,Moving averages not computable
+HUDCO,Moving averages not computable
+HYUNDAI,Moving averages not computable
 ICICIAMC,Insufficient history (222 rows)
-ICICIBANK,Too extended above 50MA (13.6%)
-ICICIGI,Not above 150MA/200MA
+ICICIBANK,Moving averages not computable
+ICICIGI,Moving averages not computable
 ICICIPRULI,Insufficient history (81 rows)
-ICIL,Too extended above 50MA (20.8%)
-IDBI,Not above 150MA/200MA
-IDEA,Not above 150MA/200MA
-IDFCFIRSTB,200MA not trending up
-IEX,Not above 150MA/200MA
-IFBIND,Not above 150MA/200MA
-IFCI,Not above 150MA/200MA
-IGIL,MA alignment failed (50>150>200)
-IGL,Not above 150MA/200MA
-IIFL,200MA not trending up
-IIFLCAPS,200MA not trending up
-IKS,Not above 150MA/200MA
-IMFA,Not above 150MA/200MA
-INDGN,Too extended above 50MA (11.3%)
-INDHOTEL,Too extended above 50MA (16.7%)
-INDIACEM,Not above 150MA/200MA
-INDIAGLYCO,Not above 150MA/200MA
-INDIAMART,Not above 150MA/200MA
-INDIANB,MA alignment failed (50>150>200)
-INDIASHLTR,Not above 150MA/200MA
-INDIGO,Too extended above 50MA (12.9%)
-INDIGOPNTS,Not above 150MA/200MA
-INDUSINDBK,Not above 150MA/200MA
-INDUSTOWER,Not above 150MA/200MA
-INFY,Not above 150MA/200MA
-INOXGREEN,Not above 150MA/200MA
-INOXINDIA,No confirmed retest yet
-INOXWIND,Not above 150MA/200MA
-INTELLECT,Not above 150MA/200MA
-IOB,Not above 150MA/200MA
-IOC,MA alignment failed (50>150>200)
-IONEXCHANG,Not above 150MA/200MA
-IPCALAB,No confirmed retest yet
-IRB,Not above 150MA/200MA
-IRCON,Not above 150MA/200MA
-IRCTC,Not above 150MA/200MA
-IREDA,Not above 150MA/200MA
-IRFC,Not above 150MA/200MA
-ITC,Not above 150MA/200MA
-ITCHOTELS,MA alignment failed (50>150>200)
-ITI,Not above 150MA/200MA
-IXIGO,Not above 150MA/200MA
-J&KBANK,Not above 150MA/200MA
-JAIBALAJI,Not above 150MA/200MA
-JAINREC,Not above 150MA/200MA
-JAMNAAUTO,Too extended above 50MA (12.1%)
-JAYNECOIND,Not above 150MA/200MA
+ICIL,Moving averages not computable
+IDBI,Moving averages not computable
+IDEA,Moving averages not computable
+IDFCFIRSTB,Moving averages not computable
+IEX,Moving averages not computable
+IFBIND,Moving averages not computable
+IFCI,Moving averages not computable
+IGIL,Moving averages not computable
+IGL,Moving averages not computable
+IIFL,Moving averages not computable
+IIFLCAPS,Moving averages not computable
+IKS,Moving averages not computable
+IMFA,Moving averages not computable
+INDGN,Moving averages not computable
+INDHOTEL,Moving averages not computable
+INDIACEM,Moving averages not computable
+INDIAGLYCO,Moving averages not computable
+INDIAMART,Moving averages not computable
+INDIANB,Moving averages not computable
+INDIASHLTR,Moving averages not computable
+INDIGO,Moving averages not computable
+INDIGOPNTS,Moving averages not computable
+INDUSINDBK,Moving averages not computable
+INDUSTOWER,Moving averages not computable
+INFY,Moving averages not computable
+INOXGREEN,Moving averages not computable
+INOXINDIA,Moving averages not computable
+INOXWIND,Moving averages not computable
+INTELLECT,Moving averages not computable
+IOB,Moving averages not computable
+IOC,Moving averages not computable
+IONEXCHANG,Moving averages not computable
+IPCALAB,Moving averages not computable
+IRB,Moving averages not computable
+IRCON,Moving averages not computable
+IRCTC,Moving averages not computable
+IREDA,Moving averages not computable
+IRFC,Moving averages not computable
+ITC,Moving averages not computable
+ITCHOTELS,Moving averages not computable
+ITI,Moving averages not computable
+IXIGO,Moving averages not computable
+J&KBANK,Moving averages not computable
+JAIBALAJI,Moving averages not computable
+JAINREC,Moving averages not computable
+JAMNAAUTO,Moving averages not computable
+JAYNECOIND,Moving averages not computable
 JBCHEPHARM,Insufficient history (1 rows)
-JBMA,Not above 150MA/200MA
-JINDALSAW,No confirmed retest yet
-JINDALSTEL,MA alignment failed (50>150>200)
-JIOFIN,Not above 150MA/200MA
-JKCEMENT,Not above 150MA/200MA
-JKLAKSHMI,Not above 150MA/200MA
-JKPAPER,Not above 150MA/200MA
-JKTYRE,Not above 150MA/200MA
-JLHL,MA alignment failed (50>150>200)
-JMFINANCIL,Not above 150MA/200MA
-JPPOWER,Not above 150MA/200MA
-JSFB,Not above 150MA/200MA
-JSL,Not above 150MA/200MA
-JSLL,Not above 150MA/200MA
-JSWCEMENT,Not above 150MA/200MA
-JSWDULUX,Not above 150MA/200MA
-JSWENERGY,Not above 150MA/200MA
-JSWINFRA,No volume surge (0.45x)
-JSWSTEEL,No volume surge (1.40x)
-JUBLFOOD,Not above 150MA/200MA
-JUBLINGREA,Not above 150MA/200MA
-JUBLPHARMA,200MA not trending up
-JUSTDIAL,200MA not trending up
-JWL,Not above 150MA/200MA
-JYOTHYLAB,Not above 150MA/200MA
-JYOTICNC,No volume surge (1.50x)
-KAJARIACER,No volume surge (1.04x)
-KALYANKJIL,Too extended above 50MA (22.4%)
-KANSAINER,MA alignment failed (50>150>200)
-KARURVYSYA,Too extended above 50MA (11.3%)
-KAYNES,Not above 150MA/200MA
-KEC,Not above 150MA/200MA
-KEI,Not above 150MA/200MA
-KFINTECH,MA alignment failed (50>150>200)
-KIMS,Not above 150MA/200MA
-KIRLOSBROS,Not above 150MA/200MA
-KIRLOSENG,Not above 150MA/200MA
-KIRLPNU,Not above 150MA/200MA
-KITEX,Not above 150MA/200MA
-KNRCON,Not above 150MA/200MA
-KOTAKBANK,Too extended above 50MA (12.2%)
-KPIGREEN,Not above 150MA/200MA
-KPIL,No confirmed retest yet
-KPITTECH,Not above 150MA/200MA
-KPRMILL,No fresh 50MA crossover in last 10 days
-KRBL,Too extended above 50MA (9.9%)
-KRN,Not above 150MA/200MA
-KSB,Not above 150MA/200MA
-KSCL,Not above 150MA/200MA
-KTKBANK,Too extended above 50MA (11.5%)
-LALPATHLAB,No volume surge (1.26x)
-LATENTVIEW,Not above 150MA/200MA
-LAURUSLABS,Too extended above 50MA (16.9%)
-LEMONTREE,MA alignment failed (50>150>200)
+JBMA,Moving averages not computable
+JINDALSAW,Moving averages not computable
+JINDALSTEL,Moving averages not computable
+JIOFIN,Moving averages not computable
+JKCEMENT,Moving averages not computable
+JKLAKSHMI,Moving averages not computable
+JKPAPER,Moving averages not computable
+JKTYRE,Moving averages not computable
+JLHL,Moving averages not computable
+JMFINANCIL,Moving averages not computable
+JPPOWER,Moving averages not computable
+JSFB,Moving averages not computable
+JSL,Moving averages not computable
+JSLL,Moving averages not computable
+JSWCEMENT,Moving averages not computable
+JSWDULUX,Moving averages not computable
+JSWENERGY,Moving averages not computable
+JSWINFRA,Moving averages not computable
+JSWSTEEL,Moving averages not computable
+JUBLFOOD,Moving averages not computable
+JUBLINGREA,Moving averages not computable
+JUBLPHARMA,Moving averages not computable
+JUSTDIAL,Moving averages not computable
+JWL,Moving averages not computable
+JYOTHYLAB,Moving averages not computable
+JYOTICNC,Moving averages not computable
+KAJARIACER,Moving averages not computable
+KALYANKJIL,Moving averages not computable
+KANSAINER,Moving averages not computable
+KARURVYSYA,Moving averages not computable
+KAYNES,Moving averages not computable
+KEC,Moving averages not computable
+KEI,Moving averages not computable
+KFINTECH,Moving averages not computable
+KIMS,Moving averages not computable
+KIRLOSBROS,Moving averages not computable
+KIRLOSENG,Moving averages not computable
+KIRLPNU,Moving averages not computable
+KITEX,Moving averages not computable
+KNRCON,Moving averages not computable
+KOTAKBANK,Moving averages not computable
+KPIGREEN,Moving averages not computable
+KPIL,Moving averages not computable
+KPITTECH,Moving averages not computable
+KPRMILL,Moving averages not computable
+KRBL,Moving averages not computable
+KRN,Moving averages not computable
+KSB,Moving averages not computable
+KSCL,Moving averages not computable
+KTKBANK,Moving averages not computable
+LALPATHLAB,Moving averages not computable
+LATENTVIEW,Moving averages not computable
+LAURUSLABS,Moving averages not computable
+LEMONTREE,Moving averages not computable
 LENSKART,Insufficient history (251 rows)
-LGEINDIA,No volume surge (1.44x)
-LICHSGFIN,200MA not trending up
-LICI,Not above 150MA/200MA
-LINDEINDIA,MA alignment failed (50>150>200)
-LLOYDSENGG,No confirmed retest yet
-LLOYDSENT,Not above 150MA/200MA
-LLOYDSME,Not above 150MA/200MA
-LODHA,Too extended above 50MA (9.6%)
-LOTUSDEV,No fresh 50MA crossover in last 10 days
-LT,MA alignment failed (50>150>200)
-LTF,Not above 150MA/200MA
-LTFOODS,No volume surge (0.85x)
-LTM,Not above 150MA/200MA
-LTTS,200MA not trending up
-LUMAXTECH,Too extended above 50MA (13.8%)
-LUPIN,Not above 150MA/200MA
-LXCHEM,Not above 150MA/200MA
-M&M,MA alignment failed (50>150>200)
-M&MFIN,Not above 150MA/200MA
-MAHABANK,Too extended above 50MA (11.1%)
-MAHSCOOTER,Not above 150MA/200MA
-MAHSEAMLES,Not above 150MA/200MA
-MANAPPURAM,Not above 150MA/200MA
-MANKIND,Too extended above 50MA (9.3%)
-MANORAMA,No volume surge (0.77x)
-MANYAVAR,200MA not trending up
-MAPMYINDIA,Not above 150MA/200MA
-MARICO,MA alignment failed (50>150>200)
-MARKSANS,No confirmed retest yet
-MARUTI,Not above 150MA/200MA
-MASTEK,Not above 150MA/200MA
-MAXHEALTH,Not above 150MA/200MA
-MAZDOCK,Not above 150MA/200MA
-MCX,Too extended above 50MA (13.0%)
-MEDANTA,Retest broke below the 50MA - failed support
-MEDPLUS,Not above 150MA/200MA
+LGEINDIA,Moving averages not computable
+LICHSGFIN,Moving averages not computable
+LICI,Moving averages not computable
+LINDEINDIA,Moving averages not computable
+LLOYDSENGG,Moving averages not computable
+LLOYDSENT,Moving averages not computable
+LLOYDSME,Moving averages not computable
+LODHA,Moving averages not computable
+LOTUSDEV,Moving averages not computable
+LT,Moving averages not computable
+LTF,Moving averages not computable
+LTFOODS,Moving averages not computable
+LTM,Moving averages not computable
+LTTS,Moving averages not computable
+LUMAXTECH,Moving averages not computable
+LUPIN,Moving averages not computable
+LXCHEM,Moving averages not computable
+M&M,Moving averages not computable
+M&MFIN,Moving averages not computable
+MAHABANK,Moving averages not computable
+MAHSCOOTER,Moving averages not computable
+MAHSEAMLES,Moving averages not computable
+MANAPPURAM,Moving averages not computable
+MANKIND,Moving averages not computable
+MANORAMA,Moving averages not computable
+MANYAVAR,Moving averages not computable
+MAPMYINDIA,Moving averages not computable
+MARICO,Moving averages not computable
+MARKSANS,Moving averages not computable
+MARUTI,Moving averages not computable
+MASTEK,Moving averages not computable
+MAXHEALTH,Moving averages not computable
+MAZDOCK,Moving averages not computable
+MCX,Moving averages not computable
+MEDANTA,Moving averages not computable
+MEDPLUS,Moving averages not computable
 MEESHO,Insufficient history (229 rows)
-METROPOLIS,No volume surge (1.24x)
-MFSL,Not above 150MA/200MA
-MGL,MA alignment failed (50>150>200)
-MIDHANI,Not above 150MA/200MA
-MINDACORP,Too extended above 50MA (9.8%)
-MMTC,Not above 150MA/200MA
-MOIL,Not above 150MA/200MA
-MOTHERSON,ADX too low (14.7) - choppy/noisy
-MOTILALOFS,Too extended above 50MA (18.6%)
-MPHASIS,200MA not trending up
-MRF,Not above 150MA/200MA
-MRPL,MA alignment failed (50>150>200)
-MSTCLTD,Too extended above 50MA (16.6%)
-MSUMI,MA alignment failed (50>150>200)
-MTARTECH,Not above 150MA/200MA
-MUTHOOTFIN,Not above 150MA/200MA
-NAM-INDIA,MA alignment failed (50>150>200)
-NATCOPHARM,Not above 150MA/200MA
-NATIONALUM,Not above 150MA/200MA
-NAUKRI,200MA not trending up
-NAVA,Not above 150MA/200MA
-NAVINFLUOR,Too extended above 50MA (17.5%)
-NAZARA,Too extended above 50MA (9.5%)
-NBCC,Not above 150MA/200MA
-NCC,Not above 150MA/200MA
-NEOGEN,Too extended above 50MA (18.3%)
-NESCO,Not above 150MA/200MA
-NESTLEIND,Not above 150MA/200MA
-NETWEB,Not above 150MA/200MA
-NETWORK18,Not above 150MA/200MA
-NEULANDLAB,No confirmed retest yet
-NEWGEN,Not above 150MA/200MA
-NFL,Not above 150MA/200MA
-NH,Not above 150MA/200MA
-NHPC,Not above 150MA/200MA
-NIACL,Not above 150MA/200MA
-NIVABUPA,Not above 150MA/200MA
-NLCINDIA,Not above 150MA/200MA
-NMDC,Not above 150MA/200MA
-NSLNISP,Not above 150MA/200MA
-NTPC,Not above 150MA/200MA
-NTPCGREEN,Not above 150MA/200MA
-NUVAMA,No volume surge (0.88x)
-NUVOCO,200MA not trending up
-NYKAA,No fresh 50MA crossover in last 10 days
-OBEROIRLTY,MA alignment failed (50>150>200)
-OFSS,Not above 150MA/200MA
-OIL,Not above 150MA/200MA
-OLAELEC,Not above 150MA/200MA
-OLECTRA,Not above 150MA/200MA
-ONESOURCE,Not above 150MA/200MA
-ONGC,Not above 150MA/200MA
-OPTIEMUS,Too extended above 50MA (12.6%)
-ORIENTCEM,Not above 150MA/200MA
+METROPOLIS,Moving averages not computable
+MFSL,Moving averages not computable
+MGL,Moving averages not computable
+MIDHANI,Moving averages not computable
+MINDACORP,Moving averages not computable
+MMTC,Moving averages not computable
+MOIL,Moving averages not computable
+MOTHERSON,Moving averages not computable
+MOTILALOFS,Moving averages not computable
+MPHASIS,Moving averages not computable
+MRF,Moving averages not computable
+MRPL,Moving averages not computable
+MSTCLTD,Moving averages not computable
+MSUMI,Moving averages not computable
+MTARTECH,Moving averages not computable
+MUTHOOTFIN,Moving averages not computable
+NAM-INDIA,Moving averages not computable
+NATCOPHARM,Moving averages not computable
+NATIONALUM,Moving averages not computable
+NAUKRI,Moving averages not computable
+NAVA,Moving averages not computable
+NAVINFLUOR,Moving averages not computable
+NAZARA,Moving averages not computable
+NBCC,Moving averages not computable
+NCC,Moving averages not computable
+NEOGEN,Moving averages not computable
+NESCO,Moving averages not computable
+NESTLEIND,Moving averages not computable
+NETWEB,Moving averages not computable
+NETWORK18,Moving averages not computable
+NEULANDLAB,Moving averages not computable
+NEWGEN,Moving averages not computable
+NFL,Moving averages not computable
+NH,Moving averages not computable
+NHPC,Moving averages not computable
+NIACL,Moving averages not computable
+NIVABUPA,Moving averages not computable
+NLCINDIA,Moving averages not computable
+NMDC,Moving averages not computable
+NSLNISP,Moving averages not computable
+NTPC,Moving averages not computable
+NTPCGREEN,Moving averages not computable
+NUVAMA,Moving averages not computable
+NUVOCO,Moving averages not computable
+NYKAA,Moving averages not computable
+OBEROIRLTY,Moving averages not computable
+OFSS,Moving averages not computable
+OIL,Moving averages not computable
+OLAELEC,Moving averages not computable
+OLECTRA,Moving averages not computable
+ONESOURCE,Moving averages not computable
+ONGC,Moving averages not computable
+OPTIEMUS,Moving averages not computable
+ORIENTCEM,Moving averages not computable
 ORKLAINDIA,Insufficient history (253 rows)
-OSWALPUMPS,Not above 150MA/200MA
-PAGEIND,Not above 150MA/200MA
-PARADEEP,200MA not trending up
-PARAS,No confirmed retest yet
+OSWALPUMPS,Moving averages not computable
+PAGEIND,Moving averages not computable
+PARADEEP,Moving averages not computable
+PARAS,Moving averages not computable
 PARKHOSPS,Insufficient history (224 rows)
-PATANJALI,MA alignment failed (50>150>200)
-PAYTM,Too extended above 50MA (13.2%)
-PCBL,Not above 150MA/200MA
-PCJEWELLER,No fresh 50MA crossover in last 10 days
-PERSISTENT,200MA not trending up
-PETRONET,Too extended above 50MA (12.3%)
-PFC,Not above 150MA/200MA
-PFIZER,Not above 150MA/200MA
-PFOCUS,Not above 150MA/200MA
-PGEL,MA alignment failed (50>150>200)
-PGIL,Retest broke below the 50MA - failed support
-PHOENIXLTD,Too extended above 50MA (15.9%)
-PICCADIL,Not above 150MA/200MA
-PIDILITIND,Not above 150MA/200MA
-PIIND,Not above 150MA/200MA
+PATANJALI,Moving averages not computable
+PAYTM,Moving averages not computable
+PCBL,Moving averages not computable
+PCJEWELLER,Moving averages not computable
+PERSISTENT,Moving averages not computable
+PETRONET,Moving averages not computable
+PFC,Moving averages not computable
+PFIZER,Moving averages not computable
+PFOCUS,Moving averages not computable
+PGEL,Moving averages not computable
+PGIL,Moving averages not computable
+PHOENIXLTD,Moving averages not computable
+PICCADIL,Moving averages not computable
+PIDILITIND,Moving averages not computable
+PIIND,Moving averages not computable
 PINELABS,Insufficient history (247 rows)
 PIRAMALFIN,Insufficient history (252 rows)
-PNB,MA alignment failed (50>150>200)
-PNBHOUSING,No confirmed retest yet
-PNCINFRA,Not above 150MA/200MA
-PNGJL,MA alignment failed (50>150>200)
-POLICYBZR,Not above 150MA/200MA
-POLYCAB,Not above 150MA/200MA
-POLYMED,200MA not trending up
-POONAWALLA,200MA not trending up
-POWERGRID,Not above 150MA/200MA
-POWERINDIA,Not above 150MA/200MA
-POWERMECH,Not above 150MA/200MA
-PPLPHARMA,Too extended above 50MA (14.9%)
-PRAJIND,Not above 150MA/200MA
-PREMIERENE,Not above 150MA/200MA
-PRESTIGE,MA alignment failed (50>150>200)
-PRICOLLTD,No volume surge (1.36x)
-PRIVISCL,Not above 150MA/200MA
-PRSMJOHNSN,Not above 150MA/200MA
-PRUDENT,Not above 150MA/200MA
-PTC,Not above 150MA/200MA
-PTCIL,No fresh 50MA crossover in last 10 days
-PURVA,Not above 150MA/200MA
-PVRINOX,Too extended above 50MA (20.7%)
+PNB,Moving averages not computable
+PNBHOUSING,Moving averages not computable
+PNCINFRA,Moving averages not computable
+PNGJL,Moving averages not computable
+POLICYBZR,Moving averages not computable
+POLYCAB,Moving averages not computable
+POLYMED,Moving averages not computable
+POONAWALLA,Moving averages not computable
+POWERGRID,Moving averages not computable
+POWERINDIA,Moving averages not computable
+POWERMECH,Moving averages not computable
+PPLPHARMA,Moving averages not computable
+PRAJIND,Moving averages not computable
+PREMIERENE,Moving averages not computable
+PRESTIGE,Moving averages not computable
+PRICOLLTD,Moving averages not computable
+PRIVISCL,Moving averages not computable
+PRSMJOHNSN,Moving averages not computable
+PRUDENT,Moving averages not computable
+PTC,Moving averages not computable
+PTCIL,Moving averages not computable
+PURVA,Moving averages not computable
+PVRINOX,Moving averages not computable
 PWL,Insufficient history (245 rows)
-QPOWER,No volume surge (1.03x)
-QUESS,Retest broke below the 50MA - failed support
-RADICO,No volume surge (1.44x)
-RAILTEL,Not above 150MA/200MA
-RAIN,Not above 150MA/200MA
-RAINBOW,Not above 150MA/200MA
-RALLIS,Not above 150MA/200MA
-RAMCOCEM,Not above 150MA/200MA
-RATEGAIN,Not above 150MA/200MA
-RATNAMANI,Not above 150MA/200MA
-RAYMONDLSL,Not above 150MA/200MA
-RBA,No confirmed retest yet
-RBLBANK,No confirmed retest yet
-RCF,Not above 150MA/200MA
-RECLTD,Not above 150MA/200MA
-REDINGTON,No confirmed retest yet
-REDTAPE,Not above 150MA/200MA
-REFEX,Not above 150MA/200MA
-RELAXO,Not above 150MA/200MA
-RELIANCE,MA alignment failed (50>150>200)
-RELIGARE,Not above 150MA/200MA
-RENUKA,Not above 150MA/200MA
-RHIM,Not above 150MA/200MA
-RITES,Not above 150MA/200MA
-RKFORGE,Too extended above 50MA (12.6%)
-ROUTE,Not above 150MA/200MA
-RPOWER,Not above 150MA/200MA
-RRKABEL,Not above 150MA/200MA
-RTNINDIA,Not above 150MA/200MA
-RTNPOWER,Not above 150MA/200MA
-RUBICON,No volume surge (1.04x)
-RVNL,Not above 150MA/200MA
-SAATVIKGL,Not above 150MA/200MA
-SAFARI,Not above 150MA/200MA
-SAGILITY,MA alignment failed (50>150>200)
-SAIL,MA alignment failed (50>150>200)
-SAILIFE,Too extended above 50MA (23.3%)
-SAMHI,MA alignment failed (50>150>200)
-SAMMAANCAP,Not above 150MA/200MA
-SANDUMA,Not above 150MA/200MA
-SANOFICONR,Not above 150MA/200MA
-SANSERA,Too extended above 50MA (11.3%)
-SAPPHIRE,200MA not trending up
-SARDAEN,Not above 150MA/200MA
-SAREGAMA,Too extended above 50MA (25.3%)
-SBFC,Not above 150MA/200MA
-SBICARD,Not above 150MA/200MA
-SBILIFE,Not above 150MA/200MA
-SBIN,MA alignment failed (50>150>200)
-SCHAEFFLER,Not above 150MA/200MA
-SCHNEIDER,Not above 150MA/200MA
-SCI,Not above 150MA/200MA
-SENCO,Not above 150MA/200MA
-SFL,Not above 150MA/200MA
-SHAILY,No confirmed retest yet
-SHAKTIPUMP,Not above 150MA/200MA
-SHARDACROP,Not above 150MA/200MA
-SHAREINDIA,No confirmed retest yet
-SHILPAMED,No volume surge (0.95x)
-SHREECEM,Not above 150MA/200MA
-SHRIPISTON,No confirmed retest yet
-SHRIRAMFIN,Not above 150MA/200MA
-SHYAMMETL,Too extended above 50MA (16.2%)
-SIEMENS,Not above 150MA/200MA
-SIGNATURE,Not above 150MA/200MA
-SJVN,Not above 150MA/200MA
-SKFINDIA,Not above 150MA/200MA
+QPOWER,Moving averages not computable
+QUESS,Moving averages not computable
+RADICO,Moving averages not computable
+RAILTEL,Moving averages not computable
+RAIN,Moving averages not computable
+RAINBOW,Moving averages not computable
+RALLIS,Moving averages not computable
+RAMCOCEM,Moving averages not computable
+RATEGAIN,Moving averages not computable
+RATNAMANI,Moving averages not computable
+RAYMONDLSL,Moving averages not computable
+RBA,Moving averages not computable
+RBLBANK,Moving averages not computable
+RCF,Moving averages not computable
+RECLTD,Moving averages not computable
+REDINGTON,Moving averages not computable
+REDTAPE,Moving averages not computable
+REFEX,Moving averages not computable
+RELAXO,Moving averages not computable
+RELIANCE,Moving averages not computable
+RELIGARE,Moving averages not computable
+RENUKA,Moving averages not computable
+RHIM,Moving averages not computable
+RITES,Moving averages not computable
+RKFORGE,Moving averages not computable
+ROUTE,Moving averages not computable
+RPOWER,Moving averages not computable
+RRKABEL,Moving averages not computable
+RTNINDIA,Moving averages not computable
+RTNPOWER,Moving averages not computable
+RUBICON,Moving averages not computable
+RVNL,Moving averages not computable
+SAATVIKGL,Moving averages not computable
+SAFARI,Moving averages not computable
+SAGILITY,Moving averages not computable
+SAIL,Moving averages not computable
+SAILIFE,Moving averages not computable
+SAMHI,Moving averages not computable
+SAMMAANCAP,Moving averages not computable
+SANDUMA,Moving averages not computable
+SANOFICONR,Moving averages not computable
+SANSERA,Moving averages not computable
+SAPPHIRE,Moving averages not computable
+SARDAEN,Moving averages not computable
+SAREGAMA,Moving averages not computable
+SBFC,Moving averages not computable
+SBICARD,Moving averages not computable
+SBILIFE,Moving averages not computable
+SBIN,Moving averages not computable
+SCHAEFFLER,Moving averages not computable
+SCHNEIDER,Moving averages not computable
+SCI,Moving averages not computable
+SENCO,Moving averages not computable
+SFL,Moving averages not computable
+SHAILY,Moving averages not computable
+SHAKTIPUMP,Moving averages not computable
+SHARDACROP,Moving averages not computable
+SHAREINDIA,Moving averages not computable
+SHILPAMED,Moving averages not computable
+SHREECEM,Moving averages not computable
+SHRIPISTON,Moving averages not computable
+SHRIRAMFIN,Moving averages not computable
+SHYAMMETL,Moving averages not computable
+SIEMENS,Moving averages not computable
+SIGNATURE,Moving averages not computable
+SJVN,Moving averages not computable
+SKFINDIA,Moving averages not computable
 SKFINDUS,Insufficient history (230 rows)
-SKIPPER,Not above 150MA/200MA
-SKYGOLD,Too extended above 50MA (15.9%)
-SMARTWORKS,Retest broke below the 50MA - failed support
-SMLMAH,No confirmed retest yet
-SOBHA,Not above 150MA/200MA
-SOLARINDS,No confirmed retest yet
-SONACOMS,Too extended above 50MA (11.5%)
-SONATSOFTW,Not above 150MA/200MA
-SOUTHBANK,Too extended above 50MA (22.2%)
-SPARC,MA alignment failed (50>150>200)
-SPLPETRO,Not above 150MA/200MA
-SRF,Not above 150MA/200MA
-STAR,Not above 150MA/200MA
-STARCEMENT,Not above 150MA/200MA
-STARHEALTH,MA alignment failed (50>150>200)
-STLTECH,No confirmed retest yet
-STYL,No confirmed retest yet
-STYRENIX,Not above 150MA/200MA
-SUBROS,Not above 150MA/200MA
-SUDARSCHEM,No confirmed retest yet
+SKIPPER,Moving averages not computable
+SKYGOLD,Moving averages not computable
+SMARTWORKS,Moving averages not computable
+SMLMAH,Moving averages not computable
+SOBHA,Moving averages not computable
+SOLARINDS,Moving averages not computable
+SONACOMS,Moving averages not computable
+SONATSOFTW,Moving averages not computable
+SOUTHBANK,Moving averages not computable
+SPARC,Moving averages not computable
+SPLPETRO,Moving averages not computable
+SRF,Moving averages not computable
+STAR,Moving averages not computable
+STARCEMENT,Moving averages not computable
+STARHEALTH,Moving averages not computable
+STLTECH,Moving averages not computable
+STYL,Moving averages not computable
+STYRENIX,Moving averages not computable
+SUBROS,Moving averages not computable
+SUDARSCHEM,Moving averages not computable
 SUDEEPPHRM,Insufficient history (237 rows)
-SUMICHEM,Not above 150MA/200MA
-SUNDARMFIN,Not above 150MA/200MA
-SUNPHARMA,MA alignment failed (50>150>200)
-SUNTECK,Not above 150MA/200MA
-SUNTV,MA alignment failed (50>150>200)
-SUPREMEIND,Not above 150MA/200MA
-SUPRIYA,Not above 150MA/200MA
-SURYAROSNI,Not above 150MA/200MA
-SUZLON,Not above 150MA/200MA
-SWANCORP,Not above 150MA/200MA
-SWIGGY,Not above 150MA/200MA
-SWSOLAR,Not above 150MA/200MA
-SYNGENE,MA alignment failed (50>150>200)
-SYRMA,No confirmed retest yet
-TANLA,Too extended above 50MA (34.0%)
-TARC,Not above 150MA/200MA
-TARIL,MA alignment failed (50>150>200)
-TATACAP,MA alignment failed (50>150>200)
-TATACHEM,Not above 150MA/200MA
-TATACOMM,MA alignment failed (50>150>200)
-TATACONSUM,Not above 150MA/200MA
-TATAELXSI,Not above 150MA/200MA
-TATAINVEST,Not above 150MA/200MA
-TATAPOWER,Not above 150MA/200MA
-TATASTEEL,Not above 150MA/200MA
-TATATECH,Not above 150MA/200MA
-TBOTEK,200MA not trending up
-TCS,MA alignment failed (50>150>200)
-TDPOWERSYS,Not above 150MA/200MA
-TECHM,No fresh 50MA crossover in last 10 days
-TECHNOE,Not above 150MA/200MA
-TEGA,Not above 150MA/200MA
-TEJASNET,Not above 150MA/200MA
+SUMICHEM,Moving averages not computable
+SUNDARMFIN,Moving averages not computable
+SUNPHARMA,Moving averages not computable
+SUNTECK,Moving averages not computable
+SUNTV,Moving averages not computable
+SUPREMEIND,Moving averages not computable
+SUPRIYA,Moving averages not computable
+SURYAROSNI,Moving averages not computable
+SUZLON,Moving averages not computable
+SWANCORP,Moving averages not computable
+SWIGGY,Moving averages not computable
+SWSOLAR,Moving averages not computable
+SYNGENE,Moving averages not computable
+SYRMA,Moving averages not computable
+TANLA,Moving averages not computable
+TARC,Moving averages not computable
+TARIL,Moving averages not computable
+TATACAP,Moving averages not computable
+TATACHEM,Moving averages not computable
+TATACOMM,Moving averages not computable
+TATACONSUM,Moving averages not computable
+TATAELXSI,Moving averages not computable
+TATAINVEST,Moving averages not computable
+TATAPOWER,Moving averages not computable
+TATASTEEL,Moving averages not computable
+TATATECH,Moving averages not computable
+TBOTEK,Moving averages not computable
+TCS,Moving averages not computable
+TDPOWERSYS,Moving averages not computable
+TECHM,Moving averages not computable
+TECHNOE,Moving averages not computable
+TEGA,Moving averages not computable
+TEJASNET,Moving averages not computable
 TENNIND,Insufficient history (244 rows)
-TEXRAIL,200MA not trending up
-THANGAMAYL,Not above 150MA/200MA
-THELEELA,Too extended above 50MA (13.3%)
-THERMAX,Not above 150MA/200MA
-THOMASCOOK,MA alignment failed (50>150>200)
-THYROCARE,Not above 150MA/200MA
-TI,No confirmed retest yet
-TIINDIA,Not above 150MA/200MA
-TIMETECHNO,MA alignment failed (50>150>200)
-TIMKEN,Not above 150MA/200MA
-TIPSMUSIC,Too extended above 50MA (17.4%)
-TITAGARH,Not above 150MA/200MA
-TITAN,Retest broke below the 50MA - failed support
-TMB,Retest broke below the 50MA - failed support
+TEXRAIL,Moving averages not computable
+THANGAMAYL,Moving averages not computable
+THELEELA,Moving averages not computable
+THERMAX,Moving averages not computable
+THOMASCOOK,Moving averages not computable
+THYROCARE,Moving averages not computable
+TI,Moving averages not computable
+TIINDIA,Moving averages not computable
+TIMETECHNO,Moving averages not computable
+TIMKEN,Moving averages not computable
+TIPSMUSIC,Moving averages not computable
+TITAGARH,Moving averages not computable
+TITAN,Moving averages not computable
+TMB,Moving averages not computable
 TMCV,Insufficient history (249 rows)
-TMPV,Not above 150MA/200MA
-TORNTPHARM,No confirmed retest yet
-TORNTPOWER,Not above 150MA/200MA
-TRANSRAILL,Not above 150MA/200MA
-TRAVELFOOD,Not above 150MA/200MA
-TRENT,MA alignment failed (50>150>200)
-TRIDENT,Not above 150MA/200MA
-TRITURBINE,Not above 150MA/200MA
-TRIVENI,Not above 150MA/200MA
-TSFINV,Not above 150MA/200MA
-TTML,Not above 150MA/200MA
-TVSMOTOR,Too extended above 50MA (8.5%)
-TVSSCS,Not above 150MA/200MA
-UBL,Not above 150MA/200MA
-UCOBANK,Not above 150MA/200MA
-UJJIVANSFB,Not above 150MA/200MA
-ULTRACEMCO,MA alignment failed (50>150>200)
-UNIONBANK,MA alignment failed (50>150>200)
-UNITDSPR,200MA not trending up
-UNOMINDA,200MA not trending up
-UPL,Not above 150MA/200MA
-URBANCO,No volume surge (0.74x)
-USHAMART,Not above 150MA/200MA
-UTIAMC,Not above 150MA/200MA
+TMPV,Moving averages not computable
+TORNTPHARM,Moving averages not computable
+TORNTPOWER,Moving averages not computable
+TRANSRAILL,Moving averages not computable
+TRAVELFOOD,Moving averages not computable
+TRENT,Moving averages not computable
+TRIDENT,Moving averages not computable
+TRITURBINE,Moving averages not computable
+TRIVENI,Moving averages not computable
+TSFINV,Moving averages not computable
+TTML,Moving averages not computable
+TVSMOTOR,Moving averages not computable
+TVSSCS,Moving averages not computable
+UBL,Moving averages not computable
+UCOBANK,Moving averages not computable
+UJJIVANSFB,Moving averages not computable
+ULTRACEMCO,Moving averages not computable
+UNIONBANK,Moving averages not computable
+UNITDSPR,Moving averages not computable
+UNOMINDA,Moving averages not computable
+UPL,Moving averages not computable
+URBANCO,Moving averages not computable
+USHAMART,Moving averages not computable
+UTIAMC,Moving averages not computable
 UTLSOLAR,Insufficient history (243 rows)
-V2RETAIL,Not above 150MA/200MA
-VAIBHAVGBL,Not above 150MA/200MA
-VARROC,No volume surge (0.80x)
-VBL,Not above 150MA/200MA
-VEDL,Not above 150MA/200MA
-VGUARD,Not above 150MA/200MA
-VIJAYA,No confirmed retest yet
-VIKRAMSOLR,Not above 150MA/200MA
-VIPIND,Not above 150MA/200MA
-VIYASH,MA alignment failed (50>150>200)
-VMART,No confirmed retest yet
-VMM,Not above 150MA/200MA
-VOLTAMP,Not above 150MA/200MA
-VOLTAS,Not above 150MA/200MA
-VTL,Not above 150MA/200MA
-WAAREEENER,Not above 150MA/200MA
-WAAREERTL,Not above 150MA/200MA
-WABAG,Retest broke below the 50MA - failed support
+V2RETAIL,Moving averages not computable
+VAIBHAVGBL,Moving averages not computable
+VARROC,Moving averages not computable
+VBL,Moving averages not computable
+VEDL,Moving averages not computable
+VGUARD,Moving averages not computable
+VIJAYA,Moving averages not computable
+VIKRAMSOLR,Moving averages not computable
+VIPIND,Moving averages not computable
+VIYASH,Moving averages not computable
+VMART,Moving averages not computable
+VMM,Moving averages not computable
+VOLTAMP,Moving averages not computable
+VOLTAS,Moving averages not computable
+VTL,Moving averages not computable
+WAAREEENER,Moving averages not computable
+WAAREERTL,Moving averages not computable
+WABAG,Moving averages not computable
 WAKEFIT,Insufficient history (225 rows)
-WEBELSOLAR,Not above 150MA/200MA
-WELCORP,No confirmed retest yet
-WELENT,No confirmed retest yet
-WELSPUNLIV,Too extended above 50MA (12.0%)
-WESTLIFE,Too extended above 50MA (12.7%)
-WEWORK,No volume surge (0.66x)
-WHIRLPOOL,MA alignment failed (50>150>200)
-WIPRO,MA alignment failed (50>150>200)
-WOCKPHARMA,No confirmed retest yet
-YATHARTH,No volume surge (0.62x)
-YESBANK,Not above 150MA/200MA
-ZAGGLE,Not above 150MA/200MA
-ZEEL,Not above 150MA/200MA
-ZENSARTECH,MA alignment failed (50>150>200)
-ZENTEC,MA alignment failed (50>150>200)
-ZFCVINDIA,Not above 150MA/200MA
-ZYDUSLIFE,No fresh 50MA crossover in last 10 days
-ZYDUSWELL,Not above 150MA/200MA
+WEBELSOLAR,Moving averages not computable
+WELCORP,Moving averages not computable
+WELENT,Moving averages not computable
+WELSPUNLIV,Moving averages not computable
+WESTLIFE,Moving averages not computable
+WEWORK,Moving averages not computable
+WHIRLPOOL,Moving averages not computable
+WIPRO,Moving averages not computable
+WOCKPHARMA,Moving averages not computable
+YATHARTH,Moving averages not computable
+YESBANK,Moving averages not computable
+ZAGGLE,Moving averages not computable
+ZEEL,Moving averages not computable
+ZENSARTECH,Moving averages not computable
+ZENTEC,Moving averages not computable
+ZFCVINDIA,Moving averages not computable
+ZYDUSLIFE,Moving averages not computable
+ZYDUSWELL,Moving averages not computable
